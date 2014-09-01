@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash_new_3" >
+    <ImageView
+        android:id="@+id/loading_iv"
+        style="@style/Width_match_height_match"
+        android:scaleType="fitXY" />
+    <Button
+        android:id="@+id/loading_btn"
+        style="@style/Width_wrap_height_wrap"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="33dp"
+        android:background="@drawable/splash_btn_normal"
+        android:visibility="invisible" />
+</FrameLayout>
