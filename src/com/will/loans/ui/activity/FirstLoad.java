@@ -21,7 +21,7 @@ import java.util.List;
  * Created with IntelliJ IDEA. User: ys.peng Date: 13-11-8 Time: 下午2:44 To
  * change this template use File | Settings | File Templates.
  */
-public class FirstLoadActivity extends BaseActivity {
+public class FirstLoad extends BaseActivity {
     private ViewPager pager;
 
     private LayoutInflater layoutInflater;
@@ -49,10 +49,10 @@ public class FirstLoadActivity extends BaseActivity {
                         .setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Intent intent = new Intent(FirstLoadActivity.this,
-                                        HomePageActivity.class);
-                                FirstLoadActivity.this.startActivity(intent);
-                                FirstLoadActivity.this.finish();
+                                Intent intent = new Intent(FirstLoad.this,
+                                        HomePage.class);
+                                FirstLoad.this.startActivity(intent);
+                                FirstLoad.this.finish();
                             }
                         });
             }

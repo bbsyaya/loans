@@ -13,8 +13,8 @@ import com.will.loans.beans.InternetReturnedHandler;
 import com.will.loans.beans.bean.UserInfo;
 import com.will.loans.beans.json.BaseJson;
 import com.will.loans.ui.activity.BaseActivity;
-import com.will.loans.ui.activity.FirstLoadActivity;
-import com.will.loans.ui.activity.HomePageActivity;
+import com.will.loans.ui.activity.FirstLoad;
+import com.will.loans.ui.activity.HomePage;
 import com.will.loans.utils.ScreenProperties;
 import com.will.loans.utils.SharePreferenceUtil;
 
@@ -29,7 +29,7 @@ public class LauncherActivity extends BaseActivity {
     /**
      * Called when the activity is first created.
      */
-
+	private static String FIRST_LOADING = "com_will_first_loading";
     private SharePreferenceUtil util;
 
     private Handler mHandler;
@@ -51,7 +51,7 @@ public class LauncherActivity extends BaseActivity {
         aq = new AQuery(this);
         login();
         ScreenProperties.initScreenProperties(this);
-        //        util = new SharePreferenceUtil(this, AppInfo.USER_INFO);
+                util = new SharePreferenceUtil(this, FIRST_LOADING);
         //        aq.ajax(ServerUrl.LOADINGIMG,LoadingImgJson.class,imgAjaxCallback);
         mHandler = new Handler();
         mHandler.postDelayed(new Runnable() {
@@ -61,9 +61,9 @@ public class LauncherActivity extends BaseActivity {
                 // TODO Auto-generated method stub
                 if (util.getisFirst()) {
                     createShut();// 创建快捷方式
-                    goFirstActivity(FirstLoadActivity.class);
+                    goFirstActivity(FirstLoad.class);
                 } else {
-                    goFirstActivity(HomePageActivity.class);
+                    goFirstActivity(HomePage.class);
                 }
             }
         }, 3 * 1000);
