@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>howbuy</title>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+<link rel="stylesheet" href="register_style.css">
+<script type="text/javascript" src="validateRule.js"></script>
+<script type="text/javascript" src="common.js"></script>
+<script>
+	function checkInput() {
+		var tradePwd = document.getElementById("tradePwd").value.trim();
+		var reTradePwd = document.getElementById("reTradePwd").value.trim();
+		
+		if(tradePwd == "" || reTradePwd == "" || hasError == true) {
+			alert("请输入完整信息！");
+			return;
+		}
+		if(tradePwd != reTradePwd) {
+			alert("交易密码和交易确认密码不一致！");
+			document.getElementById("reTradePwd").focus();
+			return;
+		}
+		if(!tradePwd_rule(tradePwd)) {
+			alert("交易密码输入不正确！");
+			document.getElementById("tradePwd").focus();
+			return;
+		}
+		
+		disabledSubmitBtn("btnConfirm", true, "onclick", "#fff", "checkInput();");
+		//document.pwdForm.submit();
+		window.demo.RegisterPostMethod(reTradePwd);
+	}
+	var hasError = false;
+	function checkRePwd(pwdType) {
+		if(pwdType == "loginPwd") {
+			var loginPwd = document.getElementById("loginPwd").value.trim();
+			var reLoginPwd = document.getElementById("reLoginPwd").value.trim();
+			if(loginPwd != reLoginPwd) {
+				hasError = true;
+				document.getElementById("reLoginPwdErr").style.display = "block";
+			} else {
+				hasError = false;
+				document.getElementById("reLoginPwdErr").style.display = "none";
+			}
+		} else {
+			var tradePwd = document.getElementById("tradePwd").value.trim();
+			var reTradePwd = document.getElementById("reTradePwd").value.trim();
+			if(tradePwd != reTradePwd) {
+				hasError = true;
+				document.getElementById("reTradePwdErr").style.display = "block";
+			} else {
+				hasError = false;
+				document.getElementById("reTradePwdErr").style.display = "none";
+			}
+		}
+	}
+	
+	function processCheck() {
+		var isChecked = document.getElementById("chkRead").checked;
+		disabledSubmitBtn("btnConfirm", !isChecked, "onclick", "#fff", "checkInput();");
+	}
+</script>
+</head>
+<body>
+<div class="main">
+	<form name="pwdForm" method="post" action="http://180.166.129.202:6080/howbuy-trade/cust/pwdset.htm">
+    <input type="hidden" id="loginPwd" name="loginPwd" class="ui-input-text" maxlength="12">
+    <input type="hidden" id="reLoginPwd" name="reLoginPwd" class="ui-input-text" maxlength="12">
+	<h6>交易密码</h6>
+    <input type="password" id="tradePwd" name="tradePwd" placeholder="6位不连续,不重复数字构成" class="ui-input-text" maxlength="6">
+	<h6>交易密码确认</h6>
+    <input type="password" id="reTradePwd" name="reTradePwd" placeholder="6位不连续,不重复数字构成" class="ui-input-text" maxlength="6" onblur="checkRePwd(&#39;tradePwd&#39;)">
+    <p style="display:none" id="reTradePwdErr"><font color="red">确认交易密码与交易密码不一致</font></p>
+    <div class="area_a"><a href="#" onclick="checkInput();" id="btnConfirm" class="btn_a">确认</a></div>
+	</form>
+</div>
+<script type="text/javascript">
+	function agr_show() {
+		var agr = document.getElementById("agr_con");
+		var agr_btn = document.getElementById("agr_box");
+		
+	    if (agr.style.display == 'none') {
+			agr.style.display = "block";
+			agr_btn.className = "agr_up";
+	    } else {
+			agr.style.display = "none";
+			agr_btn.className = "agr_down";
+	    }
+	}
+</script>
+
+</body></html>
