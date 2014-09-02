@@ -37,5 +37,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.FirstLoad"></activity>
+        <activity android:name=".ui.activity.HomePage"></activity>
+        <activity android:name=".ui.activity.Register"></activity>
     </application>
 </manifest>
