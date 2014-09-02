@@ -4,9 +4,122 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     <include layout="@layout/common_title" />
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="more" />
+    <ScrollView style="@style/Width_match_height_match" >
+        <LinearLayout
+            style="@style/Width_match_height_match"
+            android:orientation="vertical" >
+            <LinearLayout
+                style="@style/Width_match_height_wrap"
+                android:orientation="vertical" >
+                <LinearLayout
+                    android:id="@+id/more_user_center"
+                    style="@style/Width_match_height_wrap" >
+                    <ImageView
+                        android:id="@+id/action_center"
+                        style="@style/Width_wrap_height_wrap"
+                        android:src="@drawable/more_action_center_icon" />
+                    <LinearLayout
+                        style="@style/Width_wrap_height_wrap"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical" >
+                        <TextView
+                            style="@style/Width_wrap_height_wrap"
+                            android:text="@string/more_action_center" />
+                    </LinearLayout>
+                    <ImageView
+                        style="@style/Width_wrap_height_wrap"
+                        android:src="@drawable/btn_right_arrow" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/more_message_center"
+                    style="@style/Width_match_height_wrap" >
+                    <ImageView
+                        style="@style/Width_wrap_height_wrap"
+                        android:src="@drawable/more_message_center_icon" />
+                    <LinearLayout
+                        style="@style/Width_wrap_height_wrap"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical" >
+                        <TextView
+                            style="@style/Width_wrap_height_wrap"
+                            android:text="@string/more_message_center" />
+                    </LinearLayout>
+                    <ImageView
+                        style="@style/Width_wrap_height_wrap"
+                        android:src="@drawable/btn_right_arrow" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/more_help_center"
+                    style="@style/Width_match_height_wrap" >
+                    <ImageView
+                        style="@style/Width_wrap_height_wrap"
+                        android:src="@drawable/more_help_icon" />
+                    <LinearLayout
+                        style="@style/Width_wrap_height_wrap"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical" >
+                        <TextView
+                            style="@style/Width_wrap_height_wrap"
+                            android:text="@string/more_help_center" />
+                    </LinearLayout>
+                    <ImageView
+                        style="@style/Width_wrap_height_wrap"
+                        android:src="@drawable/btn_right_arrow" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/Width_match_height_wrap"
+                android:orientation="vertical" >
+                <LinearLayout style="@style/Width_match_height_wrap" >
+                </LinearLayout>
+                <LinearLayout style="@style/Width_match_height_wrap" >
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/Width_match_height_wrap"
+                android:orientation="vertical" >
+                <LinearLayout
+                    android:id="@+id/more_user_center"
+                    style="@style/Width_match_height_wrap" >
+                    <ImageView
+                        android:id="@+id/check_update"
+                        style="@style/Width_wrap_height_wrap"
+                        android:src="@drawable/more_check_update_icon" />
+                    <LinearLayout
+                        style="@style/Width_wrap_height_wrap"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical" >
+                        <TextView
+                            style="@style/Width_wrap_height_wrap"
+                            android:text="@string/more_check_update" />
+                        <TextView
+                            style="@style/Width_wrap_height_wrap"
+                            android:text="@string/more_current_version" />
+                    </LinearLayout>
+                    <ImageView
+                        style="@style/Width_wrap_height_wrap"
+                        android:src="@drawable/btn_right_arrow" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/more_about"
+                    style="@style/Width_match_height_wrap" >
+                    <ImageView
+                        style="@style/Width_wrap_height_wrap"
+                        android:src="@drawable/more_about_us_icon" />
+                    <LinearLayout
+                        style="@style/Width_wrap_height_wrap"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical" >
+                        <TextView
+                            style="@style/Width_wrap_height_wrap"
+                            android:text="@string/more_about" />
+                    </LinearLayout>
+                    <ImageView
+                        style="@style/Width_wrap_height_wrap"
+                        android:src="@drawable/btn_right_arrow" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
