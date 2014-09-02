@@ -114,7 +114,6 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
     private Locale locale;
 
-    //add by linfree 2014-01-15
     //for item click event
     //start
     private OnItemClickListener mOnItemClickListener;
@@ -273,7 +272,6 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         tab.setGravity(Gravity.CENTER);
         tab.setSingleLine();
 
-        //add by linfree 2014-01-15
         //for item click event
         //start
         tab.setOnClickListener(new OnClickListener() {
@@ -635,7 +633,6 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         };
     }
 
-    //add by linfree 2014-01-15
     //for item click event
     //start
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {

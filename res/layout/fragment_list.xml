@@ -3,9 +3,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="list" />
+    <include layout="@layout/common_title" />
+    <com.will.loans.weight.PagerSlidingTabStrip
+        android:id="@+id/pager_slid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </com.will.loans.weight.PagerSlidingTabStrip>
+    <RadioGroup
+        android:id="@+id/radio"
+        style="@style/Width_match_height_wrap"
+        android:orientation="horizontal" >
+        <RadioButton
+            android:id="@+id/btn_radio_left"
+            style="@style/ProductListRbtn"
+            android:text="稳盈贷" />
+        <RadioButton
+            android:id="@+id/btn_radio_center"
+            style="@style/ProductListRbtn"
+            android:text="货币基金" />
+        <RadioButton
+            android:id="@+id/btn_radio_right"
+            style="@style/ProductListRbtn"
+            android:text="其他产品" />
+    </RadioGroup>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </android.support.v4.view.ViewPager>
 </LinearLayout>
