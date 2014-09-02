@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/tabhost"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="0.0dip"
+            android:layout_weight="1.0" >
+            <fragment
+                android:id="@+id/fragment_home"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                class="com.will.loans.ui.fragment.Home" />
+            <fragment
+                android:id="@+id/fragment_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                class="com.will.loans.ui.fragment.ProductList" />
+            <fragment
+                android:id="@+id/fragment_mine"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                class="com.will.loans.ui.fragment.IWant" />
+            <fragment
+                android:id="@+id/fragment_more"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                class="com.will.loans.ui.fragment.More" />
+        </FrameLayout>
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.0"
+            android:visibility="gone" />
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp" >
+            <RadioGroup
+                android:id="@+id/main_tab_group"
+                style="@style/Width_match_height_match"
+                android:background="@drawable/tab_normal_bg"
+                android:gravity="center"
+                android:orientation="horizontal" >
+                <!-- 必须设置background，才能够水平居中. 垂直居中？没办法。 gravity 无效 -->
+                <RadioButton
+                    android:id="@+id/main_tab_home"
+                    style="@style/MMTabButton"
+                    android:checked="true"
+                    android:drawableTop="@drawable/btn_tab_home"
+                    android:text="@string/tab_home" />
+                <RadioButton
+                    android:id="@+id/main_tab_product_list"
+                    style="@style/MMTabButton"
+                    android:drawableTop="@drawable/btn_tab_list"
+                    android:text="@string/tab_produce_list" />
+                <RadioButton
+                    android:id="@+id/main_tab_mine"
+                    style="@style/MMTabButton"
+                    android:drawableTop="@drawable/btn_tab_want"
+                    android:text="@string/tab_mine" />
+                <RadioButton
+                    android:id="@+id/main_tab_more"
+                    style="@style/MMTabButton"
+                    android:drawableTop="@drawable/btn_tab_more"
+                    android:text="@string/tab_more" />
+            </RadioGroup>
+        </FrameLayout>
+    </LinearLayout>
+</TabHost>

@@ -49,8 +49,7 @@ public class FirstLoad extends BaseActivity {
                         .setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Intent intent = new Intent(FirstLoad.this,
-                                        HomePage.class);
+                                Intent intent = new Intent(FirstLoad.this, HomePage.class);
                                 FirstLoad.this.startActivity(intent);
                                 FirstLoad.this.finish();
                             }

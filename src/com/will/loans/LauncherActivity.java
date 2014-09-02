@@ -29,7 +29,8 @@ public class LauncherActivity extends BaseActivity {
     /**
      * Called when the activity is first created.
      */
-	private static String FIRST_LOADING = "com_will_first_loading";
+    private static String FIRST_LOADING = "com_will_first_loading";
+
     private SharePreferenceUtil util;
 
     private Handler mHandler;
@@ -51,7 +52,7 @@ public class LauncherActivity extends BaseActivity {
         aq = new AQuery(this);
         login();
         ScreenProperties.initScreenProperties(this);
-                util = new SharePreferenceUtil(this, FIRST_LOADING);
+        util = new SharePreferenceUtil(this, FIRST_LOADING);
         //        aq.ajax(ServerUrl.LOADINGIMG,LoadingImgJson.class,imgAjaxCallback);
         mHandler = new Handler();
         mHandler.postDelayed(new Runnable() {
