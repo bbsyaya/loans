@@ -3,13 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="first" />
-    <ListView
-        android:id="@+id/product_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <com.will.loans.weight.AutoLoadPull2RefreshListView
+        android:id="@+id/refresh_listview"
+        style="@style/Width_match_height_match" >
+    </com.will.loans.weight.AutoLoadPull2RefreshListView>
 </LinearLayout>
