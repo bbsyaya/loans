@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="background_tab_pressed">#6633B5E5</color>
+    <color name="tab_bar_background">#2E323B</color>
+    <color name="tab_bar_glide_background">#0191DA</color>
 </resources>
