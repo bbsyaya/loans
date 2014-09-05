@@ -8,16 +8,20 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.will.loans.R;
-import com.will.loans.ui.activity.LoansDetail;
+import com.will.loans.ui.activity.ProductDetail;
 import com.will.loans.weight.AutoLoadPull2RefreshListView;
 import com.will.loans.weight.AutoLoadPull2RefreshListView.OnLoadMoreListener;
 import com.will.loans.weight.AutoLoadPull2RefreshListView.OnRefreshListener;
 
-public class ProductFirst extends BaseFragment implements OnLoadMoreListener, OnRefreshListener,
+/**
+ * 产品列表 其他产品列表父页面
+ * 
+ * @author yushan.peng
+ */
+public class BasePRoductLis extends BaseFragment implements OnLoadMoreListener, OnRefreshListener,
         OnItemClickListener {
     private AutoLoadPull2RefreshListView mListView;
 
@@ -36,6 +40,7 @@ public class ProductFirst extends BaseFragment implements OnLoadMoreListener, On
 
     private void initView(View view) {
         mListView = (AutoLoadPull2RefreshListView) view.findViewById(R.id.refresh_listview);
+        mListView.setOnItemClickListener(this);
         mAdapter = new LoansAdapter();
         mListView.setAdapter(mAdapter);
         mListView.setAutoLoadMore(true);
@@ -65,7 +70,8 @@ public class ProductFirst extends BaseFragment implements OnLoadMoreListener, On
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            convertView = getActivity().getLayoutInflater().inflate(R.layout.item_loans, null);
+            convertView = getActivity().getLayoutInflater().inflate(R.layout.item_loans_others,
+                    null);
             return convertView;
         }
 
@@ -85,8 +91,6 @@ public class ProductFirst extends BaseFragment implements OnLoadMoreListener, On
             TextView indicat;
 
             TextView status;
-
-            ProgressBar progressBar;
         }
 
     }
@@ -105,7 +109,6 @@ public class ProductFirst extends BaseFragment implements OnLoadMoreListener, On
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        jump2Activity(new LoansDetail());
-
+        jump2Activity(new ProductDetail());
     }
 }
