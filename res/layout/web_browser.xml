@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <include
+        android:id="@+id/include"
+        layout="@layout/common_title" />
+    <RelativeLayout
+        android:id="@+id/bottom"
+        style="@style/Width_match_height_wrap"
+        android:layout_alignParentBottom="true" >
+        <Button
+            android:id="@+id/web_back"
+            style="@style/Width_wrap_height_wrap"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/base_webview_go_back" />
+        <Button
+            android:id="@+id/web_forward"
+            style="@style/Width_wrap_height_wrap"
+            android:layout_toRightOf="@id/web_back"
+            android:background="@drawable/base_webview_go_forward" />
+        <Button
+            android:id="@+id/web_refresh"
+            style="@style/Width_wrap_height_wrap"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/base_webview_refresh" />
+    </RelativeLayout>
+    <WebView
+        android:id="@+id/web_view"
+        style="@style/Width_match_height_match"
+        android:layout_above="@id/bottom"
+        android:layout_below="@id/include" />
+</RelativeLayout>
