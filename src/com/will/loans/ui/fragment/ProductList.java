@@ -65,12 +65,9 @@ public class ProductList extends BaseFragment implements OnPageChangeListener,
         mListPagerAdapter = new ListPagerAdapter(getFragmentManager());
         mViewPager.setOnPageChangeListener(this);
         mViewPager.setAdapter(mListPagerAdapter);
-        ((TextView) view.findViewById(R.id.title_tv)).setText(getResources().getString(
-                R.string.tab_produce_list));
-        ((Button) view.findViewById(R.id.title_btn_left)).setText(getResources().getString(
-                R.string.login));
-        ((Button) view.findViewById(R.id.title_btn_right)).setText(getResources().getString(
-                R.string.refresh));
+        ((TextView) view.findViewById(R.id.title_tv)).setText(R.string.tab_produce_list);
+        ((Button) view.findViewById(R.id.title_btn_left)).setText(R.string.login);
+        ((Button) view.findViewById(R.id.title_btn_right)).setText(R.string.refresh);
         ((RadioButton) view.findViewById(R.id.btn_radio_left)).setOnCheckedChangeListener(this);
         ((RadioButton) view.findViewById(R.id.btn_radio_center)).setOnCheckedChangeListener(this);
         ((RadioButton) view.findViewById(R.id.btn_radio_right)).setOnCheckedChangeListener(this);
