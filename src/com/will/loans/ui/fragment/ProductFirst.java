@@ -5,16 +5,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.will.loans.R;
+import com.will.loans.ui.activity.LoansDetail;
 import com.will.loans.weight.AutoLoadPull2RefreshListView;
 import com.will.loans.weight.AutoLoadPull2RefreshListView.OnLoadMoreListener;
 import com.will.loans.weight.AutoLoadPull2RefreshListView.OnRefreshListener;
 
-public class ProductFirst extends BaseFragment implements OnLoadMoreListener, OnRefreshListener {
+public class ProductFirst extends BaseFragment implements OnLoadMoreListener, OnRefreshListener,
+        OnItemClickListener {
     private AutoLoadPull2RefreshListView mListView;
 
     private LoansAdapter mAdapter;
@@ -97,5 +101,11 @@ public class ProductFirst extends BaseFragment implements OnLoadMoreListener, On
     public void onLoadMore() {
         // TODO Auto-generated method stub
         mListView.onLoadMoreComplete();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        jump2Activity(new LoansDetail());
+
     }
 }

@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.Button;
@@ -17,7 +18,6 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 import com.androidquery.AQuery;
 import com.will.loans.R;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductList extends BaseFragment implements OnPageChangeListener,
-        OnCheckedChangeListener {
+        OnCheckedChangeListener, OnClickListener {
     private AQuery mAQuery = new AQuery(getActivity());
 
     private List<Fragment> list;
@@ -65,9 +65,11 @@ public class ProductList extends BaseFragment implements OnPageChangeListener,
         mListPagerAdapter = new ListPagerAdapter(getFragmentManager());
         mViewPager.setOnPageChangeListener(this);
         mViewPager.setAdapter(mListPagerAdapter);
-        ((TextView) view.findViewById(R.id.title_tv)).setText(R.string.tab_produce_list);
-        ((Button) view.findViewById(R.id.title_btn_left)).setText(R.string.login);
-        ((Button) view.findViewById(R.id.title_btn_right)).setText(R.string.refresh);
+
+        setTitleText(view, R.string.refresh, R.string.refresh, R.string.tab_produce_list);
+        setTitleVisible(view, View.INVISIBLE, View.VISIBLE, View.VISIBLE);
+        ((Button) view.findViewById(R.id.title_btn_right)).setOnClickListener(this);
+
         ((RadioButton) view.findViewById(R.id.btn_radio_left)).setOnCheckedChangeListener(this);
         ((RadioButton) view.findViewById(R.id.btn_radio_center)).setOnCheckedChangeListener(this);
         ((RadioButton) view.findViewById(R.id.btn_radio_right)).setOnCheckedChangeListener(this);
@@ -168,6 +170,25 @@ public class ProductList extends BaseFragment implements OnPageChangeListener,
     private void changeStatus(int index) {
         mViewPager.setCurrentItem(index);
         glideToTab(index);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.title_btn_right:
+                if (mViewPager.getCurrentItem() == 0) {
+                    ((ProductFirst) mListPagerAdapter.getItem(mViewPager.getCurrentItem()))
+                            .onRefresh();
+                } else {
+                    ((ProductListOthers) mListPagerAdapter.getItem(mViewPager.getCurrentItem()))
+                            .onRefresh();
+                }
+                break;
+
+            default:
+                break;
+        }
+
     }
 
 }
