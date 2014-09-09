@@ -40,5 +40,12 @@
         <activity android:name=".ui.activity.FirstLoad"></activity>
         <activity android:name=".ui.activity.HomePage"></activity>
         <activity android:name=".ui.activity.Register"></activity>
+        <activity android:name=".ui.activity.LoansDetail"></activity>
+        <activity android:name=".ui.activity.WebBrowser"></activity>
+        <activity android:name=".ui.activity.ProductDetail"></activity>
+        <activity android:name=".ui.activity.Login"></activity>
+        <activity android:name=".ui.activity.HelpCenter"></activity>
+        <activity android:name=".ui.activity.MessageCenter"></activity>
+        <activity android:name=".ui.activity.ActionCenter"></activity>
     </application>
 </manifest>
