@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.will.loans"
+    android:versionCode="1"
+    android:versionName="1.0" >
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
+    <uses-permission android:name="com.elliam.newspaper.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 获取gps信息 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 网络访问 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 获取网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 获取WIFI状态 -->
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" /> <!-- 生成快捷方式 -->
+    <uses-permission android:name="android.permission.GET_TASKS" /> <!-- 获取信息有关当前或最近运行的任务 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- 更改WIFI -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 写外存 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 读取电话状态 -->
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" /> <!-- 允许程序管理AccountManager中的账户列表 -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" /> <!-- 访问GMail账户列表 -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" /> <!-- 调整多媒体音量 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- 屏幕锁 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <application
+        android:name=".application.AppContext"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.will.loans.LauncherActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.activity.FirstLoad"></activity>
+        <activity android:name=".ui.activity.HomePage"></activity>
+        <activity android:name=".ui.activity.Register"></activity>
+        <activity android:name=".ui.activity.LoansDetail"></activity>
+        <activity android:name=".ui.activity.WebBrowser"></activity>
+        <activity android:name=".ui.activity.ProductDetail"></activity>
+        <activity android:name=".ui.activity.Login"></activity>
+        <activity android:name=".ui.activity.HelpCenter"></activity>
+        <activity android:name=".ui.activity.MessageCenter"></activity>
+        <activity android:name=".ui.activity.ActionCenter"></activity>
+    </application>
+</manifest>

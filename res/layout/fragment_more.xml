@@ -10,6 +10,9 @@
             android:orientation="vertical" >
             <LinearLayout
                 style="@style/Width_match_height_wrap"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/more_bg"
                 android:orientation="vertical" >
                 <LinearLayout
                     android:id="@+id/more_user_center"
@@ -23,15 +26,19 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical" >
                         <TextView
-                            android:layout_marginLeft="10dp"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
                             style="@style/Width_wrap_height_wrap"
-                            android:text="@string/more_action_center" />
+                            android:layout_marginLeft="10dp"
+                            android:text="@string/more_action_center"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
                     </LinearLayout>
                     <ImageView
                         style="@style/Width_wrap_height_wrap"
                         android:src="@drawable/btn_right_arrow" />
                 </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#d9d9d9" />
                 <LinearLayout
                     android:id="@+id/more_message_center"
                     style="@style/MoreListItem" >
@@ -43,15 +50,19 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical" >
                         <TextView
-                            android:layout_marginLeft="10dp"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
                             style="@style/Width_wrap_height_wrap"
-                            android:text="@string/more_message_center" />
+                            android:layout_marginLeft="10dp"
+                            android:text="@string/more_message_center"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
                     </LinearLayout>
                     <ImageView
                         style="@style/Width_wrap_height_wrap"
                         android:src="@drawable/btn_right_arrow" />
                 </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#d9d9d9" />
                 <LinearLayout
                     android:id="@+id/more_help_center"
                     style="@style/MoreListItem" >
@@ -63,10 +74,10 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical" >
                         <TextView
-                            android:layout_marginLeft="10dp"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
                             style="@style/Width_wrap_height_wrap"
-                            android:text="@string/more_help_center" />
+                            android:layout_marginLeft="10dp"
+                            android:text="@string/more_help_center"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
                     </LinearLayout>
                     <ImageView
                         style="@style/Width_wrap_height_wrap"
@@ -75,45 +86,67 @@
             </LinearLayout>
             <LinearLayout
                 style="@style/Width_match_height_wrap"
+                android:layout_margin="10dp"
+                android:background="@drawable/more_bg"
                 android:orientation="vertical" >
-                <LinearLayout
-                    style="@style/MoreListItem" >
+                <LinearLayout style="@style/MoreListItem" >
                     <TextView
-                        android:id="@+id/more_share" 
+                        android:id="@+id/more_share"
                         style="@style/MoreItem"
-                        android:text="@string/more_share"
-                        android:drawableLeft="@drawable/more_to_friends_icon"/>
+                        android:drawableLeft="@drawable/more_to_friends_icon"
+                        android:text="@string/more_share" />
                     <TextView
-                        android:id="@+id/more_attention" 
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginTop="2dp"
+                        android:background="#d9d9d9" />
+                    <TextView
+                        android:id="@+id/more_attention"
                         style="@style/MoreItem"
-                        android:text="@string/more_notice"
-                        android:drawableLeft="@drawable/more_attention_us_icon"/>
+                        android:drawableLeft="@drawable/more_attention_us_icon"
+                        android:text="@string/more_notice" />
                 </LinearLayout>
-                <LinearLayout
-                    style="@style/Width_match_height_wrap" >
-                    <TextView 
-                        android:layout_width="wrap_content"
+                <LinearLayout style="@style/Width_match_height_wrap" >
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:background="#333"/>
-                    <TextView android:layout_width="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="#d9d9d9" />
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:background="#333"/>
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="#d9d9d9" />
                 </LinearLayout>
-                <LinearLayout
-                    style="@style/MoreListItem" >
-                    <TextView 
-                        android:id="@+id/more_feedback" 
+                <LinearLayout style="@style/MoreListItem" >
+                    <TextView
+                        android:id="@+id/more_feedback"
                         style="@style/MoreItem"
-                        android:text="@string/more_feedback"
-                        android:drawableLeft="@drawable/more_feedback_icon"/>
-                    <TextView 
-                        android:id="@+id/more_rate" 
+                        android:drawableLeft="@drawable/more_feedback_icon"
+                        android:text="@string/more_feedback" />
+                    <TextView
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginTop="2dp"
+                        android:background="#d9d9d9" />
+                    <TextView
+                        android:id="@+id/more_rate"
                         style="@style/MoreItem"
-                        android:text="@string/more_give_prise"
-                        android:drawableLeft="@drawable/more_rate_icon"/>
+                        android:drawableLeft="@drawable/more_rate_icon"
+                        android:text="@string/more_give_prise" />
+                </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 style="@style/Width_match_height_wrap"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/more_bg"
                 android:orientation="vertical" >
                 <LinearLayout
                     android:id="@+id/check_update_llyt"
@@ -124,15 +157,14 @@
                         android:src="@drawable/more_check_update_icon" />
                     <LinearLayout
                         style="@style/Width_wrap_height_wrap"
-                        android:layout_weight="1"
                         android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:orientation="vertical" >
                         <TextView
                             style="@style/Width_wrap_height_wrap"
-                            
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="@string/more_check_update" />
+                            android:text="@string/more_check_update"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
                         <TextView
                             style="@style/Width_wrap_height_wrap"
                             android:text="@string/more_current_version" />
@@ -141,6 +173,10 @@
                         style="@style/Width_wrap_height_wrap"
                         android:src="@drawable/btn_right_arrow" />
                 </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#d9d9d9" />
                 <LinearLayout
                     android:id="@+id/more_about"
                     style="@style/MoreListItem" >
@@ -154,20 +190,21 @@
                         <TextView
                             style="@style/Width_wrap_height_wrap"
                             android:layout_marginLeft="10dp"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="@string/more_about" />
+                            android:text="@string/more_about"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
                     </LinearLayout>
                     <ImageView
                         style="@style/Width_wrap_height_wrap"
                         android:src="@drawable/btn_right_arrow" />
                 </LinearLayout>
-                <Button
-                    android:id="@+id/more_exit" 
-                    android:text="@string/more_exit"
-                    style="@style/Width_match_height_wrap" 
-                    />
             </LinearLayout>
-            </LinearLayout>
+            <Button
+                android:id="@+id/more_exit"
+                style="@style/Width_match_height_wrap"
+                android:layout_margin="10dp"
+                android:background="@drawable/cpay_btn_enter"
+                android:text="@string/more_exit"
+                android:textColor="@android:color/white" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
