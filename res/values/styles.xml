@@ -49,6 +49,7 @@
         <item name="android:button">@null</item>
         <item name="android:gravity">center</item>
         <item name="android:orientation">vertical</item>
+        <item name="android:textColor">@drawable/tab_bottom_text</item>
         <item name="android:drawablePadding">2dp</item>
         <item name="android:paddingBottom">1.0dip</item>
         <item name="android:paddingTop">1.0dip</item>
@@ -61,15 +62,17 @@
     <style name="TitleBtn" parent="Width_wrap_height_wrap">
         <item name="android:background">@android:color/transparent</item>
     </style>
-    <style name="MoreListItem" parent="Width_match_height_wrap">
+    <style name="MoreListItem" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">54dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:padding">10dp</item>
         <item name="android:gravity">center_vertical|left</item>
     </style>
     <style name="MoreItem" parent="Width_match_height_wrap">
         <item name="android:layout_weight">1</item>
-        <item name="android:paddingLeft">10dp</item>
-        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
-        <item name="android:gravity">center_vertical|left</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:gravity">center</item>
     </style>
 </resources>

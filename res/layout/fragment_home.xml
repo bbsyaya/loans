@@ -4,10 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     <include layout="@layout/common_title" />
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="home" />
+    <android.support.v4.view.ViewPager
+            android:id="@+id/vp_ad"
+            style="@style/Width_match_height_wrap">
+    </android.support.v4.view.ViewPager>
+
 </LinearLayout>

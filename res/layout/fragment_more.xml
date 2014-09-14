@@ -12,6 +12,7 @@
                 style="@style/Width_match_height_wrap"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="13dp"
                 android:background="@drawable/more_bg"
                 android:orientation="vertical" >
                 <LinearLayout
@@ -20,6 +21,7 @@
                     <ImageView
                         android:id="@+id/action_center"
                         style="@style/Width_wrap_height_wrap"
+                        android:layout_marginLeft="15dp"
                         android:src="@drawable/more_action_center_icon" />
                     <LinearLayout
                         style="@style/Width_wrap_height_wrap"
@@ -27,9 +29,9 @@
                         android:gravity="center_vertical" >
                         <TextView
                             style="@style/Width_wrap_height_wrap"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="20dp"
                             android:text="@string/more_action_center"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
                     </LinearLayout>
                     <ImageView
                         style="@style/Width_wrap_height_wrap"
@@ -43,6 +45,7 @@
                     android:id="@+id/more_message_center"
                     style="@style/MoreListItem" >
                     <ImageView
+                        android:layout_marginLeft="15dp"
                         style="@style/Width_wrap_height_wrap"
                         android:src="@drawable/more_message_center_icon" />
                     <LinearLayout
@@ -51,9 +54,9 @@
                         android:gravity="center_vertical" >
                         <TextView
                             style="@style/Width_wrap_height_wrap"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="20dp"
                             android:text="@string/more_message_center"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
                     </LinearLayout>
                     <ImageView
                         style="@style/Width_wrap_height_wrap"
@@ -67,6 +70,7 @@
                     android:id="@+id/more_help_center"
                     style="@style/MoreListItem" >
                     <ImageView
+                        android:layout_marginLeft="15dp"
                         style="@style/Width_wrap_height_wrap"
                         android:src="@drawable/more_help_icon" />
                     <LinearLayout
@@ -75,9 +79,9 @@
                         android:gravity="center_vertical" >
                         <TextView
                             style="@style/Width_wrap_height_wrap"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="20dp"
                             android:text="@string/more_help_center"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
                     </LinearLayout>
                     <ImageView
                         style="@style/Width_wrap_height_wrap"
@@ -90,11 +94,13 @@
                 android:background="@drawable/more_bg"
                 android:orientation="vertical" >
                 <LinearLayout style="@style/MoreListItem" >
+
                     <TextView
                         android:id="@+id/more_share"
                         style="@style/MoreItem"
                         android:drawableLeft="@drawable/more_to_friends_icon"
                         android:text="@string/more_share" />
+
                     <TextView
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
@@ -152,21 +158,25 @@
                     android:id="@+id/check_update_llyt"
                     style="@style/MoreListItem" >
                     <ImageView
+                        android:layout_marginLeft="15dp"
                         android:id="@+id/check_update"
                         style="@style/Width_wrap_height_wrap"
                         android:src="@drawable/more_check_update_icon" />
                     <LinearLayout
                         style="@style/Width_wrap_height_wrap"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:orientation="vertical" >
                         <TextView
+                            android:id="@+id/more_check_update_tv"
                             style="@style/Width_wrap_height_wrap"
                             android:text="@string/more_check_update"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
                         <TextView
+                            android:id="@+id/more_check_update_number"
                             style="@style/Width_wrap_height_wrap"
+                            android:textSize="12sp"
                             android:text="@string/more_current_version" />
                     </LinearLayout>
                     <ImageView
@@ -181,17 +191,20 @@
                     android:id="@+id/more_about"
                     style="@style/MoreListItem" >
                     <ImageView
+                        android:layout_marginLeft="15dp"
                         style="@style/Width_wrap_height_wrap"
                         android:src="@drawable/more_about_us_icon" />
                     <LinearLayout
                         style="@style/Width_wrap_height_wrap"
                         android:layout_weight="1"
+                        android:layout_marginLeft="20dp"
+                        android:orientation="vertical"
                         android:gravity="center_vertical" >
                         <TextView
                             style="@style/Width_wrap_height_wrap"
-                            android:layout_marginLeft="10dp"
                             android:text="@string/more_about"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+                        
                     </LinearLayout>
                     <ImageView
                         style="@style/Width_wrap_height_wrap"
