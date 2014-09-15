@@ -4,9 +4,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     <include layout="@layout/common_title" />
-    <android.support.v4.view.ViewPager
-            android:id="@+id/vp_ad"
-            style="@style/Width_match_height_wrap">
-    </android.support.v4.view.ViewPager>
-
+    <RelativeLayout
+        android:id="@+id/rlyt_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" >
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_ads"
+            style="@style/Width_match_height_match" >
+        </android.support.v4.view.ViewPager>
+        <RadioGroup
+            android:id="@+id/rg_points"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+        </RadioGroup>
+    </RelativeLayout>
 </LinearLayout>

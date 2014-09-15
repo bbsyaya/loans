@@ -8,23 +8,13 @@ import com.will.loans.beans.bean.BaseBeans;
  * this template use File | Settings | File Templates.
  */
 public class BaseJson extends BaseBeans {
-    protected String message;
+    public boolean timeout;//: false
 
-    protected int status;
+    public boolean overdue;//: false,
 
-    public String getMessage() {
-        return message;
-    }
+    public boolean succ;//: true,
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+    public boolean is_succ;//: true,
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
+    public String err_msg;//: ""
 }
