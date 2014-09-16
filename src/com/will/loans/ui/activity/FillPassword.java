@@ -4,9 +4,7 @@ package com.will.loans.ui.activity;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,7 +12,7 @@ import android.widget.TextView;
 import com.androidquery.AQuery;
 import com.will.loans.R;
 
-public class FillPassword extends BaseActivity implements TextWatcher, OnClickListener {
+public class FillPassword extends BaseTextActivity {
     private EditText mPsw;
 
     private Button mLogin;

@@ -4,9 +4,7 @@ package com.will.loans.ui.activity;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -18,8 +16,7 @@ import com.androidquery.AQuery;
 import com.will.loans.R;
 
 @SuppressLint("NewApi")
-public class Register extends BaseActivity implements OnCheckedChangeListener, OnClickListener,
-        TextWatcher {
+public class Register extends BaseTextActivity implements OnCheckedChangeListener {
     private EditText mPhoneNum;
 
     private TextView mBigPhoneNum;
