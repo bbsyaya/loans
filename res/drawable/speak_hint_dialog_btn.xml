@@ -2,5 +2,6 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@drawable/speak_hint_dialot_btn_normal" android:state_focused="true"></item>
     <item android:drawable="@drawable/speak_hint_dialot_btn_pressed" android:state_pressed="true"></item>
+    <item android:drawable="@drawable/disable_bt_bg" android:state_enabled="false"></item>
     <item android:drawable="@drawable/speak_hint_dialot_btn_normal"></item>
 </selector>

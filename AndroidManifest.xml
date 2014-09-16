@@ -47,5 +47,7 @@
         <activity android:name=".ui.activity.HelpCenter"></activity>
         <activity android:name=".ui.activity.MessageCenter"></activity>
         <activity android:name=".ui.activity.ActionCenter"></activity>
+        <activity android:name=".ui.activity.FillVerifyCode"></activity>
+        <activity android:name=".ui.activity.FillPassword"></activity>
     </application>
 </manifest>

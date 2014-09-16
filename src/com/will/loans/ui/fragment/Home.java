@@ -1,5 +1,6 @@
 package com.will.loans.ui.fragment;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,7 +29,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.will.loans.R;
 import com.will.loans.beans.bean.BannerItem;
-import com.will.loans.constant.ServerInfo;
 import com.will.loans.utils.ScreenProperties;
 
 public class Home extends BaseFragment implements OnClickListener {
@@ -75,9 +75,9 @@ public class Home extends BaseFragment implements OnClickListener {
 				R.string.tab_home);
 		setTitleVisible(view, View.VISIBLE, View.VISIBLE, View.VISIBLE);
 		((Button) view.findViewById(R.id.title_btn_right))
-				.setOnClickListener(this);
+		.setOnClickListener(this);
 		((Button) view.findViewById(R.id.title_btn_left))
-				.setOnClickListener(this);
+		.setOnClickListener(this);
 
 		groupPoint = (RadioGroup) view.findViewById(R.id.rg_points);
 
@@ -109,6 +109,11 @@ public class Home extends BaseFragment implements OnClickListener {
 
 		initViewPagerBound();
 
+		wheel = new ArrayList<BannerItem>();
+		wheel.add(new BannerItem("http://app.longyinglicai.com/activity/jmh/jm.html","ACTIVITY","http://app.longyinglicai.com/activity/jmh/images/yyjm_banner_ios.png",0));
+		wheel.add(new BannerItem("http://www.yingyinglicai.com/front/xxnj.htm","ACTIVITY","http://app.longyinglicai.com/banner/8new-ios.jpg",1));
+		wheel.add(new BannerItem("http://app.longyinglicai.com/activity/ajia.html","ACTIVITY","http://app.longyinglicai.com/banner/APlus-android.png",0));
+		wheel.add(new BannerItem("http://app.longyinglicai.com/activity/jgxy1.html","ACTIVITY","http://app.longyinglicai.com/banner/jgxy1-ios.png",0));
 		if (wheel == null) {
 			return;
 		}
@@ -168,7 +173,7 @@ public class Home extends BaseFragment implements OnClickListener {
 		for (BannerItem videoItem : wheel) {
 			ImageView imageView = new ImageView(getActivity());
 			imageView.setScaleType(ScaleType.CENTER_CROP);
-			aq.id(imageView).image(ServerInfo.IMAGE_PREFIX + videoItem.url,
+			aq.id(imageView).image(videoItem.url,
 					true, true);
 			pageViews.add(imageView);
 		}
@@ -189,7 +194,7 @@ public class Home extends BaseFragment implements OnClickListener {
 	private ImageView extraImageView(int i) {
 		ImageView imageView = new ImageView(getActivity());
 		imageView.setScaleType(ScaleType.CENTER_CROP);
-		aq.id(imageView).image(ServerInfo.IMAGE_PREFIX + wheel.get(i).url,
+		aq.id(imageView).image(wheel.get(i).url,
 				true, true);
 
 		return imageView;
@@ -248,12 +253,12 @@ public class Home extends BaseFragment implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.title_btn_right:
-
-			break;
-		case R.id.title_btn_left:
-
-			break;
+		//		case R.id.title_btn_right:
+		//
+		//			break;
+		//		case R.id.title_btn_left:
+		//
+		//			break;
 		default:
 			break;
 		}

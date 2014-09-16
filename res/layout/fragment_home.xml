@@ -11,6 +11,7 @@
         <LinearLayout 
             android:layout_width="match_parent"
             android:orientation="vertical"
+            android:gravity="center_horizontal"
 	        android:layout_height="match_parent">
 		    <RelativeLayout
 		        android:id="@+id/rlyt_viewpager"
@@ -29,7 +30,41 @@
 		            android:orientation="horizontal" >
 		        </RadioGroup>
 		    </RelativeLayout>
-		    
+		    <LinearLayout 
+		        style="@style/Width_match_height_wrap">
+		        <TextView 
+		            android:id="@+id/tv_title"
+		            android:text="合理盈利"
+		            style="@style/Width_wrap_height_wrap"/>
+		        <TextView 
+		            android:id="@+id/tv_flag"
+		            android:background="@drawable/sale_blue_icon"
+		            style="@style/Width_wrap_height_wrap"/>
+		    </LinearLayout>
+		    <Button 
+		        android:id="@+id/flag"
+		        style="@style/Width_wrap_height_wrap"
+		        />
+		    <LinearLayout 
+		        style="@style/Width_match_height_wrap">
+		        <TextView 
+		            android:text="期限年化"
+		            style="@style/Width_wrap_height_wrap"/>
+		        <TextView 
+		            android:id="@+id/home_year_num"
+		            android:text="9.8%"
+		            style="@style/Width_wrap_height_wrap"/>
+		        
+		    </LinearLayout>
+		    <TextView 
+		        android:id="@+id/home_extra"
+		        android:text="额外赠送20元红包"
+		            style="@style/Width_wrap_height_wrap"/>
+		    <TextView 
+		        android:id="@+id/home_construction"
+		        android:text="额外赠送20元红包"
+		        android:drawableLeft="@drawable/icon_security"
+		            style="@style/Width_wrap_height_wrap"/>
 		    <!-- 投标按钮 -->
 		    <Button
 		        android:layout_width="match_parent"
