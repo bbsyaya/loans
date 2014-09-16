@@ -18,8 +18,8 @@ import com.androidquery.AQuery;
 import com.will.loans.R;
 
 @SuppressLint("NewApi")
-public class Register extends BaseActionBarActivity implements OnCheckedChangeListener,
-        OnClickListener, TextWatcher {
+public class Register extends BaseActivity implements OnCheckedChangeListener, OnClickListener,
+        TextWatcher {
     private EditText mPhoneNum;
 
     private TextView mBigPhoneNum;
@@ -34,8 +34,6 @@ public class Register extends BaseActionBarActivity implements OnCheckedChangeLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        getActionBar().setDisplayShowTitleEnabled(true);
-        getActionBar().setDisplayShowHomeEnabled(true);
         initView();
     }
 

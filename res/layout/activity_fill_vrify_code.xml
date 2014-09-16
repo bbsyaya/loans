@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <include layout="@layout/common_title" />
+    <LinearLayout style="@style/Width_match_height_wrap" >
+        <TextView
+            android:id="@+id/tv_send_msg"
+            style="@style/Width_match_height_wrap"
+            android:text="异响" />
+        <LinearLayout style="@style/Width_match_height_wrap" >
+            <EditText
+                android:id="@+id/et_veri_code"
+                style="@style/Width_wrap_height_wrap"
+                android:layout_weight="1"
+                android:background="@drawable/register_number_bg" />
+            <Button
+                android:id="@+id/btn_count_down"
+                style="@style/Width_wrap_height_wrap"
+                android:layout_weight="1" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/btn_confirm"
+            style="@style/Width_match_height_wrap"
+            android:layout_weight="1" />
+    </LinearLayout>
+</LinearLayout>

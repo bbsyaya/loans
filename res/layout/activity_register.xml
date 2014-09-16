@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
+    android:orientation="vertical" >
+    <include layout="@layout/common_title" />
+    <RelativeLayout
+        style="@style/RegisterEt"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="10dp" >
+        <EditText
+            android:id="@+id/phone_num"
+            style="@style/Width_match_height_wrap"
+            android:drawableLeft="@drawable/user_phone_icon"
+            android:focusable="true"
+            android:hint="请输入手机号码" />
+        <ImageView
+            android:id="@+id/del_img"
+            style="@style/Width_wrap_height_wrap"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/clear_text" />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/phone_num_big"
+        style="@style/RegisterEt"
+        android:background="@drawable/big_text_hint_bg"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:visibility="gone" />
+    <TextView
+        android:id="@+id/warning"
+        style="@style/Width_wrap_height_wrap"
+        android:text="盈盈不会再任何地方泄露您的号码" />
+    <LinearLayout style="@style/Width_match_height_wrap" >
+        <CheckBox
+            android:id="@+id/cb_agree"
+            style="@style/Width_wrap_height_wrap"
+            android:checked="true" />
+        <LinearLayout
+            style="@style/Width_wrap_height_wrap"
+            android:orientation="vertical" >
+            <TextView
+                android:id="@+id/user_use"
+                style="@style/Width_wrap_height_wrap"
+                android:text="《盈盈理财用户使用协议》" />
+            <TextView
+                android:id="@+id/user_use_self"
+                style="@style/Width_wrap_height_wrap"
+                android:text="《使用条款和隐私政策协议》" />
+        </LinearLayout>
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_next"
+        style="@style/Width_match_height_wrap"
+        android:enabled="false"
+        android:gravity="center"
+        android:text="下一步"
+        android:textColor="@android:color/white" />
+</LinearLayout>
