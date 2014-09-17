@@ -20,15 +20,14 @@
                 android:id="@+id/tv_flag"
                 style="@style/Width_wrap_height_wrap"
                 android:background="@drawable/sale_blue_icon" />
-            <TextView
+            <com.will.loans.weight.RotationTextView
                 android:id="@+id/tv_flag_text"
-                style="@style/Width_wrap_height_wrap"
-                android:layout_marginLeft="3dp"
-                android:layout_marginTop="7dp"
-                android:rotation="45"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:paddingTop="8dp"
                 android:text="新手标"
                 android:textAppearance="?android:attr/textAppearanceSmallInverse"
-                android:textSize="11sp"
+                android:textSize="10sp"
                 android:textStyle="bold" />
         </RelativeLayout>
     </LinearLayout>

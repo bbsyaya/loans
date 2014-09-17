@@ -1,245 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <include layout="@layout/common_title" />
-    <com.handmark.pulltorefresh.library.PullToRefreshScrollView style="@style/Width_match_height_match" >
-        <LinearLayout style="@style/Width_match_height_match" >
-            <LinearLayout
-                style="@style/Width_match_height_wrap"
-                android:background="#fff"
-                android:orientation="vertical"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="5dp" >
-                <RelativeLayout style="@style/Width_match_height_wrap" >
-                    <TextView
-                        android:id="@+id/product_tv_total"
-                        style="@style/Width_wrap_height_wrap"
-                        android:layout_alignParentLeft="true"
-                        android:text="概况" />
-                    <TextView
-                        android:id="@+id/product_tv_total_day"
-                        style="@style/Width_wrap_height_wrap"
-                        android:layout_alignParentRight="true"
-                        android:text="2014-09-16" />
-                </RelativeLayout>
-                <RelativeLayout
-                    style="@style/Width_match_height_wrap"
-                    android:layout_marginBottom="3dp"
-                    android:layout_marginTop="10dp" >
-                    <TextView
-                        style="@style/Width_wrap_height_wrap"
-                        android:layout_alignParentLeft="true"
-                        android:text="起购金额(元)"
-                        android:textColor="@color/gray_dark" />
-                    <TextView
-                        style="@style/Width_wrap_height_wrap"
-                        android:layout_alignParentRight="true"
-                        android:text="七日年化收益"
-                        android:textColor="@color/gray_dark" />
-                </RelativeLayout>
-                <RelativeLayout style="@style/Width_match_height_wrap" >
-                    <TextView
-                        android:id="@+id/limit_num"
-                        style="@style/Width_wrap_height_wrap"
-                        android:layout_alignParentLeft="true"
-                        android:text="1"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="@color/gray_dark" />
-                    <TextView
-                        android:id="@+id/earnig_num"
-                        style="@style/Width_wrap_height_wrap"
-                        android:layout_alignParentRight="true"
-                        android:text="4.36%"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="@color/red"
-                        android:textStyle="bold" />
-                </RelativeLayout>
-                <RelativeLayout
-                    style="@style/Width_match_height_wrap"
-                    android:layout_marginBottom="3dp"
-                    android:layout_marginTop="10dp" >
-                    <TextView
-                        style="@style/Width_wrap_height_wrap"
-                        android:layout_alignParentLeft="true"
-                        android:text="申购人数(人)"
-                        android:textColor="@color/gray_dark" />
-                    <TextView
-                        style="@style/Width_wrap_height_wrap"
-                        android:layout_alignParentRight="true"
-                        android:text="万份收益(元)"
-                        android:textColor="@color/gray_dark" />
-                </RelativeLayout>
-                <RelativeLayout style="@style/Width_match_height_wrap" >
-                    <TextView
-                        android:id="@+id/person_num"
-                        style="@style/Width_wrap_height_wrap"
-                        android:layout_alignParentLeft="true"
-                        android:text="6585484"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="@color/gray_dark" />
-                    <TextView
-                        android:id="@+id/earnig_money"
-                        style="@style/Width_wrap_height_wrap"
-                        android:layout_alignParentRight="true"
-                        android:text="1.2170"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="@color/red"
-                        android:textStyle="bold" />
-                </RelativeLayout>
-                <RelativeLayout
-                    style="@style/Width_match_height_wrap"
-                    android:layout_marginBottom="3dp"
-                    android:layout_marginTop="8dp" >
-                    <TextView
-                        android:id="@+id/trade_type"
-                        style="@style/Width_wrap_height_wrap"
-                        android:layout_alignParentLeft="true"
-                        android:text="随买随卖"
-                        android:textColor="@color/gray_dark"
-                        android:textSize="12sp" />
-                    <TextView
-                        android:id="@+id/earnig_money_desc"
-                        style="@style/Width_wrap_height_wrap"
-                        android:layout_alignParentRight="true"
-                        android:text="额外0.2%积分奖励"
-                        android:textColor="#f00"
-                        android:textSize="12sp" />
-                </RelativeLayout>
-            </LinearLayout>
-            <TextView
-                style="@style/Width_match_height_wrap"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:text="申购情况"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-            <LinearLayout
-                style="@style/Width_match_height_wrap"
-                android:background="#fff"
-                android:orientation="vertical"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="5dp" >
-                <RelativeLayout style="@style/Width_match_height_wrap" >
-                    <TextView
-                        style="@style/Width_wrap_height_wrap"
-                        android:layout_alignParentLeft="true"
-                        android:text="已申购情况:"
-                        android:textColor="@color/gray_dark" />
-                    <TextView
-                        android:id="@+id/pay_number"
-                        style="@style/Width_wrap_height_wrap"
-                        android:layout_alignParentRight="true"
-                        android:text="625487 人"
-                        android:textColor="@color/gray_dark" />
-                </RelativeLayout>
-                <RelativeLayout
-                    style="@style/Width_match_height_wrap"
-                    android:layout_marginBottom="3dp"
-                    android:layout_marginTop="3dp" >
-                    <TextView
-                        style="@style/Width_wrap_height_wrap"
-                        android:layout_alignParentLeft="true"
-                        android:text="购买笔数:"
-                        android:textColor="@color/gray_dark" />
-                    <TextView
-                        style="@style/Width_wrap_height_wrap"
-                        android:layout_alignParentRight="true"
-                        android:text="568584 笔"
-                        android:textColor="@color/gray_dark" />
-                </RelativeLayout>
-                <RelativeLayout style="@style/Width_match_height_wrap" >
-                    <TextView
-                        android:id="@+id/buy_money_count"
-                        style="@style/Width_wrap_height_wrap"
-                        android:layout_alignParentLeft="true"
-                        android:text="总申购金额:" />
-                    <TextView
-                        android:id="@+id/earnig_num"
-                        style="@style/Width_wrap_height_wrap"
-                        android:layout_alignParentRight="true"
-                        android:text="15254874.5 元" />
-                </RelativeLayout>
-                <RelativeLayout
-                    style="@style/Width_match_height_wrap"
-                    android:layout_marginBottom="3dp"
-                    android:layout_marginTop="10dp" >
-                    <TextView
-                        style="@style/Width_wrap_height_wrap"
-                        android:layout_alignParentLeft="true"
-                        android:text="人均申购金额" />
-                    <TextView
-                        android:id="@+id/capital_num"
-                        style="@style/Width_wrap_height_wrap"
-                        android:layout_alignParentRight="true"
-                        android:text="2569.25 元" />
-                </RelativeLayout>
-            </LinearLayout>
-            <TextView
-                style="@style/Width_match_height_wrap"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:text="业绩"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-            <LinearLayout
-                style="@style/Width_match_height_wrap"
-                android:background="#fff"
-                android:orientation="vertical"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="5dp" >
-                <LinearLayout style="@style/Width_match_height_wrap" >
-                    <TextView
-                        style="@style/Width_0_height_wrap"
-                        android:layout_weight="1.2"
-                        android:text="七日年化：" />
-                    <TextView
-                        android:id="@+id/seven_day_number"
-                        style="@style/Width_0_height_wrap"
-                        android:layout_weight="0.6"
-                        android:text="40%" />
-                    <TextView
-                        android:id="@+id/earning_number"
-                        style="@style/Width_0_height_wrap"
-                        android:layout_weight="1"
-                        android:text="万份收益：" />
-                    <TextView
-                        android:id="@+id/earning_number_money"
-                        style="@style/Width_0_height_wrap"
-                        android:layout_weight="1"
-                        android:text="1.214578 元" />
-                </LinearLayout>
-                <LinearLayout style="@style/Width_match_height_wrap" >
-                    <TextView
-                        style="@style/Width_0_height_wrap"
-                        android:layout_weight="1.2"
-                        android:text="六个月涨幅：" />
-                    <TextView
-                        android:id="@+id/seven_day_number"
-                        style="@style/Width_0_height_wrap"
-                        android:layout_weight="0.6"
-                        android:text="40%" />
-                    <TextView
-                        android:id="@+id/earning_number"
-                        style="@style/Width_0_height_wrap"
-                        android:layout_weight="1"
-                        android:text="一年涨幅：" />
-                    <TextView
-                        android:id="@+id/earning_number_money"
-                        style="@style/Width_0_height_wrap"
-                        android:layout_weight="1"
-                        android:text="5.05 %" />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+    <include 
+        android:id="@+id/top_title"
+        layout="@layout/common_title" />
     <LinearLayout
+        android:id="@+id/bottom_control"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal" >
         <!-- 投标按钮 -->
         <Button
@@ -260,5 +31,14 @@
             android:background="@drawable/speak_hint_dialog_btn"
             android:text="申购"
             android:textColor="#fff" />
-    </LinearLayout>
-</LinearLayout>
+        </LinearLayout>
+    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+        android:id="@+id/detail_scrolview" 
+        android:layout_below="@id/top_title"
+        android:layout_above="@id/bottom_control"
+        style="@style/Width_match_height_match" >
+        <include layout="@layout/item_product_detail"/>
+    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+    
+    
+</RelativeLayout>

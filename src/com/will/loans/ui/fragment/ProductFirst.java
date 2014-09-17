@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.will.loans.R;
@@ -15,9 +14,10 @@ import com.will.loans.ui.activity.LoansDetail;
 import com.will.loans.weight.AutoLoadPull2RefreshListView;
 import com.will.loans.weight.AutoLoadPull2RefreshListView.OnLoadMoreListener;
 import com.will.loans.weight.AutoLoadPull2RefreshListView.OnRefreshListener;
+import com.will.loans.weight.ProgressWheel;
 
 public class ProductFirst extends BaseFragment implements OnLoadMoreListener,
-		OnRefreshListener, OnItemClickListener {
+OnRefreshListener, OnItemClickListener {
 	private AutoLoadPull2RefreshListView mListView;
 
 	private LoansAdapter mAdapter;
@@ -67,8 +67,17 @@ public class ProductFirst extends BaseFragment implements OnLoadMoreListener,
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			convertView = getActivity().getLayoutInflater().inflate(
-					R.layout.item_loans, null);
+			ViewHolder viewHolder;
+			if (convertView==null) {
+				viewHolder = new ViewHolder();
+				convertView = getActivity().getLayoutInflater().inflate(
+						R.layout.item_loans, null);
+				viewHolder.progressWheel = (ProgressWheel) convertView.findViewById(R.id.progress_bar_two);
+				convertView.setTag(viewHolder);
+			}
+			viewHolder = (ViewHolder) convertView.getTag();
+			viewHolder.progressWheel.setProgress(100);
+			viewHolder.progressWheel.setText("21%");
 			return convertView;
 		}
 
@@ -89,7 +98,7 @@ public class ProductFirst extends BaseFragment implements OnLoadMoreListener,
 
 			TextView status;
 
-			ProgressBar progressBar;
+			ProgressWheel progressWheel;
 		}
 
 	}

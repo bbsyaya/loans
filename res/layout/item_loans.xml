@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:padding="5dp" >
+    android:padding="10dp" >
     <LinearLayout
         style="@style/Width_0_height_wrap"
         android:layout_weight="4"
@@ -13,7 +13,9 @@
             style="@style/Width_wrap_height_wrap"
             android:text="车金融b234号"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-        <LinearLayout style="@style/Width_match_height_wrap" >
+        <LinearLayout
+            android:layout_marginTop="10dp" 
+            style="@style/Width_match_height_wrap" >
             <LinearLayout
                 style="@style/Width_0_height_wrap"
                 android:layout_weight="1"
@@ -25,6 +27,8 @@
                 <TextView
                     android:id="@+id/loans_persent"
                     style="@style/Width_wrap_height_wrap"
+                    android:textColor="@color/red"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="91%" />
             </LinearLayout>
             <LinearLayout
@@ -37,6 +41,7 @@
                     android:text="限12个月" />
                 <TextView
                     android:id="@+id/loans_low"
+                    android:layout_marginTop="3dp"
                     style="@style/Width_wrap_height_wrap"
                     android:text="50元起购" />
             </LinearLayout>
@@ -45,16 +50,35 @@
     <RelativeLayout
         style="@style/Width_0_height_wrap"
         android:layout_weight="1" >
-        <TextView
-            android:id="@+id/loans_low"
+        <RelativeLayout
             style="@style/Width_wrap_height_wrap"
-            android:layout_alignParentRight="true"
-            android:paddingTop="12dp"
-            android:rotation="45"
-            android:text="新手标"
-            android:textSize="10sp" />
-        <include
-            android:layout_alignParentBottom="true"
-            layout="@layout/item_circl_progress" />
+            android:layout_alignParentRight="true" >
+            <ImageView
+                android:id="@+id/tv_flag"
+                style="@style/Width_wrap_height_wrap"
+                android:background="@drawable/sale_blue_icon" />
+            <com.will.loans.weight.RotationTextView
+                android:id="@+id/tv_flag_text"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:paddingTop="8dp"
+                android:text="新手标"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+        <com.will.loans.weight.ProgressWheel
+            android:layout_marginTop="18dp"
+        xmlns:ProgressWheel="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/progress_bar_two"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        ProgressWheel:barColor="@color/progress_color"
+        ProgressWheel:barWidth="4dp"
+        ProgressWheel:rimColor="@color/progress_color"
+        ProgressWheel:rimWidth="2dp"
+        ProgressWheel:spinSpeed="3dp"
+        ProgressWheel:textColor="@color/progress_color"
+        ProgressWheel:textSize="12sp" />
     </RelativeLayout>
 </LinearLayout>
