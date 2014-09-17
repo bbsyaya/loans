@@ -4,76 +4,33 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     <include layout="@layout/common_title" />
-    <com.handmark.pulltorefresh.library.PullToRefreshScrollView 
+    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
         android:id="@+id/homePRSV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout 
+        android:layout_height="match_parent" >
+        <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
+            android:layout_height="match_parent"
             android:gravity="center_horizontal"
-	        android:layout_height="match_parent">
-		    <RelativeLayout
-		        android:id="@+id/rlyt_viewpager"
-		        android:layout_width="match_parent"
-		        android:layout_height="150dp" >
-		        <android.support.v4.view.ViewPager
-		            android:id="@+id/vp_ads"
-		            style="@style/Width_match_height_match" >
-		        </android.support.v4.view.ViewPager>
-		        <RadioGroup
-		            android:id="@+id/rg_points"
-		            android:layout_width="match_parent"
-		            android:layout_height="10dp"
-		            android:layout_alignParentBottom="true"
-		            android:gravity="center_horizontal"
-		            android:orientation="horizontal" >
-		        </RadioGroup>
-		    </RelativeLayout>
-		    <LinearLayout 
-		        style="@style/Width_match_height_wrap">
-		        <TextView 
-		            android:id="@+id/tv_title"
-		            android:text="合理盈利"
-		            style="@style/Width_wrap_height_wrap"/>
-		        <TextView 
-		            android:id="@+id/tv_flag"
-		            android:background="@drawable/sale_blue_icon"
-		            style="@style/Width_wrap_height_wrap"/>
-		    </LinearLayout>
-		    <Button 
-		        android:id="@+id/flag"
-		        style="@style/Width_wrap_height_wrap"
-		        />
-		    <LinearLayout 
-		        style="@style/Width_match_height_wrap">
-		        <TextView 
-		            android:text="期限年化"
-		            style="@style/Width_wrap_height_wrap"/>
-		        <TextView 
-		            android:id="@+id/home_year_num"
-		            android:text="9.8%"
-		            style="@style/Width_wrap_height_wrap"/>
-		        
-		    </LinearLayout>
-		    <TextView 
-		        android:id="@+id/home_extra"
-		        android:text="额外赠送20元红包"
-		            style="@style/Width_wrap_height_wrap"/>
-		    <TextView 
-		        android:id="@+id/home_construction"
-		        android:text="额外赠送20元红包"
-		        android:drawableLeft="@drawable/icon_security"
-		            style="@style/Width_wrap_height_wrap"/>
-		    <!-- 投标按钮 -->
-		    <Button
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_marginLeft="30dp"
-		        android:layout_marginRight="30dp"
-		        android:textColor="#fff"
-		        android:text="投标"
-		        android:background="@drawable/speak_hint_dialog_btn"/>
-   		 </LinearLayout>
+            android:orientation="vertical" >
+            <RelativeLayout
+                android:id="@+id/rlyt_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="150dp" >
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/vp_ads"
+                    style="@style/Width_match_height_match" >
+                </android.support.v4.view.ViewPager>
+                <RadioGroup
+                    android:id="@+id/rg_points"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal" >
+                </RadioGroup>
+            </RelativeLayout>
+            <include layout="@layout/home_bottom" />
+        </LinearLayout>
     </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
 </LinearLayout>

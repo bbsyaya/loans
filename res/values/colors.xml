@@ -21,7 +21,7 @@
     <color name="comment_time">#666666</color>
     <color name="seekbar_background">#98999D</color>
     <color name="seekbar_progress">#ff8a00</color>
-    
     <color name="bottom_text_red">#ee4000</color>
     <color name="bottom_text_gray">#dedede</color>
+    <color name="progress_color">#f00</color>
 </resources>

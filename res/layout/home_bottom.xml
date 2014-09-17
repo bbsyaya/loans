@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+    <LinearLayout
+        style="@style/Width_match_height_wrap"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal" >
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/Width_wrap_height_wrap"
+            android:text="合理盈利"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        <RelativeLayout
+            style="@style/Width_wrap_height_wrap"
+            android:layout_marginLeft="10dp" >
+            <ImageView
+                android:id="@+id/tv_flag"
+                style="@style/Width_wrap_height_wrap"
+                android:background="@drawable/sale_blue_icon" />
+            <TextView
+                android:id="@+id/tv_flag_text"
+                style="@style/Width_wrap_height_wrap"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="7dp"
+                android:rotation="45"
+                android:text="新手标"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </LinearLayout>
+    <com.will.loans.weight.ProgressWheel
+        xmlns:ProgressWheel="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/progress_bar_two"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        ProgressWheel:barColor="@color/progress_color"
+        ProgressWheel:barWidth="4dp"
+        ProgressWheel:rimColor="@color/progress_color"
+        ProgressWheel:rimWidth="2dp"
+        ProgressWheel:spinSpeed="3dp"
+        ProgressWheel:text="click"
+        ProgressWheel:textColor="@color/progress_color"
+        ProgressWheel:textSize="22sp" />
+    <LinearLayout
+        style="@style/Width_match_height_wrap"
+        android:layout_margin="3dp"
+        android:gravity="center_horizontal" >
+        <TextView
+            style="@style/Width_wrap_height_wrap"
+            android:text="期限年化" />
+        <TextView
+            android:id="@+id/home_year_num"
+            style="@style/Width_wrap_height_wrap"
+            android:text="9.8%"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#f00" />
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="#d9d9d9" />
+        <TextView
+            style="@style/Width_wrap_height_wrap"
+            android:text="限" />
+        <TextView
+            android:id="@+id/home_tv_month"
+            style="@style/Width_wrap_height_wrap"
+            android:text="12"
+            android:textColor="#f00" />
+        <TextView
+            style="@style/Width_wrap_height_wrap"
+            android:text="个月" />
+        <TextView
+            android:id="@+id/home_tv_limit"
+            style="@style/Width_wrap_height_wrap"
+            android:text="50"
+            android:textColor="#f00" />
+        <TextView
+            style="@style/Width_wrap_height_wrap"
+            android:text="元起购" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/home_extra"
+        style="@style/Width_wrap_height_wrap"
+        android:layout_margin="2dp"
+        android:text="额外赠送20元红包"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#f00" />
+    <TextView
+        android:id="@+id/home_construction"
+        style="@style/Width_wrap_height_wrap"
+        android:layout_margin="2dp"
+        android:drawableLeft="@drawable/icon_security"
+        android:text="账户资金安全由中心银行监管"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    <!-- 投标按钮 -->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/speak_hint_dialog_btn"
+        android:text="投标"
+        android:textAppearance="?android:attr/textAppearanceMediumInverse"
+        android:textColor="#fff" />
+</LinearLayout>
