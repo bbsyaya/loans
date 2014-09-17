@@ -1,4 +1,3 @@
-
 package com.will.loans.ui.fragment;
 
 import android.os.Bundle;
@@ -17,95 +16,100 @@ import com.will.loans.weight.AutoLoadPull2RefreshListView;
 import com.will.loans.weight.AutoLoadPull2RefreshListView.OnLoadMoreListener;
 import com.will.loans.weight.AutoLoadPull2RefreshListView.OnRefreshListener;
 
-public class ProductFirst extends BaseFragment implements OnLoadMoreListener, OnRefreshListener,
-        OnItemClickListener {
-    private AutoLoadPull2RefreshListView mListView;
+public class ProductFirst extends BaseFragment implements OnLoadMoreListener,
+		OnRefreshListener, OnItemClickListener {
+	private AutoLoadPull2RefreshListView mListView;
 
-    private LoansAdapter mAdapter;
+	private LoansAdapter mAdapter;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.product_list, null);
-    }
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		return inflater.inflate(R.layout.product_list, null);
+	}
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initView(view);
-    }
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		initView(view);
+	}
 
-    private void initView(View view) {
-        mListView = (AutoLoadPull2RefreshListView) view.findViewById(R.id.refresh_listview);
-        mAdapter = new LoansAdapter();
-        mListView.setAdapter(mAdapter);
-        mListView.setAutoLoadMore(true);
-        mListView.setOnRefreshListener(this);
-        mListView.setOnLoadListener(this);
-    }
+	private void initView(View view) {
+		mListView = (AutoLoadPull2RefreshListView) view
+				.findViewById(R.id.refresh_listview);
+		mAdapter = new LoansAdapter();
+		mListView.setAdapter(mAdapter);
+		mListView.setAutoLoadMore(true);
+		mListView.setOnRefreshListener(this);
+		mListView.setOnLoadListener(this);
+		mListView.setOnItemClickListener(this);
+	}
 
-    class LoansAdapter extends BaseAdapter {
+	class LoansAdapter extends BaseAdapter {
 
-        @Override
-        public int getCount() {
-            // TODO Auto-generated method stub
-            return 10;
-        }
+		@Override
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return 10;
+		}
 
-        @Override
-        public Object getItem(int position) {
-            // TODO Auto-generated method stub
-            return null;
-        }
+		@Override
+		public Object getItem(int position) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 
-        @Override
-        public long getItemId(int position) {
-            // TODO Auto-generated method stub
-            return 0;
-        }
+		@Override
+		public long getItemId(int position) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
 
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            convertView = getActivity().getLayoutInflater().inflate(R.layout.item_loans, null);
-            return convertView;
-        }
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			convertView = getActivity().getLayoutInflater().inflate(
+					R.layout.item_loans, null);
+			return convertView;
+		}
 
-        class ViewHolder {
-            TextView title;
+		class ViewHolder {
+			TextView title;
 
-            TextView time;
+			TextView time;
 
-            TextView persent;
+			TextView persent;
 
-            TextView limit;
+			TextView limit;
 
-            TextView bigPersent;
+			TextView bigPersent;
 
-            TextView bigPersentNum;
+			TextView bigPersentNum;
 
-            TextView indicat;
+			TextView indicat;
 
-            TextView status;
+			TextView status;
 
-            ProgressBar progressBar;
-        }
+			ProgressBar progressBar;
+		}
 
-    }
+	}
 
-    @Override
-    public void onRefresh() {
-        mListView.onRefreshComplete();
+	@Override
+	public void onRefresh() {
+		mListView.onRefreshComplete();
 
-    }
+	}
 
-    @Override
-    public void onLoadMore() {
-        // TODO Auto-generated method stub
-        mListView.onLoadMoreComplete();
-    }
+	@Override
+	public void onLoadMore() {
+		// TODO Auto-generated method stub
+		mListView.onLoadMoreComplete();
+	}
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        jump2Activity(new LoansDetail());
-
-    }
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		jump2Activity(new LoansDetail());
+		// startActivity(new Intent(getActivity(), ProductDetail.class));
+	}
 }

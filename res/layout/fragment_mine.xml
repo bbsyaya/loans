@@ -3,252 +3,218 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
     <include layout="@layout/common_title" />
-
-<!--     <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+    <!--
+         <com.handmark.pulltorefresh.library.PullToRefreshScrollView
         android:id="@+id/minePRSV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" > -->
-
+        android:layout_height="match_parent" >
+    -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg"
+        android:orientation="vertical"
+        android:paddingBottom="15dp" >
+        <LinearLayout
+            android:id="@+id/todayEarnBtn"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@color/red"
+            android:orientation="vertical"
+            android:paddingLeft="30dp"
+            android:paddingTop="15dp" >
+            <!-- 今日收益日期 -->
+            <TextView
+                android:id="@+id/todayDateTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="09月12日收益（元）"
+                android:textColor="#fff" />
+            <!-- 今日收益金额 -->
+            <TextView
+                android:id="@+id/todayEarnTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="0.00"
+                android:textColor="#fff"
+                android:textSize="72sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/amountEarnBtn"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="#fff"
+            android:orientation="vertical"
+            android:paddingLeft="30dp"
+            android:paddingTop="10dp" >
+            <!-- 累计收益 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="累计收益（元）"
+                android:textColor="#000"
+                android:textStyle="bold" />
+            <!-- 累计收益金额 -->
+            <TextView
+                android:id="@+id/amountEarnTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="0.00"
+                android:textColor="@color/red"
+                android:textSize="24sp" />
+        </LinearLayout>
+        <!-- 总资产按钮 -->
+        <LinearLayout
+            android:id="@+id/amountMoneyBtn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="30dp" >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="总资产（元）"
+                android:textColor="#000" />
+            <!-- 总资产 -->
+            <TextView
+                android:id="@+id/amountMoneyTV"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:gravity="right"
+                android:text="0.00"
+                android:textColor="@color/gray" />
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="15dp"
-            android:background="@color/bg"
-            android:orientation="vertical" >
-
+            android:layout_height="100dp"
+            android:layout_marginTop="1dp"
+            android:background="#fff"
+            android:orientation="horizontal" >
+            <!-- 持有资产 -->
             <LinearLayout
-                android:id="@+id/todayEarnBtn"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:background="#ff4444"
-                android:orientation="vertical"
-                android:paddingLeft="30dp"
-                android:paddingTop="15dp" >
-
-                <!-- 今日收益日期 -->
-
-                <TextView
-                    android:id="@+id/todayDateTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="09月12日收益（元）"
-                    android:textColor="#fff" />
-
-                <!-- 今日收益金额 -->
-
-                <TextView
-                    android:id="@+id/todayEarnTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="0.00"
-                    android:textColor="#fff"
-                    android:textSize="72sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/amountEarnBtn"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:background="#fff"
+                android:id="@+id/hasMoneyBtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:orientation="vertical"
                 android:paddingLeft="30dp"
                 android:paddingTop="10dp" >
-
-                <!-- 累计收益 -->
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="累计收益（元）"
-                    android:textColor="#000"
-                    android:textStyle="bold" />
-
-                <!-- 累计收益金额 -->
-
-                <TextView
-                    android:id="@+id/amountEarnTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="0.00"
-                    android:textColor="#ff4444"
-                    android:textSize="24sp" />
-            </LinearLayout>
-
-            <!-- 总资产按钮 -->
-            <LinearLayout
-                  android:id="@+id/amountMoneyBtn"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="15dp"
-                android:background="#fff"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="30dp" >
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="总资产（元）"
+                    android:text="持有资产（元）"
                     android:textColor="#000" />
-
-                <!-- 总资产 -->
-
                 <TextView
-                    android:id="@+id/amountMoneyTV"
-                    android:layout_width="70dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
-                    android:gravity="right"
-                    android:text="0.00"
+                    android:text="含未结算收益"
                     android:textColor="@color/gray" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginTop="1dp"
-                android:background="#fff"
-                android:orientation="horizontal" >
-
                 <!-- 持有资产 -->
-                <LinearLayout
-                    android:id="@+id/hasMoneyBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingLeft="30dp"
-                    android:paddingTop="10dp" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="持有资产（元）"
-                        android:textColor="#000" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="含未结算收益"
-                        android:textColor="@color/gray" />
-
-                    <!-- 持有资产 -->
-
-                    <TextView
-                        android:id="@+id/hasMoneyTV"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="5dp"
-                        android:drawableRight="@drawable/cpay_help_list_jt"
-                        android:text="0.00"
-                        android:textColor="@color/gray_dark"
-                        android:textSize="18sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginTop="15dp"
-                    android:background="@color/bg"
-                    android:orientation="vertical" >
-                </LinearLayout>
-
-                <!-- 账户余额 -->
-                <LinearLayout
-                    android:id="@+id/remainMoneyBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingLeft="30dp"
-                    android:paddingTop="10dp" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="账户余额（元）"
-                        android:textColor="#000" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="目前只支持稳盈贷"
-                        android:textColor="@color/gray" />
-
-                    <!-- 持有资产 -->
-
-                    <TextView
-                        android:id="@+id/remainMoneyTV"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="5dp"
-                        android:drawableRight="@drawable/cpay_help_list_jt"
-                        android:text="0.00"
-                        android:textColor="@color/gray_dark"
-                        android:textSize="18sp" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/hasMoneyTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="5dp"
+                    android:drawableRight="@drawable/cpay_help_list_jt"
+                    android:text="0.00"
+                    android:textColor="@color/gray_dark"
+                    android:textSize="18sp" />
             </LinearLayout>
-
             <LinearLayout
-                android:id="@+id/tradeHistoryBtn"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="15dp"
                 android:layout_marginTop="15dp"
-                android:background="#fff"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="30dp" >
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="交易记录"
-                    android:textColor="#000" />
-
-                <TextView
-                    android:layout_width="70dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
-                    android:gravity="right"
-                    android:text="查看记录"
-                    android:textColor="@color/gray" />
+                android:background="@color/bg"
+                android:orientation="vertical" >
             </LinearLayout>
-
+            <!-- 账户余额 -->
             <LinearLayout
-                android:id="@+id/amountPointBtn"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="15dp"
-                android:background="#fff"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="30dp" >
-
+                android:id="@+id/remainMoneyBtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingLeft="30dp"
+                android:paddingTop="10dp" >
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="总积分"
+                    android:text="账户余额（元）"
                     android:textColor="#000" />
-
                 <TextView
-                    android:id="@+id/amountPointTV"
-                    android:layout_width="70dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
-                    android:gravity="right"
-                    android:text="0分"
+                    android:text="目前只支持稳盈贷"
                     android:textColor="@color/gray" />
+                <!-- 持有资产 -->
+                <TextView
+                    android:id="@+id/remainMoneyTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="5dp"
+                    android:drawableRight="@drawable/cpay_help_list_jt"
+                    android:text="0.00"
+                    android:textColor="@color/gray_dark"
+                    android:textSize="18sp" />
             </LinearLayout>
         </LinearLayout>
-
+        <LinearLayout
+            android:id="@+id/tradeHistoryBtn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="30dp" >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="交易记录"
+                android:textColor="#000" />
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:gravity="right"
+                android:text="查看记录"
+                android:textColor="@color/gray" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/amountPointBtn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:background="#fff"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="30dp" >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="总积分"
+                android:textColor="#000" />
+            <TextView
+                android:id="@+id/amountPointTV"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:gravity="right"
+                android:text="0分"
+                android:textColor="@color/gray" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

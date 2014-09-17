@@ -1,4 +1,3 @@
-
 package com.will.loans.utils;
 
 import android.annotation.SuppressLint;
@@ -11,207 +10,218 @@ import android.content.SharedPreferences;
  */
 
 public class SharePreferenceUtil {
-    private SharedPreferences sp;
+	private SharedPreferences sp;
 
-    private SharedPreferences.Editor editor;
+	private SharedPreferences.Editor editor;
 
-    @SuppressLint("CommitPrefEdits")
-    public SharePreferenceUtil(Context context, String file) {
-        sp = context.getSharedPreferences(file, Context.MODE_PRIVATE);
-        editor = sp.edit();
-    }
+	private static SharePreferenceUtil sUserPref;
 
-    public void setUsername(String username) {
-        editor.putString("username", username);
-        editor.commit();
-    }
+	private final static String USER_INFO = "userInfo";
 
-    public String getUsername() {
-        return sp.getString("username", "");
-    }
+	@SuppressLint("CommitPrefEdits")
+	public SharePreferenceUtil(Context context, String file) {
+		sp = context.getSharedPreferences(file, Context.MODE_PRIVATE);
+		editor = sp.edit();
+	}
 
-    // 用户的密码
-    public void setPasswd(String passwd) {
-        editor.putString("passwd", passwd);
-        editor.commit();
-    }
+	public static synchronized SharePreferenceUtil getUserPref(Context context) {
+		if (sUserPref == null) {
+			sUserPref = new SharePreferenceUtil(context, USER_INFO);
+		}
+		return sUserPref;
+	}
 
-    public String getPasswd() {
-        return sp.getString("passwd", "");
-    }
+	public void setUsername(String username) {
+		editor.putString("username", username);
+		editor.commit();
+	}
 
-    public void setToken(String token) {
-        editor.putString("token", token);
-        editor.commit();
-    }
+	public String getUsername() {
+		return sp.getString("username", "");
+	}
 
-    public String getToken() {
-        return sp.getString("token", null);
-    }
+	// 用户的密码
+	public void setPasswd(String passwd) {
+		editor.putString("passwd", passwd);
+		editor.commit();
+	}
 
-    // 用户的昵称
-    public String getNickName() {
-        return sp.getString("nickname", "");
-    }
+	public String getPasswd() {
+		return sp.getString("passwd", "");
+	}
 
-    public void setNickName(String name) {
-        editor.putString("nickname", name);
-        editor.commit();
-    }
+	public void setToken(String token) {
+		editor.putString("token", token);
+		editor.commit();
+	}
 
-    // 用户的邮箱
-    public String getEmail() {
-        return sp.getString("email", "");
-    }
+	public String getToken() {
+		return sp.getString("token", null);
+	}
 
-    public void setEmail(String email) {
-        editor.putString("email", email);
-        editor.commit();
-    }
+	// 用户的昵称
+	public String getNickName() {
+		return sp.getString("nickname", "");
+	}
 
-    // 用户自己的头像
-    public String getImg() {
-        return sp.getString("img", "");
-    }
+	public void setNickName(String name) {
+		editor.putString("nickname", name);
+		editor.commit();
+	}
 
-    public void setImg(String i) {
-        editor.putString("img", i);
-        editor.commit();
-    }
+	// 用户的邮箱
+	public String getEmail() {
+		return sp.getString("email", "");
+	}
 
-    // 是否在后台运行标记
-    public void setIsStart(boolean isStart) {
-        editor.putBoolean("isStart", isStart);
-        editor.commit();
-    }
+	public void setEmail(String email) {
+		editor.putString("email", email);
+		editor.commit();
+	}
 
-    public boolean getIsStart() {
-        return sp.getBoolean("isStart", false);
-    }
+	// 用户自己的头像
+	public String getImg() {
+		return sp.getString("img", "");
+	}
 
-    // 是否第一次运行本应用
-    public void setIsFirst(boolean isFirst) {
-        editor.putBoolean("isFirst", isFirst);
-        editor.commit();
-    }
+	public void setImg(String i) {
+		editor.putString("img", i);
+		editor.commit();
+	}
 
-    public boolean getisFirst() {
-        return sp.getBoolean("isFirst", true);
-    }
+	// 是否在后台运行标记
+	public void setIsStart(boolean isStart) {
+		editor.putBoolean("isStart", isStart);
+		editor.commit();
+	}
 
-    public void setLoadingImg(String loadingImg) {
-        editor.putString("loading", loadingImg);
-        editor.commit();
-    }
+	public boolean getIsStart() {
+		return sp.getBoolean("isStart", false);
+	}
 
-    public String getLoadingImg() {
-        return sp.getString("loading", "");
-    }
+	// 是否第一次运行本应用
+	public void setIsFirst(boolean isFirst) {
+		editor.putBoolean("isFirst", isFirst);
+		editor.commit();
+	}
 
-    public void setIsPromptWhenNoWIFI(boolean isPrompt) {
-        editor.putBoolean("isPrompt", isPrompt);
-        editor.commit();
-    }
+	public boolean getisFirst() {
+		return sp.getBoolean("isFirst", true);
+	}
 
-    public boolean getIsPromptWhenNoWIFI() {
-        return sp.getBoolean("isPrompt", true);
-    }
+	public void setLoadingImg(String loadingImg) {
+		editor.putString("loading", loadingImg);
+		editor.commit();
+	}
 
-    public void setIsLogin(boolean flag) {
-        editor.putBoolean("isLogin", true);
-        editor.commit();
-    }
+	public String getLoadingImg() {
+		return sp.getString("loading", "");
+	}
 
-    public boolean getIsLogin() {
-        return sp.getBoolean("isLogin", false);
-    }
+	public void setIsPromptWhenNoWIFI(boolean isPrompt) {
+		editor.putBoolean("isPrompt", isPrompt);
+		editor.commit();
+	}
 
-    public void setIsThirdLogin(boolean flag) {
-        editor.putBoolean("isThird", flag);
-        editor.commit();
-    }
+	public boolean getIsPromptWhenNoWIFI() {
+		return sp.getBoolean("isPrompt", true);
+	}
 
-    public boolean getIsThirdLogin() {
-        return sp.getBoolean("isThird", false);
-    }
+	public void setIsLogin(boolean flag) {
+		editor.putBoolean("isLogin", true);
+		editor.commit();
+	}
 
-    public void setPlatName(String platName) {
-        editor.putString("platName", platName);
-        editor.commit();
-    }
+	public boolean getIsLogin() {
+		return sp.getBoolean("isLogin", false);
+	}
 
-    public String getPlatName() {
-        return sp.getString("platName", "");
-    }
+	public void setIsThirdLogin(boolean flag) {
+		editor.putBoolean("isThird", flag);
+		editor.commit();
+	}
 
-    public void setBirthday(String birthday) {
-        editor.putString("birthday", birthday);
-        editor.commit();
-    }
+	public boolean getIsThirdLogin() {
+		return sp.getBoolean("isThird", false);
+	}
 
-    public String getBirthday() {
-        return sp.getString("birthday", "");
-    }
+	public void setPlatName(String platName) {
+		editor.putString("platName", platName);
+		editor.commit();
+	}
 
-    public void setPersonDesc(String desc) {
-        editor.putString("desc", desc);
-        editor.commit();
-    }
+	public String getPlatName() {
+		return sp.getString("platName", "");
+	}
 
-    public String getPersonDesc() {
-        return sp.getString("desc", "");
-    }
+	public void setBirthday(String birthday) {
+		editor.putString("birthday", birthday);
+		editor.commit();
+	}
 
-    public void putString(String key, String value) {
-        editor.putString(key, value);
-    }
+	public String getBirthday() {
+		return sp.getString("birthday", "");
+	}
 
-    public void putInt(String key, int value) {
-        editor.putInt(key, value);
-    }
+	public void setPersonDesc(String desc) {
+		editor.putString("desc", desc);
+		editor.commit();
+	}
 
-    public void putFloat(String key, float value) {
-        editor.putFloat(key, value);
-    }
+	public String getPersonDesc() {
+		return sp.getString("desc", "");
+	}
 
-    public void putLong(String key, long value) {
-        editor.putLong(key, value);
-    }
+	public void putString(String key, String value) {
+		editor.putString(key, value);
+	}
 
-    public void putBoolean(String key, boolean value) {
-        editor.putBoolean(key, value);
-    }
+	public void putInt(String key, int value) {
+		editor.putInt(key, value);
+	}
 
-    public void putIsVote(String key, boolean value) {
-        editor.putBoolean(key, value);
-    }
+	public void putFloat(String key, float value) {
+		editor.putFloat(key, value);
+	}
 
-    public int getInt(String key, int defaultValue) {
-        return sp.getInt(key, defaultValue);
-    }
+	public void putLong(String key, long value) {
+		editor.putLong(key, value);
+	}
 
-    public boolean getBoolean(String key, boolean defaultValue) {
-        return sp.getBoolean(key, defaultValue);
-    }
+	public void putBoolean(String key, boolean value) {
+		editor.putBoolean(key, value);
+	}
 
-    public float getFloat(String key, float defaultValue) {
-        return sp.getFloat(key, defaultValue);
-    }
+	public void putIsVote(String key, boolean value) {
+		editor.putBoolean(key, value);
+	}
 
-    public long getLong(String key, long defaultValue) {
-        return sp.getLong(key, defaultValue);
-    }
+	public int getInt(String key, int defaultValue) {
+		return sp.getInt(key, defaultValue);
+	}
 
-    public String getString(String key, String defaultValue) {
-        return sp.getString(key, defaultValue);
-    }
+	public boolean getBoolean(String key, boolean defaultValue) {
+		return sp.getBoolean(key, defaultValue);
+	}
 
-    public void commit() {
-        editor.commit();
-    }
+	public float getFloat(String key, float defaultValue) {
+		return sp.getFloat(key, defaultValue);
+	}
 
-    public void clear() {
-        editor.clear();
-        editor.commit();
-    }
+	public long getLong(String key, long defaultValue) {
+		return sp.getLong(key, defaultValue);
+	}
+
+	public String getString(String key, String defaultValue) {
+		return sp.getString(key, defaultValue);
+	}
+
+	public void commit() {
+		editor.commit();
+	}
+
+	public void clear() {
+		editor.clear();
+		editor.commit();
+	}
 }
