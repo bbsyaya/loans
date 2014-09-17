@@ -23,6 +23,6 @@
     <color name="seekbar_progress">#ff8a00</color>
     <color name="bottom_text_red">#ee4000</color>
     <color name="bottom_text_gray">#dedede</color>
-    <color name="red">#ff4444</color>
+    <color name="red">#FA5C5B</color>
     <color name="progress_color">#f00</color>
 </resources>

@@ -30,7 +30,7 @@
                 android:id="@+id/progressBar1"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="21dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
@@ -179,12 +179,21 @@
                         android:text="已投标人数"
                         android:textColor="@color/gray_dark" />
                     <TextView
+                        android:id="@+id/tempTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginRight="30dp"
                         android:text="138人"
                         android:textColor="@color/gray_dark" />
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/tempTV"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="-10dp"
+                        android:src="@drawable/right_bottom_red" />
                 </RelativeLayout>
             </LinearLayout>
             <!-- 申购奖励 -->
@@ -209,12 +218,21 @@
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp" >
                     <TextView
+                        android:id="@+id/rewardTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:text="活动期间，新手首次申购，买50元及其以上送20元现金红包。\n注：新手特指从未申购过稳盈贷产品的用户；每个新手至享受一次20元现金红包奖励；红包奖励将在成功募集后下一个工作日发放到账户余额。"
                         android:textColor="@color/gray_dark" />
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/rewardTV"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="-10dp"
+                        android:src="@drawable/right_bottom_red" />
                 </RelativeLayout>
             </LinearLayout>
             <!-- 项目描述 -->
@@ -239,12 +257,21 @@
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp" >
                     <TextView
+                        android:id="@+id/describeTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:text="上海xx餐饮经营管理有限公司法人代表为扩大企业经营，以个人名义申请贷款。"
                         android:textColor="@color/gray_dark" />
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/describeTV"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="-10dp"
+                        android:src="@drawable/right_bottom_red" />
                 </RelativeLayout>
             </LinearLayout>
             <!-- 资金保障 -->
@@ -269,12 +296,21 @@
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp" >
                     <TextView
+                        android:id="@+id/safeguardTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:text="浙江巨业担保有限公司提供全额本息担保"
                         android:textColor="@color/gray_dark" />
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/safeguardTV"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="-10dp"
+                        android:src="@drawable/right_bottom_red" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
@@ -282,6 +318,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal" >
         <!-- 投标按钮 -->
         <Button
@@ -290,9 +327,12 @@
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/estimate_profit_icon_normal"
+            android:drawablePadding="5dp"
             android:gravity="left|center_vertical"
             android:text="预估收益"
-            android:textColor="@color/gray_dark" />
+            android:textColor="@color/gray_dark"
+            android:textSize="14sp" />
         <!-- 投标按钮 -->
         <Button
             android:layout_width="0dp"
@@ -300,6 +340,7 @@
             android:layout_marginRight="20dp"
             android:layout_weight="1"
             android:background="@drawable/speak_hint_dialog_btn"
+            android:onClick="enterBtn"
             android:text="投标"
             android:textColor="#fff" />
     </LinearLayout>

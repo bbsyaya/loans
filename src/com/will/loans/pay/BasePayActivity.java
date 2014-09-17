@@ -13,7 +13,6 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.will.loans.R;
 
@@ -22,7 +21,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-public abstract class BaseActivity extends Activity implements Callback,
+public abstract class BasePayActivity extends Activity implements Callback,
 		Runnable {
 	public static final String LOG_TAG = "PayDemo";
 	private Context mContext = null;
@@ -54,7 +53,7 @@ public abstract class BaseActivity extends Activity implements Callback,
 			/*************************************************
 			 * 步骤1：从网络开始,获取交易流水号即TN
 			 ************************************************/
-			new Thread(BaseActivity.this).run();
+			new Thread(BasePayActivity.this).start();
 		}
 	};
 
@@ -69,16 +68,11 @@ public abstract class BaseActivity extends Activity implements Callback,
 
 		setContentView(R.layout.activity_pay);
 
-		Button btn0 = (Button) findViewById(R.id.btn0);
+		Button btn0 = (Button) findViewById(R.id.nextBtn);
 		btn0.setTag(0);
 		btn0.setOnClickListener(mClickListener);
 
-		TextView tv = (TextView) findViewById(R.id.guide);
-		tv.setTextSize(16);
-		updateTextView(tv);
 	}
-
-	public abstract void updateTextView(TextView tv);
 
 	@Override
 	public boolean handleMessage(Message msg) {
