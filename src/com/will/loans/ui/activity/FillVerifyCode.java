@@ -1,6 +1,8 @@
 
 package com.will.loans.ui.activity;
 
+import org.json.JSONObject;
+
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
@@ -17,11 +19,14 @@ public class FillVerifyCode extends BaseTextActivity {
     private Button mCountDown, mLogin;
 
     private AQuery mAQuery;
+    
+    public static JSONObject registerInfo; 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
+        mAQuery = new AQuery(this);
         setContentView(R.layout.activity_fill_vrify_code);
         init();
     }

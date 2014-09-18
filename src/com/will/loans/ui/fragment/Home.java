@@ -1,5 +1,6 @@
 package com.will.loans.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -26,6 +27,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.will.loans.R;
 import com.will.loans.beans.bean.BannerItem;
 import com.will.loans.ui.activity.FillPassword;
+import com.will.loans.ui.activity.Register;
 import com.will.loans.utils.ScreenProperties;
 import com.will.loans.weight.ProgressWheel;
 
@@ -291,7 +293,8 @@ public class Home extends BaseFragment implements OnClickListener {
 
 			break;
 		case R.id.title_btn_left:
-			jump2Activity(new FillPassword());
+			// jump2Activity(new FillPassword());
+			startActivity(new Intent(getActivity(), Register.class));
 			break;
 		default:
 			break;

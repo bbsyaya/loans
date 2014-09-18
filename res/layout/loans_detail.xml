@@ -3,24 +3,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+
     <include layout="@layout/common_title" />
+
     <ScrollView
         android:id="@+id/detailLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:visibility="invisible" >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:orientation="vertical" >
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="融资金额（元）"
                 android:textColor="@color/gray_dark" />
+
             <TextView
                 android:id="@+id/amountMoneyTV"
                 android:layout_width="wrap_content"
@@ -28,6 +33,7 @@
                 android:layout_marginTop="10dp"
                 android:text="495,000.00"
                 android:textSize="36sp" />
+
             <ProgressBar
                 android:id="@+id/percentPB"
                 style="?android:attr/progressBarStyleHorizontal"
@@ -39,18 +45,21 @@
                 android:max="100"
                 android:progress="18"
                 android:progressDrawable="@drawable/orange_progress_bar" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp" >
+
                 <TextView
                     android:id="@+id/amountPercentTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="已融资:18.06%"
                     android:textColor="@color/gray_dark" />
+
                 <TextView
                     android:id="@+id/remainMoneyTV"
                     android:layout_width="wrap_content"
@@ -60,11 +69,13 @@
                     android:textColor="@color/gray_dark" />
             </RelativeLayout>
             <!--  -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal" >
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -73,11 +84,13 @@
                     android:orientation="vertical"
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp" >
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="预期年化"
                         android:textColor="@color/gray_dark" />
+
                     <TextView
                         android:id="@+id/forwardEarnTV"
                         android:layout_width="wrap_content"
@@ -87,6 +100,7 @@
                         android:textColor="@color/red"
                         android:textSize="36sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -95,11 +109,13 @@
                     android:orientation="vertical"
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp" >
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="起投金额（元）"
                         android:textColor="@color/gray_dark" />
+
                     <TextView
                         android:id="@+id/startMoneyTV"
                         android:layout_width="wrap_content"
@@ -111,35 +127,46 @@
                 </LinearLayout>
             </LinearLayout>
             <!-- 认证 -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal" >
+
                 <TextView
                     android:id="@+id/notifyTV1"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
+                    android:drawableLeft="@drawable/p2c_detail_hint1_icon"
+                    android:drawablePadding="3dp"
                     android:text="高收益"
                     android:textColor="@color/gray_dark" />
+
                 <TextView
                     android:id="@+id/notifyTV2"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.3"
+                    android:drawableLeft="@drawable/p2c_detail_hint2_icon"
+                    android:drawablePadding="3dp"
                     android:text="第三方本息担保"
                     android:textColor="@color/gray_dark" />
+
                 <TextView
                     android:id="@+id/notifyTV3"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:drawableLeft="@drawable/p2c_detail_hint3_icon"
+                    android:drawablePadding="3dp"
                     android:text="限12个月"
                     android:textColor="@color/gray_dark" />
             </LinearLayout>
             <!-- 起息日xxx -->
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -148,6 +175,7 @@
                 android:layout_marginTop="10dp"
                 android:text="起息日：募集成功次日开始计算收益\n还款提示：按月等额本息还款至账户余额"
                 android:textColor="@color/gray_dark" />
+
             <TextView
                 android:id="@+id/notifyTV4"
                 android:layout_width="match_parent"
@@ -157,11 +185,13 @@
                 android:layout_marginTop="10dp"
                 android:text="账户资金安全由中信银行监管" />
             <!-- 投标情况 -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical" >
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -171,6 +201,7 @@
                     android:paddingTop="5dp"
                     android:text="投标情况"
                     android:textSize="16sp" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -178,12 +209,14 @@
                     android:orientation="vertical"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp" >
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:text="已投标人数"
                         android:textColor="@color/gray_dark" />
+
                     <TextView
                         android:id="@+id/payNumTV"
                         android:layout_width="wrap_content"
@@ -192,6 +225,7 @@
                         android:layout_marginRight="30dp"
                         android:text="138人"
                         android:textColor="@color/gray_dark" />
+
                     <ImageView
                         android:layout_width="15dp"
                         android:layout_height="15dp"
@@ -203,10 +237,12 @@
                 </RelativeLayout>
             </LinearLayout>
             <!-- 申购奖励 -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -216,6 +252,7 @@
                     android:paddingTop="5dp"
                     android:text="申购奖励"
                     android:textSize="16sp" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -223,6 +260,7 @@
                     android:orientation="vertical"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp" >
+
                     <TextView
                         android:id="@+id/rewardTV"
                         android:layout_width="wrap_content"
@@ -231,6 +269,7 @@
                         android:layout_marginRight="20dp"
                         android:text="活动期间，新手首次申购，买50元及其以上送20元现金红包。\n注：新手特指从未申购过稳盈贷产品的用户；每个新手至享受一次20元现金红包奖励；红包奖励将在成功募集后下一个工作日发放到账户余额。"
                         android:textColor="@color/gray_dark" />
+
                     <ImageView
                         android:layout_width="15dp"
                         android:layout_height="15dp"
@@ -242,10 +281,12 @@
                 </RelativeLayout>
             </LinearLayout>
             <!-- 项目描述 -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -255,6 +296,7 @@
                     android:paddingTop="5dp"
                     android:text="项目描述"
                     android:textSize="16sp" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -262,6 +304,7 @@
                     android:orientation="vertical"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp" >
+
                     <TextView
                         android:id="@+id/describeTV"
                         android:layout_width="wrap_content"
@@ -270,6 +313,7 @@
                         android:layout_marginRight="20dp"
                         android:text="上海xx餐饮经营管理有限公司法人代表为扩大企业经营，以个人名义申请贷款。"
                         android:textColor="@color/gray_dark" />
+
                     <ImageView
                         android:layout_width="15dp"
                         android:layout_height="15dp"
@@ -281,10 +325,12 @@
                 </RelativeLayout>
             </LinearLayout>
             <!-- 资金保障 -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -294,6 +340,7 @@
                     android:paddingTop="5dp"
                     android:text="资金保障"
                     android:textSize="16sp" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -301,6 +348,7 @@
                     android:orientation="vertical"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp" >
+
                     <TextView
                         android:id="@+id/safeguardTV"
                         android:layout_width="wrap_content"
@@ -309,6 +357,7 @@
                         android:layout_marginRight="20dp"
                         android:text="浙江巨业担保有限公司提供全额本息担保"
                         android:textColor="@color/gray_dark" />
+
                     <ImageView
                         android:layout_width="15dp"
                         android:layout_height="15dp"
@@ -319,18 +368,22 @@
                         android:src="@drawable/right_bottom_red" />
                 </RelativeLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:background="@color/bg" />
         </LinearLayout>
     </ScrollView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
+
         <!-- 投标按钮 -->
+
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -344,6 +397,7 @@
             android:textColor="@color/gray_dark"
             android:textSize="14sp" />
         <!-- 投标按钮 -->
+
         <Button
             android:layout_width="0dp"
             android:layout_height="40dp"
@@ -354,4 +408,5 @@
             android:text="投标"
             android:textColor="#fff" />
     </LinearLayout>
+
 </LinearLayout>

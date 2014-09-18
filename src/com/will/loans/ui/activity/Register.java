@@ -1,6 +1,7 @@
 package com.will.loans.ui.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
@@ -54,23 +55,30 @@ public class Register extends BaseTextActivity implements
 		mNextBtn = (Button) findViewById(R.id.btn_next);
 		findViewById(R.id.user_use).setOnClickListener(this);
 		findViewById(R.id.user_use_self).setOnClickListener(this);
+
+		mCheckBox.setChecked(false);
+		buildParams();
 	}
 
 	@Override
 	public void beforeTextChanged(CharSequence s, int start, int count,
 			int after) {
+	}
+
+	@Override
+	public void onTextChanged(CharSequence s, int start, int before, int count) {
 		if (s.length() > 0) {
 			mBigPhoneNum.setVisibility(View.VISIBLE);
 			mBigPhoneNum.setText(s);
 		} else {
 			mBigPhoneNum.setVisibility(View.GONE);
 		}
-	}
 
-	@Override
-	public void onTextChanged(CharSequence s, int start, int before, int count) {
-		// TODO Auto-generated method stub
-
+		if (s.length() == 11) {
+			mNextBtn.setEnabled(mCheckBox.isChecked());
+		} else {
+			mNextBtn.setEnabled(false);
+		}
 	}
 
 	@Override
@@ -88,17 +96,17 @@ public class Register extends BaseTextActivity implements
 
 			break;
 		case R.id.btn_next:
-
+			buildParams();
 			break;
 		default:
 			break;
 		}
 	}
 
-	private CustomProgressDialog mCustomProgressDialog = CustomProgressDialog
-			.createDialog(getApplication());
+	private CustomProgressDialog mCustomProgressDialog;
 
 	public void getLoginInfo() {
+		mCustomProgressDialog = CustomProgressDialog.createDialog(this);
 		mAQuery.ajax("", String.class, mRegisterCallback).dismiss(
 				mCustomProgressDialog);
 	}
@@ -108,8 +116,8 @@ public class Register extends BaseTextActivity implements
 		try {
 			jo.put("timeStamp", new Date().getTime());
 			jo.put("phoneNum", "13799568671");
-			jo.put("token", "1FBE22C74C30107226974F5EA89C6B8D");
-			jo.put("verCode", "960295");
+			// jo.put("token", "1FBE22C74C30107226974F5EA89C6B8D");
+			// jo.put("verCode", "960295");
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -118,13 +126,16 @@ public class Register extends BaseTextActivity implements
 		// aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
 		// loginFirst
 		// registerOrLoginByMsg
-		mAQuery.ajax(
-				"http://125.77.254.170:8086/daidaitongServer/mobile/loginFirst",
+		mAQuery.ajax("http://daidaitong.imwanmei.com:8080/mobile/loginFirst",
 				params, JSONObject.class, new AjaxCallback<JSONObject>() {
 					@Override
-					public void callback(String url, JSONObject object,
+					public void callback(String url, JSONObject json,
 							AjaxStatus status) {
-						System.out.println(" " + object.toString());
+						if (json.optString("resultflag").equals("2")) {
+							FillVerifyCode.registerInfo = json;
+							startActivity(new Intent(Register.this,
+									FillVerifyCode.class));
+						}
 					}
 				});
 	}
@@ -143,7 +154,8 @@ public class Register extends BaseTextActivity implements
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		if (isChecked) {
 			mNextBtn.setEnabled(true);
+		} else {
+			mNextBtn.setEnabled(false);
 		}
-
 	}
 }

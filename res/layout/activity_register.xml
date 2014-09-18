@@ -16,6 +16,7 @@
             style="@style/Width_match_height_wrap"
             android:background="@drawable/register_number_bg"
             android:drawableLeft="@drawable/user_phone_icon"
+            android:inputType="phone"
             android:focusable="true"
             android:hint="请输入手机号码" />
         <ImageView
