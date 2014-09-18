@@ -1,9 +1,17 @@
 package com.will.loans.ui.activity;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -16,18 +24,13 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
-import com.will.loans.weight.CustomProgressDialog;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
+/**
+ * 登陆页面
+ * @author will
+ *
+ */
 @SuppressLint("NewApi")
-public class Register extends BaseTextActivity implements
-		OnCheckedChangeListener {
+public class Register extends BaseTextActivity implements OnCheckedChangeListener {
 	private EditText mPhoneNum;
 
 	private TextView mBigPhoneNum;
@@ -53,31 +56,26 @@ public class Register extends BaseTextActivity implements
 		mPhoneNum.addTextChangedListener(this);
 		mCheckBox.setOnCheckedChangeListener(this);
 		mNextBtn = (Button) findViewById(R.id.btn_next);
+		mNextBtn.setOnClickListener(this);
 		findViewById(R.id.user_use).setOnClickListener(this);
 		findViewById(R.id.user_use_self).setOnClickListener(this);
-
-		mCheckBox.setChecked(false);
-		buildParams();
 	}
 
 	@Override
 	public void beforeTextChanged(CharSequence s, int start, int count,
 			int after) {
+
 	}
 
 	@Override
 	public void onTextChanged(CharSequence s, int start, int before, int count) {
 		if (s.length() > 0) {
+			mNextBtn.setEnabled(true);
 			mBigPhoneNum.setVisibility(View.VISIBLE);
 			mBigPhoneNum.setText(s);
 		} else {
-			mBigPhoneNum.setVisibility(View.GONE);
-		}
-
-		if (s.length() == 11) {
-			mNextBtn.setEnabled(mCheckBox.isChecked());
-		} else {
 			mNextBtn.setEnabled(false);
+			mBigPhoneNum.setVisibility(View.GONE);
 		}
 	}
 
@@ -103,21 +101,18 @@ public class Register extends BaseTextActivity implements
 		}
 	}
 
-	private CustomProgressDialog mCustomProgressDialog;
+	//	private CustomProgressDialog mCustomProgressDialog = CustomProgressDialog
+	//			.createDialog(getApplication());
 
 	public void getLoginInfo() {
-		mCustomProgressDialog = CustomProgressDialog.createDialog(this);
-		mAQuery.ajax("", String.class, mRegisterCallback).dismiss(
-				mCustomProgressDialog);
+
 	}
 
 	public void buildParams() {
 		JSONObject jo = new JSONObject();
 		try {
 			jo.put("timeStamp", new Date().getTime());
-			jo.put("phoneNum", "13799568671");
-			// jo.put("token", "1FBE22C74C30107226974F5EA89C6B8D");
-			// jo.put("verCode", "960295");
+			jo.put("phoneNum", mPhoneNum.getText().toString());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -126,26 +121,39 @@ public class Register extends BaseTextActivity implements
 		// aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
 		// loginFirst
 		// registerOrLoginByMsg
-		mAQuery.ajax("http://daidaitong.imwanmei.com:8080/mobile/loginFirst",
-				params, JSONObject.class, new AjaxCallback<JSONObject>() {
-					@Override
-					public void callback(String url, JSONObject json,
-							AjaxStatus status) {
-						if (json.optString("resultflag").equals("2")) {
-							FillVerifyCode.registerInfo = json;
-							startActivity(new Intent(Register.this,
-									FillVerifyCode.class));
-						}
-					}
-				});
+		mAQuery.ajax(
+				"http://daidaitong.imwanmei.com:8080/mobile/loginFirst",
+				params, JSONObject.class, mRegisterCallback);
 	}
 
-	AjaxCallback<String> mRegisterCallback = new AjaxCallback<String>() {
+	AjaxCallback<JSONObject> mRegisterCallback = new AjaxCallback<JSONObject>() {
 		@Override
-		public void callback(String url, String object, AjaxStatus status) {
+		public void callback(String url, JSONObject object, AjaxStatus status) {
 			super.callback(url, object, status);
+			Log.d("", object.toString());
 			if (status.getCode() == 200) {
-				mCustomProgressDialog.dismiss();
+				//				mCustomProgressDialog.dismiss();
+			}
+			try {
+				Intent intent = null;
+				String state = object.getString("resultflag");
+				String token = object.getString("token");
+				if (state.equals("0")) {
+					intent = new Intent(Register.this, FillPassword.class).putExtra(FillVerifyCode.NUM, mPhoneNum.getText().toString()).putExtra(FillVerifyCode.TOKEN, token);
+				}else if(state.equals("1")){
+
+				}else if(state.equals("3")){
+					intent = new Intent(Register.this, FillVerifyCode.class).putExtra(FillVerifyCode.NUM, mPhoneNum.getText().toString()).putExtra(FillVerifyCode.TOKEN, token);
+				}else if(state.equals("2")){
+					intent = new Intent(Register.this, Login.class);
+				}
+				if (intent!=null) {
+					startActivity(intent);
+					Register.this.finish();
+				}
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	};
@@ -154,8 +162,7 @@ public class Register extends BaseTextActivity implements
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		if (isChecked) {
 			mNextBtn.setEnabled(true);
-		} else {
-			mNextBtn.setEnabled(false);
 		}
+
 	}
 }

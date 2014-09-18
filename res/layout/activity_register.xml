@@ -16,7 +16,6 @@
             style="@style/Width_match_height_wrap"
             android:background="@drawable/register_number_bg"
             android:drawableLeft="@drawable/user_phone_icon"
-            android:inputType="phone"
             android:focusable="true"
             android:hint="请输入手机号码" />
         <ImageView
@@ -38,30 +37,32 @@
         style="@style/Width_wrap_height_wrap"
         android:layout_margin="10dp"
         android:text="盈盈不会再任何地方泄露您的号码"
-        android:textSize="10sp" />
-    <LinearLayout style="@style/Width_match_height_wrap" >
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    <RelativeLayout style="@style/Width_match_height_wrap" >
         <CheckBox
             android:id="@+id/cb_agree"
             style="@style/Width_wrap_height_wrap"
+            android:layout_alignParentLeft="true"
             android:checked="true"
             android:text="已阅读并同意"
-            android:textSize="10sp" />
+            android:textSize="12sp" />
         <LinearLayout
             style="@style/Width_wrap_height_wrap"
             android:layout_marginTop="10dp"
+            android:layout_alignParentRight="true"
             android:orientation="vertical" >
             <TextView
                 android:id="@+id/user_use"
                 style="@style/Width_wrap_height_wrap"
                 android:text="《盈盈理财用户使用协议》"
-                android:textSize="10sp" />
+                android:textSize="12sp" />
             <TextView
                 android:id="@+id/user_use_self"
                 style="@style/Width_wrap_height_wrap"
                 android:text="《使用条款和隐私政策协议》"
-                android:textSize="10sp" />
+                android:textSize="12sp" />
         </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
     <Button
         android:id="@+id/btn_next"
         style="@style/Width_match_height_wrap"

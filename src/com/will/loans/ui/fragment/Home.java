@@ -1,6 +1,9 @@
 package com.will.loans.ui.fragment;
 
-import android.content.Intent;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -26,14 +29,9 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.will.loans.R;
 import com.will.loans.beans.bean.BannerItem;
-import com.will.loans.ui.activity.FillPassword;
 import com.will.loans.ui.activity.Register;
 import com.will.loans.utils.ScreenProperties;
 import com.will.loans.weight.ProgressWheel;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 public class Home extends BaseFragment implements OnClickListener {
 
@@ -85,9 +83,9 @@ public class Home extends BaseFragment implements OnClickListener {
 				R.string.tab_home);
 		setTitleVisible(view, View.VISIBLE, View.VISIBLE, View.VISIBLE);
 		((Button) view.findViewById(R.id.title_btn_right))
-				.setOnClickListener(this);
+		.setOnClickListener(this);
 		((Button) view.findViewById(R.id.title_btn_left))
-				.setOnClickListener(this);
+		.setOnClickListener(this);
 		pwTwo = (ProgressWheel) view.findViewById(R.id.progress_bar_two);
 		new Thread(r).start();
 		groupPoint = (RadioGroup) view.findViewById(R.id.rg_points);
@@ -293,8 +291,7 @@ public class Home extends BaseFragment implements OnClickListener {
 
 			break;
 		case R.id.title_btn_left:
-			// jump2Activity(new FillPassword());
-			startActivity(new Intent(getActivity(), Register.class));
+			jump2Activity(new Register());
 			break;
 		default:
 			break;

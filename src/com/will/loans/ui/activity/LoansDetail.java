@@ -1,5 +1,11 @@
 package com.will.loans.ui.activity;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,12 +20,6 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
 import com.will.loans.pay.EditPayActivity;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class LoansDetail extends BaseActivity {
 
@@ -51,17 +51,17 @@ public class LoansDetail extends BaseActivity {
 		params.put("jsonData", jo.toString());
 		aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/proDetail", params,
 				JSONObject.class, new AjaxCallback<JSONObject>() {
-					@Override
-					public void callback(String url, JSONObject json,
-							AjaxStatus status) {
-						Log.e("11", json.toString());
-						// updateView();
-						if (!json.optString("resultflag").equals("0")) {
-							return;
-						}
-						updateView(json.optJSONObject("detail"));
-					}
-				});
+			@Override
+			public void callback(String url, JSONObject json,
+					AjaxStatus status) {
+				Log.e("11", json.toString());
+				// updateView();
+				if (!json.optString("resultflag").equals("0")) {
+					return;
+				}
+				updateView(json.optJSONObject("detail"));
+			}
+		});
 
 	}
 
@@ -118,5 +118,9 @@ public class LoansDetail extends BaseActivity {
 
 	public void enterBtn(View view) {
 		startActivity(new Intent(LoansDetail.this, EditPayActivity.class));
+	}
+
+	public void calculatorView(View view) {
+		startActivity(new Intent(LoansDetail.this, PreEncoming.class));
 	}
 }

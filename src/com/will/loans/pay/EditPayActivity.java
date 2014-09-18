@@ -1,5 +1,12 @@
 package com.will.loans.pay;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Message;
@@ -17,14 +24,8 @@ import com.androidquery.callback.AjaxStatus;
 import com.unionpay.UPPayAssistEx;
 import com.unionpay.uppay.PayActivity;
 import com.will.loans.R;
+import com.will.loans.beans.UserinfoCache;
 import com.will.loans.ui.activity.LoansDetail;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class EditPayActivity extends BasePayActivity {
 
@@ -94,11 +95,11 @@ public class EditPayActivity extends BasePayActivity {
 		JSONObject jo = new JSONObject();
 		try {
 			jo.put("timeStamp", new Date().getTime());
-			jo.put("userid", "");
-			jo.put("token", "");
+			jo.put("userid", UserinfoCache.userId);
+			jo.put("token", UserinfoCache.token);
 			jo.put("amount", moneyET.getText().toString());
-			jo.put("proId", "");
-			jo.put("tradePsw", "");
+			jo.put("proId", LoansDetail.pro.optInt("id"));
+			jo.put("tradePsw", "66668888");
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -107,18 +108,18 @@ public class EditPayActivity extends BasePayActivity {
 		// aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
 		// loginFirst
 		// registerOrLoginByMsg
-		aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/proList", params,
+		aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/buyProduct", params,
 				JSONObject.class, new AjaxCallback<JSONObject>() {
-					@Override
-					public void callback(String url, JSONObject json,
-							AjaxStatus status) {
-						mLoadingDialog.cancel();
-						String tn = json.optString("tn");
-						Message msg = mHandler.obtainMessage();
-						msg.obj = tn;
-						mHandler.sendMessage(msg);
-					}
-				});
+			@Override
+			public void callback(String url, JSONObject json,
+					AjaxStatus status) {
+				mLoadingDialog.cancel();
+				String tn = json.optString("tn");
+				Message msg = mHandler.obtainMessage();
+				msg.obj = tn;
+				mHandler.sendMessage(msg);
+			}
+		});
 
 	}
 
