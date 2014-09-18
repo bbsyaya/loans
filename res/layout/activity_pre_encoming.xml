@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <include layout="@layout/common_title" />
+    <ScrollView
+        style="@style/Width_match_height_wrap"
+        android:padding="10dp" >
+        <LinearLayout
+            style="@style/Width_match_height_wrap"
+            android:orientation="vertical" >
+            <TextView
+                android:id="@+id/encomint_title"
+                style="@style/Width_match_height_wrap"
+                android:text="合营优选SA811号"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+            <RelativeLayout style="@style/Width_match_height_wrap" >
+                <TextView
+                    style="@style/Width_match_height_wrap"
+                    android:layout_alignParentLeft="true"
+                    android:text="融资金额："
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                <TextView
+                    android:id="@+id/total_money"
+                    style="@style/Width_wrap_height_wrap"
+                    android:layout_alignParentRight="true"
+                    android:text="495000.00 元"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/encomint_title"
+                style="@style/Width_match_height_wrap"
+                android:text="预估收益："
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            <LinearLayout
+                style="@style/Width_match_height_wrap"
+                android:gravity="center_vertical" >
+                <LinearLayout
+                    style="@style/Width_0_height_wrap"
+                    android:layout_weight="1"
+                    android:orientation="horizontal" >
+                    <EditText
+                        android:id="@+id/money_number"
+                        style="@style/Width_0_height_wrap"
+                        android:layout_weight="3"
+                        android:hint="投标金额：10000"
+                        android:textSize="11sp" />
+                    <TextView
+                        style="@style/Width_0_height_wrap"
+                        android:layout_weight="1"
+                        android:text="元"
+                        android:textSize="11sp" />
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/Width_0_height_wrap"
+                    android:layout_weight="1"
+                    android:orientation="horizontal" >
+                    <TextView
+                        style="@style/Width_0_height_wrap"
+                        android:layout_weight="2"
+                        android:text="理财期限："
+                        android:textColor="@color/gray"
+                        android:textSize="11sp" />
+                    <TextView
+                        style="@style/Width_0_height_wrap"
+                        android:layout_weight="1"
+                        android:text="12个"
+                        android:textColor="@color/gray"
+                        android:textSize="11sp" />
+                    <TextView
+                        style="@style/Width_0_height_wrap"
+                        android:layout_weight="1"
+                        android:text="月"
+                        android:textSize="11sp" />
+                </LinearLayout>
+            </LinearLayout>
+            <RelativeLayout
+                style="@style/Width_match_height_wrap"
+                android:gravity="center_vertical" >
+                <LinearLayout
+                    style="@style/Width_wrap_height_wrap"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal" >
+                    <TextView
+                        style="@style/Width_0_height_wrap"
+                        android:layout_weight="5"
+                        android:text="产品预估收益："
+                        android:textSize="11sp" />
+                    <TextView
+                        style="@style/Width_0_height_wrap"
+                        android:layout_weight="1"
+                        android:text="352.0"
+                        android:textColor="@color/gray"
+                        android:textSize="11sp" />
+                    <TextView
+                        style="@style/Width_0_height_wrap"
+                        android:layout_weight="1"
+                        android:text="元"
+                        android:textSize="11sp" />
+                </LinearLayout>
+                <Button
+                    android:id="@+id/btn_pre_encoming"
+                    android:layout_width="100dp"
+                    android:layout_height="38dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/speak_hint_dialog_btn"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    android:text="预估收益"
+                    android:textColor="#fff"
+                    android:textSize="10sp" />
+            </RelativeLayout>
+            <TextView
+                style="@style/Width_0_height_wrap"
+                android:layout_weight="1"
+                android:text="一年按12个月计算，每月等额本息回款，即每月回收同等数额的贷款()"
+                android:textSize="11sp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
