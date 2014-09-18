@@ -4,26 +4,29 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     <include layout="@layout/common_title" />
-    <LinearLayout style="@style/Width_match_height_wrap" >
-        <TextView
-            android:id="@+id/tv_send_msg"
-            style="@style/Width_match_height_wrap"
-            android:text="异响" />
-        <LinearLayout style="@style/Width_match_height_wrap" >
-            <EditText
-                android:id="@+id/et_veri_code"
-                style="@style/Width_wrap_height_wrap"
-                android:layout_weight="1"
-                android:background="@drawable/register_number_bg" />
-            <Button
-                android:id="@+id/btn_count_down"
-                style="@style/Width_wrap_height_wrap"
-                android:layout_weight="1" />
-        </LinearLayout>
-        <Button
-            android:id="@+id/btn_confirm"
-            style="@style/Width_match_height_wrap"
-            android:layout_weight="1"
-            android:background="@drawable/speak_hint_dialog_btn" />
-    </LinearLayout>
+    <EditText
+        android:id="@+id/et_psw"
+        style="@style/RegisterEt"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@drawable/user_phone_icon"
+        android:gravity="left|center_vertical"
+        android:hint="输入验证码" />
+    <TextView
+        android:id="@+id/forget_psw"
+        style="@style/Width_match_height_wrap"
+        android:layout_marginRight="15dp"
+        android:visibility="gone"
+        android:gravity="right"
+        android:text="忘记密码？" />
+    <Button
+        android:id="@+id/nextBtn"
+        style="@style/Width_match_height_wrap"
+        android:layout_margin="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/speak_hint_dialog_btn"
+        android:text="下一步"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white" />
 </LinearLayout>

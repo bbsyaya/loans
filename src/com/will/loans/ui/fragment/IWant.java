@@ -1,6 +1,8 @@
 package com.will.loans.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,6 +16,9 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.will.loans.R;
+import com.will.loans.ui.activity.SetPassword;
+import com.will.loans.ui.activity.TradeResult;
+import com.will.loans.utils.SharePreferenceUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -100,9 +105,10 @@ public class IWant extends BaseFragment implements OnClickListener {
 		JSONObject jo = new JSONObject();
 		try {
 			jo.put("timeStamp", new Date().getTime());
-			jo.put("phoneNum", "13799568671");
-			jo.put("token", "1FBE22C74C30107226974F5EA89C6B8D");
-			jo.put("verCode", "960295");
+			jo.put("userid", SharePreferenceUtil.getUserPref(getActivity())
+					.getUserId());
+			jo.put("token", SharePreferenceUtil.getUserPref(getActivity())
+					.getToken());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -111,12 +117,12 @@ public class IWant extends BaseFragment implements OnClickListener {
 		// aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
 		// loginFirst
 		// registerOrLoginByMsg
-		aq.ajax("http://125.77.254.170:8086/daidaitongServer/mobile/registerOrLoginByMsg",
+		aq.ajax("http://daidaitong.imwanmei.com:8080/daidaitongServer/mobile/todayProfit",
 				params, JSONObject.class, new AjaxCallback<JSONObject>() {
 					@Override
-					public void callback(String url, JSONObject object,
+					public void callback(String url, JSONObject json,
 							AjaxStatus status) {
-						// System.out.println(" " + object.toString());
+						Log.e("11", "iwant ------ " + json.toString());
 					}
 				});
 	}
@@ -143,6 +149,12 @@ public class IWant extends BaseFragment implements OnClickListener {
 		amountPointBtn = (LinearLayout) view.findViewById(R.id.amountPointBtn);
 
 		todayEarnBtn.setOnClickListener(this);
+		amountEarnBtn.setOnClickListener(this);
+		amountMoneyBtn.setOnClickListener(this);
+		hasMoneyBtn.setOnClickListener(this);
+		remainMoneyBtn.setOnClickListener(this);
+		tradeHistoryBtn.setOnClickListener(this);
+		amountPointBtn.setOnClickListener(this);
 	}
 
 	private void initTextView(View view) {
@@ -169,6 +181,7 @@ public class IWant extends BaseFragment implements OnClickListener {
 		case R.id.remainMoneyBtn:
 			break;
 		case R.id.tradeHistoryBtn:
+			startActivity(new Intent(getActivity(), TradeResult.class));
 			break;
 		case R.id.amountPointBtn:
 			break;

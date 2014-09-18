@@ -2,6 +2,7 @@ package com.will.loans.pay;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -18,6 +19,8 @@ import com.unionpay.UPPayAssistEx;
 import com.unionpay.uppay.PayActivity;
 import com.will.loans.R;
 import com.will.loans.ui.activity.LoansDetail;
+import com.will.loans.ui.activity.SetPassword;
+import com.will.loans.utils.SharePreferenceUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,7 +33,7 @@ public class EditPayActivity extends BasePayActivity {
 
 	private EditText moneyET;
 
-	private JSONObject jo = LoansDetail.pro;
+	private JSONObject product = LoansDetail.pro;
 
 	private AQuery aq;
 
@@ -79,7 +82,7 @@ public class EditPayActivity extends BasePayActivity {
 					return;
 				}
 				int money = Integer.parseInt(moneyET.getText().toString());
-				if (money == 0 || money % jo.optInt("startBuy") != 0) {
+				if (money == 0 || money % product.optInt("startBuy") != 0) {
 					nextBtn.setEnabled(false);
 				} else {
 					nextBtn.setEnabled(true);
@@ -87,6 +90,11 @@ public class EditPayActivity extends BasePayActivity {
 			}
 		});
 		updateView();
+
+		if (SharePreferenceUtil.getUserPref(this).getTradePassword().equals("")) {
+			SetPassword.type = 1;
+			startActivity(new Intent(EditPayActivity.this, SetPassword.class));
+		}
 	}
 
 	private void getDate() {
@@ -94,11 +102,16 @@ public class EditPayActivity extends BasePayActivity {
 		JSONObject jo = new JSONObject();
 		try {
 			jo.put("timeStamp", new Date().getTime());
-			jo.put("userid", "");
-			jo.put("token", "");
+			jo.put("userid",
+					SharePreferenceUtil.getUserPref(EditPayActivity.this)
+							.getUserId());
+			jo.put("token",
+					SharePreferenceUtil.getUserPref(EditPayActivity.this)
+							.getToken());
 			jo.put("amount", moneyET.getText().toString());
-			jo.put("proId", "");
-			jo.put("tradePsw", "");
+			jo.put("proId", product.optString("id"));
+			jo.put("tradePsw", SharePreferenceUtil.getUserPref(EditPayActivity.this)
+					.getTradePassword());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -107,7 +120,7 @@ public class EditPayActivity extends BasePayActivity {
 		// aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
 		// loginFirst
 		// registerOrLoginByMsg
-		aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/proList", params,
+		aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/buyProduct", params,
 				JSONObject.class, new AjaxCallback<JSONObject>() {
 					@Override
 					public void callback(String url, JSONObject json,
@@ -123,13 +136,13 @@ public class EditPayActivity extends BasePayActivity {
 	}
 
 	private void updateView() {
-		setTextView(R.id.nameTV, jo.optString("proName"), "");
-		setTextView(R.id.moneyTV, "起投金额：" + jo.optInt("startBuy") + "元"
+		setTextView(R.id.nameTV, product.optString("proName"), "");
+		setTextView(R.id.moneyTV, "起投金额：" + product.optInt("startBuy") + "元"
 				+ "    手续费:无", "");
-		setTextView(R.id.timeTV, "理财年限：限" + jo.optString("timeLimit") + "个月",
-				"");
-		setTextView(R.id.multipleTV, "投资倍数为：" + jo.optInt("startBuy") + "的整数倍",
-				"");
+		setTextView(R.id.timeTV, "理财年限：限" + product.optString("timeLimit")
+				+ "个月", "");
+		setTextView(R.id.multipleTV, "投资倍数为：" + product.optInt("startBuy")
+				+ "的整数倍", "");
 	}
 
 	/**

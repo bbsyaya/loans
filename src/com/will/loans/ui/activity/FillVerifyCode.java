@@ -1,26 +1,42 @@
 
 package com.will.loans.ui.activity;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.LauncherActivity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
+import com.unionpay.mobile.android.nocard.views.j;
 import com.will.loans.R;
+import com.will.loans.utils.SharePreferenceUtil;
 
 public class FillVerifyCode extends BaseTextActivity {
     private EditText mVerifyCode;
 
-    private Button mCountDown, mLogin;
+    private Button nextBtn;
 
     private AQuery mAQuery;
     
     public static JSONObject registerInfo; 
+
+	private ProgressDialog mLoadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +50,9 @@ public class FillVerifyCode extends BaseTextActivity {
     private void init() {
         initTop();
         mAQuery = new AQuery(this);
-        mVerifyCode = (EditText) findViewById(R.id.et_veri_code);
-        mCountDown = (Button) findViewById(R.id.btn_count_down);
-        mLogin = (Button) findViewById(R.id.btn_confirm);
-        mLogin.setOnClickListener(this);
-        mCountDown.setOnClickListener(this);
+        mVerifyCode = (EditText) findViewById(R.id.et_psw);
+        nextBtn = (Button) findViewById(R.id.nextBtn);
+        nextBtn.setOnClickListener(this);
         mVerifyCode.addTextChangedListener(this);
     }
 
@@ -49,9 +63,55 @@ public class FillVerifyCode extends BaseTextActivity {
 
     @Override
     public void onClick(View v) {
-        // TODO Auto-generated method stub
+    	switch (v.getId()) {
+		case R.id.nextBtn:
+			buildParams();
+			break;
 
+		default:
+			break;
+		}
     }
+    
+    public void buildParams() {
+		JSONObject jo = new JSONObject();
+		try {
+			jo.put("timeStamp", new Date().getTime());
+			jo.put("phoneNum", registerInfo.optString("phoneNum"));
+			jo.put("token", registerInfo.optString("token"));
+			jo.put("verCode", mVerifyCode.getText().toString());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("jsonData", jo.toString());
+		// aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
+		// loginFirst
+		// registerOrLoginByMsg
+		mLoadingDialog = ProgressDialog.show(FillVerifyCode.this, // context
+				"", // title
+				"正在努力的获取tn中,请稍候...", // message
+				true);
+		mAQuery.ajax(
+				"http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
+				params, JSONObject.class, new AjaxCallback<JSONObject>() {
+					@Override
+					public void callback(String url, JSONObject json,
+							AjaxStatus status) {
+						mLoadingDialog.cancel();
+						if(json.optString("resultflag").equals("0")) {
+							SharePreferenceUtil.getUserPref(FillVerifyCode.this).setUserId(json.optString("userid"));
+							SharePreferenceUtil.getUserPref(FillVerifyCode.this).setToken(json.optString("token"));
+							SharePreferenceUtil.getUserPref(FillVerifyCode.this).setUsername(json.optString("phoneNum"));
+							Intent intent = new Intent(FillVerifyCode.this,HomePage.class);
+							intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  
+							startActivity(intent);
+						} else {
+							Toast.makeText(FillVerifyCode.this, json.optString("resultMsg"), Toast.LENGTH_SHORT).show();
+						}
+					}
+				});
+	}
 
     class CountDown extends CountDownTimer {
 
@@ -81,10 +141,10 @@ public class FillVerifyCode extends BaseTextActivity {
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if (s.length() > 0) {
-            mLogin.setEnabled(true);
+        if (s.length() > 0 && s.length() == 6) {
+        	nextBtn.setEnabled(true);
         } else {
-            mLogin.setEnabled(false);
+        	nextBtn.setEnabled(false);
         }
     }
 

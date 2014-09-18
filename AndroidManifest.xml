@@ -76,6 +76,10 @@
         </activity>
         <activity android:name=".ui.activity.FillPassword" >
         </activity>
+         <activity android:name=".ui.activity.SetPassword" >
+        </activity>
+         <activity android:name=".ui.activity.TradeResult" >
+        </activity>
         <activity android:name="com.unionpay.uppay.PayActivity" >
         </activity>
         <activity android:name=".pay.EditPayActivity" >

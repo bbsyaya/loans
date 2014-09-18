@@ -10,13 +10,14 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="20dp"
-        android:drawableLeft="@drawable/user_phone_icon"
+        android:inputType="textPassword"
         android:gravity="left|center_vertical"
         android:hint="填写登录密码" />
     <TextView
         android:id="@+id/forget_psw"
         style="@style/Width_match_height_wrap"
         android:layout_marginRight="15dp"
+        android:visibility="gone"
         android:gravity="right"
         android:text="忘记密码？" />
     <Button

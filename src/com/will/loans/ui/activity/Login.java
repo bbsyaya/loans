@@ -48,7 +48,6 @@ public class Login extends BaseTextActivity {
 
     @Override
     public void onClick(View v) {
-        // TODO Auto-generated method stub
         super.onClick(v);
     }
 }

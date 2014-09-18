@@ -1,6 +1,8 @@
 
 package com.will.loans.ui.activity;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,6 +15,7 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
+import com.will.loans.utils.SharePreferenceUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,11 +25,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FillPassword extends BaseTextActivity {
-    private EditText mPsw;
+	
+    protected static JSONObject registerInfo;
+
+	private EditText mPsw;
 
     private Button mLogin;
 
     private AQuery mAQuery;
+
+	private ProgressDialog mLoadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +61,8 @@ public class FillPassword extends BaseTextActivity {
         JSONObject jo = new JSONObject();
         try {
             jo.put("timeStamp", new Date().getTime());
-            jo.put("phoneNum", "13799568671");
-            jo.put("token", "1FBE22C74C30107226974F5EA89C6B8D");
-            jo.put("verCode", "960295");
+            jo.put("phoneNum", registerInfo.optString("phoneNum"));
+            jo.put("loginPsw", mPsw.getText().toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -64,11 +71,20 @@ public class FillPassword extends BaseTextActivity {
         // aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
         // loginFirst
         // registerOrLoginByMsg
-        mAQuery.ajax("http://125.77.254.170:8086/daidaitongServer/mobile/loginFirst", params,
+        mLoadingDialog = ProgressDialog.show(FillPassword.this, // context
+				"", // title
+				"正在努力的获取tn中,请稍候...", // message
+				true); 
+        mAQuery.ajax("http://daidaitong.imwanmei.com:8080/mobile/loginByPsw", params,
                 JSONObject.class, new AjaxCallback<JSONObject>() {
                     @Override
-                    public void callback(String url, JSONObject object, AjaxStatus status) {
-                        System.out.println(" " + object.toString());
+                    public void callback(String url, JSONObject json, AjaxStatus status) {
+                        mLoadingDialog.cancel();
+                        if(json.optString("resultflag").equals("0")){
+                        	Intent intent = new Intent(FillPassword.this,HomePage.class);
+							intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  
+							startActivity(intent);
+                        }
                     }
                 });
     }
@@ -80,17 +96,15 @@ public class FillPassword extends BaseTextActivity {
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        if (s.length() > 0) {
-            mLogin.setEnabled(true);
-        } else {
-            mLogin.setEnabled(false);
-        }
     }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        // TODO Auto-generated method stub
-
+    	 if (s.length() > 0) {
+             mLogin.setEnabled(true);
+         } else {
+             mLogin.setEnabled(false);
+         }
     }
 
     @Override
@@ -106,7 +120,7 @@ public class FillPassword extends BaseTextActivity {
 
                 break;
             case R.id.btn_login:
-
+            	buildParams();
                 break;
             default:
                 break;

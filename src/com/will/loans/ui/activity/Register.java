@@ -1,9 +1,11 @@
 package com.will.loans.ui.activity;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -37,6 +39,8 @@ public class Register extends BaseTextActivity implements
 	private Button mNextBtn;
 
 	private AQuery mAQuery;
+	
+	private ProgressDialog mLoadingDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +57,12 @@ public class Register extends BaseTextActivity implements
 		mPhoneNum.addTextChangedListener(this);
 		mCheckBox.setOnCheckedChangeListener(this);
 		mNextBtn = (Button) findViewById(R.id.btn_next);
+		mNextBtn.setOnClickListener(this);
 		findViewById(R.id.user_use).setOnClickListener(this);
 		findViewById(R.id.user_use_self).setOnClickListener(this);
 
 		mCheckBox.setChecked(false);
-		buildParams();
+		//buildParams();
 	}
 
 	@Override
@@ -115,7 +120,7 @@ public class Register extends BaseTextActivity implements
 		JSONObject jo = new JSONObject();
 		try {
 			jo.put("timeStamp", new Date().getTime());
-			jo.put("phoneNum", "13799568671");
+			jo.put("phoneNum", mPhoneNum.getText().toString());
 			// jo.put("token", "1FBE22C74C30107226974F5EA89C6B8D");
 			// jo.put("verCode", "960295");
 		} catch (JSONException e) {
@@ -126,12 +131,28 @@ public class Register extends BaseTextActivity implements
 		// aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
 		// loginFirst
 		// registerOrLoginByMsg
+		mLoadingDialog = ProgressDialog.show(Register.this, // context
+				"", // title
+				"正在努力的获取tn中,请稍候...", // message
+				true);
 		mAQuery.ajax("http://daidaitong.imwanmei.com:8080/mobile/loginFirst",
 				params, JSONObject.class, new AjaxCallback<JSONObject>() {
 					@Override
 					public void callback(String url, JSONObject json,
 							AjaxStatus status) {
-						if (json.optString("resultflag").equals("2")) {
+						mLoadingDialog.cancel();
+						Log.e("11", "" +json.toString());
+						try {
+							json.put("phoneNum", mPhoneNum.getText().toString());
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+						if(json.optString("resultflag").equals("0")){
+							FillPassword.registerInfo = json;
+							startActivity(new Intent(Register.this,
+									FillPassword.class));
+						}
+						if (json.optString("resultflag").equals("2")||json.optString("resultflag").equals("3")) {
 							FillVerifyCode.registerInfo = json;
 							startActivity(new Intent(Register.this,
 									FillVerifyCode.class));
