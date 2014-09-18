@@ -52,7 +52,6 @@ public class SetPassword extends BaseTextActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_setpassword);
-		type = 0;
 		if (type == 0) {
 			((TextView) findViewById(R.id.title_tv)).setText("设置密码");
 		} else {
@@ -158,13 +157,13 @@ public class SetPassword extends BaseTextActivity implements
 						mLoadingDialog.cancel();
 						Log.e("11", "" + json.toString());
 						if (json.optString("resultflag").equals("0")) {
-							FillVerifyCode.registerInfo = json;
-							startActivity(new Intent(SetPassword.this,
-									FillVerifyCode.class));
 							if (type == 0) {
 								SharePreferenceUtil.getUserPref(SetPassword.this).setPasswd(epwET.getText().toString());
 								Toast.makeText(SetPassword.this, "设置密码成功",
 										Toast.LENGTH_SHORT).show();
+								Intent intent = new Intent(SetPassword.this,HomePage.class);
+								intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  
+								startActivity(intent);
 								finish();
 							} else {
 								SharePreferenceUtil.getUserPref(SetPassword.this).setTradePassword(epwET.getText().toString());

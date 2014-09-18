@@ -18,6 +18,7 @@ import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
@@ -44,6 +45,8 @@ public class FillVerifyCode extends BaseTextActivity {
         super.onCreate(savedInstanceState);
         mAQuery = new AQuery(this);
         setContentView(R.layout.activity_fill_vrify_code);
+        ((TextView) findViewById(R.id.title_tv))
+		.setText("填写验证码");
         init();
     }
 
@@ -90,7 +93,7 @@ public class FillVerifyCode extends BaseTextActivity {
 		// registerOrLoginByMsg
 		mLoadingDialog = ProgressDialog.show(FillVerifyCode.this, // context
 				"", // title
-				"正在努力的获取tn中,请稍候...", // message
+				"正在努力加载中,请稍候...", // message
 				true);
 		mAQuery.ajax(
 				"http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
@@ -103,8 +106,7 @@ public class FillVerifyCode extends BaseTextActivity {
 							SharePreferenceUtil.getUserPref(FillVerifyCode.this).setUserId(json.optString("userid"));
 							SharePreferenceUtil.getUserPref(FillVerifyCode.this).setToken(json.optString("token"));
 							SharePreferenceUtil.getUserPref(FillVerifyCode.this).setUsername(json.optString("phoneNum"));
-							Intent intent = new Intent(FillVerifyCode.this,HomePage.class);
-							intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  
+							Intent intent = new Intent(FillVerifyCode.this,SetPassword.class);
 							startActivity(intent);
 						} else {
 							Toast.makeText(FillVerifyCode.this, json.optString("resultMsg"), Toast.LENGTH_SHORT).show();

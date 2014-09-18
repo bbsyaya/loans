@@ -1,5 +1,6 @@
 package com.will.loans.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.widget.CompoundButton;
@@ -8,6 +9,7 @@ import android.widget.RadioButton;
 import android.widget.TabHost;
 
 import com.will.loans.R;
+import com.will.loans.utils.SharePreferenceUtil;
 
 public class HomePage extends FragmentActivity implements
 		OnCheckedChangeListener {

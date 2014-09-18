@@ -75,7 +75,7 @@ public class SharePreferenceUtil {
 	}
 
 	public String getToken() {
-		return sp.getString("token", null);
+		return sp.getString("token", "");
 	}
 
 	// 用户的昵称

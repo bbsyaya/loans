@@ -16,6 +16,7 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.will.loans.R;
+import com.will.loans.ui.activity.Register;
 import com.will.loans.ui.activity.SetPassword;
 import com.will.loans.ui.activity.TradeResult;
 import com.will.loans.utils.SharePreferenceUtil;
@@ -94,7 +95,9 @@ public class IWant extends BaseFragment implements OnClickListener {
 		// homePRSV = (PullToRefreshScrollView)
 		// view.findViewById(R.id.minePRSV);
 		// initRefreshView();
-
+		if (SharePreferenceUtil.getUserPref(getActivity()).getToken().equals("")) {
+			startActivity(new Intent(getActivity(), Register.class));
+		}
 		getDate();
 	}
 
@@ -123,8 +126,9 @@ public class IWant extends BaseFragment implements OnClickListener {
 					public void callback(String url, JSONObject json,
 							AjaxStatus status) {
 						Log.e("11", "iwant ------ " + json.toString());
-						if(json.optString("resultFlag").equals("1")){
-							SharePreferenceUtil.getUserPref(getActivity()).clear();
+						if (json.optString("resultFlag").equals("1")) {
+							SharePreferenceUtil.getUserPref(getActivity())
+									.clear();
 						}
 					}
 				});

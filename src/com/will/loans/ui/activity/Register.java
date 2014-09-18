@@ -46,6 +46,8 @@ public class Register extends BaseTextActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
+		((TextView) findViewById(R.id.title_tv))
+		.setText("登录");
 		initView();
 	}
 
@@ -133,7 +135,7 @@ public class Register extends BaseTextActivity implements
 		// registerOrLoginByMsg
 		mLoadingDialog = ProgressDialog.show(Register.this, // context
 				"", // title
-				"正在努力的获取tn中,请稍候...", // message
+				"正在努力加载中,请稍候...", // message
 				true);
 		mAQuery.ajax("http://daidaitong.imwanmei.com:8080/mobile/loginFirst",
 				params, JSONObject.class, new AjaxCallback<JSONObject>() {

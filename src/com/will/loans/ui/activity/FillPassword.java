@@ -42,7 +42,8 @@ public class FillPassword extends BaseTextActivity {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fill_psw);
-
+        ((TextView) findViewById(R.id.title_tv))
+		.setText("填写登录密码");
         initView();
     }
 
@@ -74,7 +75,7 @@ public class FillPassword extends BaseTextActivity {
         // registerOrLoginByMsg
         mLoadingDialog = ProgressDialog.show(FillPassword.this, // context
 				"", // title
-				"加载中，请稍候...", // message
+				"正在努力加载中，请稍候...", // message
 				true); 
         mAQuery.ajax("http://daidaitong.imwanmei.com:8080/mobile/loginByPsw", params,
                 JSONObject.class, new AjaxCallback<JSONObject>() {
@@ -87,7 +88,6 @@ public class FillPassword extends BaseTextActivity {
 							SharePreferenceUtil.getUserPref(FillPassword.this).setToken(json.optString("token"));
 							SharePreferenceUtil.getUserPref(FillPassword.this).setUsername(registerInfo.optString("phoneNum"));
                         	Intent intent = new Intent(FillPassword.this,HomePage.class);
-							intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  
 							startActivity(intent);
                         }
                     }
