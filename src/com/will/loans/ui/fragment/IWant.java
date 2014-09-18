@@ -7,13 +7,20 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
+import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.will.loans.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class IWant extends BaseFragment implements OnClickListener {
 
@@ -56,6 +63,8 @@ public class IWant extends BaseFragment implements OnClickListener {
 	 */
 	private TextView amountPointTV;
 
+	private AQuery aq;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -66,6 +75,7 @@ public class IWant extends BaseFragment implements OnClickListener {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+		aq = new AQuery(getActivity(), view);
 		((TextView) view.findViewById(R.id.title_tv))
 				.setText(R.string.tab_mine);
 		((Button) view.findViewById(R.id.title_btn_left))
@@ -87,7 +97,28 @@ public class IWant extends BaseFragment implements OnClickListener {
 	 * 请求接口数据
 	 */
 	private void getDate() {
-		// TODO 网络请求
+		JSONObject jo = new JSONObject();
+		try {
+			jo.put("timeStamp", new Date().getTime());
+			jo.put("phoneNum", "13799568671");
+			jo.put("token", "1FBE22C74C30107226974F5EA89C6B8D");
+			jo.put("verCode", "960295");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("jsonData", jo.toString());
+		// aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
+		// loginFirst
+		// registerOrLoginByMsg
+		aq.ajax("http://125.77.254.170:8086/daidaitongServer/mobile/registerOrLoginByMsg",
+				params, JSONObject.class, new AjaxCallback<JSONObject>() {
+					@Override
+					public void callback(String url, JSONObject object,
+							AjaxStatus status) {
+						System.out.println(" " + object.toString());
+					}
+				});
 	}
 
 	private void updateView() {
@@ -99,18 +130,6 @@ public class IWant extends BaseFragment implements OnClickListener {
 		hasMoneyTV.setText("");
 		remainMoneyTV.setText("");
 		amountPointTV.setText("");
-	}
-
-	/**
-	 * 初始化下拉刷新監聽器
-	 */
-	private void initRefreshView() {
-		homePRSV.setOnRefreshListener(new OnRefreshListener<ScrollView>() {
-			@Override
-			public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
-				getDate();
-			}
-		});
 	}
 
 	private void initButton(View view) {

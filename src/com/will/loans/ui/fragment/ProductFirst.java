@@ -17,7 +17,7 @@ import com.will.loans.weight.AutoLoadPull2RefreshListView.OnRefreshListener;
 import com.will.loans.weight.ProgressWheel;
 
 public class ProductFirst extends BaseFragment implements OnLoadMoreListener,
-OnRefreshListener, OnItemClickListener {
+		OnRefreshListener, OnItemClickListener {
 	private AutoLoadPull2RefreshListView mListView;
 
 	private LoansAdapter mAdapter;
@@ -32,6 +32,11 @@ OnRefreshListener, OnItemClickListener {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		initView(view);
+		getDate();
+	}
+
+	private void getDate() {
+
 	}
 
 	private void initView(View view) {
@@ -68,11 +73,12 @@ OnRefreshListener, OnItemClickListener {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder viewHolder;
-			if (convertView==null) {
+			if (convertView == null) {
 				viewHolder = new ViewHolder();
 				convertView = getActivity().getLayoutInflater().inflate(
 						R.layout.item_loans, null);
-				viewHolder.progressWheel = (ProgressWheel) convertView.findViewById(R.id.progress_bar_two);
+				viewHolder.progressWheel = (ProgressWheel) convertView
+						.findViewById(R.id.progress_bar_two);
 				convertView.setTag(viewHolder);
 			}
 			viewHolder = (ViewHolder) convertView.getTag();
