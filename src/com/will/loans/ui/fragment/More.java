@@ -13,8 +13,11 @@ import com.will.loans.R;
 import com.will.loans.ui.activity.ActionCenter;
 import com.will.loans.ui.activity.HelpCenter;
 import com.will.loans.ui.activity.MessageCenter;
+import com.will.loans.utils.SharePreferenceUtil;
 
 public class More extends BaseFragment implements OnClickListener{
+	
+	private View logout;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -33,11 +36,22 @@ public class More extends BaseFragment implements OnClickListener{
 		view.findViewById(R.id.more_message_center).setOnClickListener(this);
 		view.findViewById(R.id.more_help_center).setOnClickListener(this);
 		view.findViewById(R.id.more_attention).setOnClickListener(this);
-		view.findViewById(R.id.more_exit).setOnClickListener(this);
+		logout = view.findViewById(R.id.more_exit);
+		logout.setOnClickListener(this);
 		view.findViewById(R.id.more_rate).setOnClickListener(this);
 		view.findViewById(R.id.more_share).setOnClickListener(this);
 		view.findViewById(R.id.more_feedback).setOnClickListener(this);
 		view.findViewById(R.id.check_update_llyt).setOnClickListener(this);
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		if(SharePreferenceUtil.getUserPref(getActivity()).getToken().equals("")){
+			logout.setVisibility(View.GONE);
+		} else {
+			logout.setVisibility(View.VISIBLE);
+		}
 	}
 
 	@Override
@@ -59,7 +73,7 @@ public class More extends BaseFragment implements OnClickListener{
 
 			break;
 		case R.id.more_exit:
-
+			SharePreferenceUtil.getUserPref(getActivity()).clear();
 			break;
 		case R.id.more_rate:
 

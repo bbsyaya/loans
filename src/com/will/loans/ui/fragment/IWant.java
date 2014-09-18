@@ -123,6 +123,9 @@ public class IWant extends BaseFragment implements OnClickListener {
 					public void callback(String url, JSONObject json,
 							AjaxStatus status) {
 						Log.e("11", "iwant ------ " + json.toString());
+						if(json.optString("resultFlag").equals("1")){
+							SharePreferenceUtil.getUserPref(getActivity()).clear();
+						}
 					}
 				});
 	}

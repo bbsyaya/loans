@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -73,14 +74,18 @@ public class FillPassword extends BaseTextActivity {
         // registerOrLoginByMsg
         mLoadingDialog = ProgressDialog.show(FillPassword.this, // context
 				"", // title
-				"正在努力的获取tn中,请稍候...", // message
+				"加载中，请稍候...", // message
 				true); 
         mAQuery.ajax("http://daidaitong.imwanmei.com:8080/mobile/loginByPsw", params,
                 JSONObject.class, new AjaxCallback<JSONObject>() {
                     @Override
                     public void callback(String url, JSONObject json, AjaxStatus status) {
                         mLoadingDialog.cancel();
+                        Log.e("11", json.toString());
                         if(json.optString("resultflag").equals("0")){
+                        	SharePreferenceUtil.getUserPref(FillPassword.this).setUserId(json.optString("userid"));
+							SharePreferenceUtil.getUserPref(FillPassword.this).setToken(json.optString("token"));
+							SharePreferenceUtil.getUserPref(FillPassword.this).setUsername(registerInfo.optString("phoneNum"));
                         	Intent intent = new Intent(FillPassword.this,HomePage.class);
 							intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  
 							startActivity(intent);
