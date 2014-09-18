@@ -23,6 +23,7 @@
         <Button
             android:id="@+id/btn_confirm"
             style="@style/Width_match_height_wrap"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:background="@drawable/speak_hint_dialog_btn" />
     </LinearLayout>
 </LinearLayout>

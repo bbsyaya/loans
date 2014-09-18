@@ -26,6 +26,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.will.loans.R;
 import com.will.loans.beans.bean.BannerItem;
+import com.will.loans.ui.activity.FillPassword;
 import com.will.loans.utils.ScreenProperties;
 import com.will.loans.weight.ProgressWheel;
 
@@ -275,12 +276,12 @@ public class Home extends BaseFragment implements OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-        //		case R.id.title_btn_right:
-        //
-        //			break;
-        //		case R.id.title_btn_left:
-        //
-        //			break;
+            case R.id.title_btn_right:
+
+                break;
+            case R.id.title_btn_left:
+                jump2Activity(new FillPassword());
+                break;
             default:
                 break;
         }

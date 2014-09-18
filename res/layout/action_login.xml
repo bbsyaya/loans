@@ -12,5 +12,7 @@
         style="@style/Width_match_height_wrap" />
     <Button
         android:id="@+id/btn_login"
-        style="@style/Width_match_height_wrap" />
+        style="@style/Width_match_height_wrap"
+        android:layout_margin="15dp"
+        android:background="@drawable/speak_hint_dialog_btn" />
 </LinearLayout>
