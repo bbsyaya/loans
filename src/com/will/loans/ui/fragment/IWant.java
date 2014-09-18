@@ -116,7 +116,7 @@ public class IWant extends BaseFragment implements OnClickListener {
 					@Override
 					public void callback(String url, JSONObject object,
 							AjaxStatus status) {
-						System.out.println(" " + object.toString());
+						// System.out.println(" " + object.toString());
 					}
 				});
 	}

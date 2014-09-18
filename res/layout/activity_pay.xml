@@ -4,101 +4,110 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
     <include layout="@layout/common_title" />
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/edittext_bg"
-        android:orientation="horizontal"
-        android:paddingBottom="15dp"
-        android:paddingLeft="20dp"
-        android:paddingTop="15dp" >
+        android:layout_height="wrap_content" >
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical" >
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/mine_fund_icon_default" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingLeft="10dp" >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_bg"
+                android:orientation="horizontal"
+                android:paddingBottom="15dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="15dp" >
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/mine_fund_icon_default" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp" >
+                    <TextView
+                        android:id="@+id/nameTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="合盈优选SA8111号"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/moneyTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="起投金额：50元		手续费：无" />
+                    <TextView
+                        android:id="@+id/timeTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="理财期限：限12个月" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_bg"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="投标金额：" />
+                <EditText
+                    android:id="@+id/moneyET"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="投资金额需≥50"
+                    android:inputType="numberDecimal"
+                    android:textSize="14sp" >
+                </EditText>
+            </LinearLayout>
             <TextView
-                android:id="@+id/nameTV"
+                android:id="@+id/multipleTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="合盈优选SA8111号"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-            <TextView
-                android:id="@+id/moneyTV"
-                android:layout_width="wrap_content"
+                android:padding="15dp"
+                android:text="投资金额为50倍数"
+                android:textColor="@color/gray_dark" />
+            <!-- 投标按钮 -->
+            <Button
+                android:id="@+id/nextBtn"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp"
-                android:text="起投金额：50元		手续费：无" />
+                android:background="@drawable/speak_hint_dialog_btn"
+                android:text="下一步"
+                android:textAppearance="?android:attr/textAppearanceMediumInverse"
+                android:textColor="#fff" />
             <TextView
-                android:id="@+id/timeTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="理财期限：限12个月" />
+                android:id="@+id/home_construction"
+                style="@style/Width_wrap_height_wrap"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:drawableLeft="@drawable/icon_security"
+                android:drawablePadding="5dp"
+                android:text="账户资金安全由中信银行监督"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/gray_dark" />
         </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/edittext_bg"
-        android:gravity="center_vertical"
-        android:paddingLeft="15dp" >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="投标金额：" />
-        <EditText
-            android:id="@+id/moneyET"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1"
-            android:background="@null"
-            android:hint="投资金额需≥50"
-            android:inputType="numberDecimal"
-            android:textSize="14sp" >
-        </EditText>
-    </LinearLayout>
-    <TextView
-        android:id="@+id/multipleTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:text="投资金额为50倍数"
-        android:textColor="@color/gray_dark" />
-    <Button
-        android:id="@+id/nextBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/speak_hint_dialog_btn"
-        android:text="下一步"
-        android:textAppearance="?android:attr/textAppearanceMediumInverse"
-        android:textColor="#fff" />
-    <TextView
-        android:id="@+id/home_construction"
-        style="@style/Width_wrap_height_wrap"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
-        android:drawableLeft="@drawable/icon_security"
-        android:drawablePadding="5dp"
-        android:text="账户资金安全由中信银行监督"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/gray_dark" />
-    <!-- 投标按钮 -->
+    </ScrollView>
 </LinearLayout>

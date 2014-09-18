@@ -14,8 +14,8 @@
             android:text="车金融b234号"
             android:textAppearance="?android:attr/textAppearanceMedium" />
         <LinearLayout
-            android:layout_marginTop="10dp" 
-            style="@style/Width_match_height_wrap" >
+            style="@style/Width_match_height_wrap"
+            android:layout_marginTop="10dp" >
             <LinearLayout
                 style="@style/Width_0_height_wrap"
                 android:layout_weight="1"
@@ -27,9 +27,9 @@
                 <TextView
                     android:id="@+id/loans_persent"
                     style="@style/Width_wrap_height_wrap"
-                    android:textColor="@color/red"
+                    android:text="91%"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="91%" />
+                    android:textColor="@color/red" />
             </LinearLayout>
             <LinearLayout
                 style="@style/Width_0_height_wrap"
@@ -41,15 +41,15 @@
                     android:text="限12个月" />
                 <TextView
                     android:id="@+id/loans_low"
-                    android:layout_marginTop="3dp"
                     style="@style/Width_wrap_height_wrap"
+                    android:layout_marginTop="3dp"
                     android:text="50元起购" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
     <RelativeLayout
         style="@style/Width_0_height_wrap"
-        android:layout_weight="1" >
+        android:layout_weight="1.5" >
         <RelativeLayout
             style="@style/Width_wrap_height_wrap"
             android:layout_alignParentRight="true" >
@@ -67,18 +67,42 @@
                 android:textSize="10sp"
                 android:textStyle="bold" />
         </RelativeLayout>
-        <com.will.loans.weight.ProgressWheel
-            android:layout_marginTop="18dp"
-        xmlns:ProgressWheel="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/progress_bar_two"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        ProgressWheel:barColor="@color/progress_color"
-        ProgressWheel:barWidth="4dp"
-        ProgressWheel:rimColor="@color/progress_color"
-        ProgressWheel:rimWidth="2dp"
-        ProgressWheel:spinSpeed="3dp"
-        ProgressWheel:textColor="@color/progress_color"
-        ProgressWheel:textSize="12sp" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp" >
+            <com.will.loans.weight.ProgressWheel
+                xmlns:ProgressWheel="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/progress_bar_two"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                ProgressWheel:barColor="@color/red"
+                ProgressWheel:barWidth="2dp"
+                ProgressWheel:rimColor="@color/gray"
+                ProgressWheel:rimWidth="2dp"
+                ProgressWheel:spinSpeed="3dp"
+                ProgressWheel:textColor="@color/transparent"
+                ProgressWheel:textSize="12sp" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="bottom"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/percentTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="17"
+                    android:textColor="@color/red"
+                    android:textSize="18sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="%"
+                    android:textColor="@color/gray_dark"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

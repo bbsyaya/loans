@@ -25,9 +25,8 @@ public abstract class BasePayActivity extends Activity implements Callback,
 		Runnable {
 	public static final String LOG_TAG = "PayDemo";
 	private Context mContext = null;
-	private int mGoodsIdx = 0;
-	private Handler mHandler = null;
-	private ProgressDialog mLoadingDialog = null;
+	protected Handler mHandler = null;
+	protected ProgressDialog mLoadingDialog = null;
 
 	public static final int PLUGIN_VALID = 0;
 	public static final int PLUGIN_NOT_INSTALLED = -1;
@@ -39,12 +38,11 @@ public abstract class BasePayActivity extends Activity implements Callback,
 	private final String mMode = "01";
 	private static final String TN_URL_01 = "http://202.101.25.178:8080/sim/gettn";
 
+	protected Button nextBtn;
+
 	private final View.OnClickListener mClickListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			Log.e(LOG_TAG, " " + v.getTag());
-			mGoodsIdx = (Integer) v.getTag();
-
 			mLoadingDialog = ProgressDialog.show(mContext, // context
 					"", // title
 					"正在努力的获取tn中,请稍候...", // message
@@ -68,9 +66,13 @@ public abstract class BasePayActivity extends Activity implements Callback,
 
 		setContentView(R.layout.activity_pay);
 
-		Button btn0 = (Button) findViewById(R.id.nextBtn);
-		btn0.setTag(0);
-		btn0.setOnClickListener(mClickListener);
+		nextBtn = (Button) findViewById(R.id.nextBtn);
+
+		afterSetContentView();
+
+	}
+
+	protected void afterSetContentView() {
 
 	}
 

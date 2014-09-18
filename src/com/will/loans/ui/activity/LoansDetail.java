@@ -2,20 +2,118 @@ package com.will.loans.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
 import com.will.loans.pay.EditPayActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class LoansDetail extends BaseActivity {
+
+	public static JSONObject pro;
+	private AQuery aq;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		aq = new AQuery(this);
 		setContentView(R.layout.loans_detail);
 		((Button) findViewById(R.id.title_btn_left)).setText(R.string.back);
 		((Button) findViewById(R.id.title_btn_right)).setText(R.string.refresh);
+		if (pro != null) {
+			getData();
+		}
+	}
+
+	private void getData() {
+		JSONObject jo = new JSONObject();
+		try {
+			jo.put("proId", pro.optInt("id"));
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return;
+		}
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("jsonData", jo.toString());
+		aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/proDetail", params,
+				JSONObject.class, new AjaxCallback<JSONObject>() {
+					@Override
+					public void callback(String url, JSONObject json,
+							AjaxStatus status) {
+						Log.e("11", json.toString());
+						// updateView();
+						if (!json.optString("resultflag").equals("0")) {
+							return;
+						}
+						updateView(json.optJSONObject("detail"));
+					}
+				});
+
+	}
+
+	private void updateView(JSONObject jo) {
+		findViewById(R.id.detailLayout).setVisibility(View.VISIBLE);
+		((ProgressBar) findViewById(R.id.percentPB)).setProgress(pro
+				.optInt("percent"));
+		// 融资金额
+		setTextView(R.id.amountMoneyTV, pro.optInt("totalAmount") + "", "");
+		// 已融资
+		setTextView(R.id.amountPercentTV, "已融资：" + jo.optInt("buyNum") + "%",
+				"");
+		// 剩余
+		setTextView(R.id.remainMoneyTV,
+				"剩余：" + (pro.optInt("totalAmount") - jo.optInt("buyNum")), "");
+		// 高收益、第三方、限几个月、保障
+		// setTextView(R.id.notifyTV1, jo.optString("benxiDesc"), "");
+		setTextView(R.id.notifyTV2, jo.optString("benxiDesc"), "");
+		setTextView(R.id.notifyTV3, "限" + pro.optString("timeLimit") + "个月", "");
+		setTextView(R.id.notifyTV4, jo.optString("securityTip"), "");
+		// 预期年化
+		setTextView(R.id.forwardEarnTV, pro.optInt("percent") + "%", "");
+		// 起投金额
+		setTextView(R.id.startMoneyTV, pro.optInt("startBuy") + "", "");
+		// 起投人数
+		setTextView(R.id.payNumTV, pro.optInt("buyPerNum") + "人", "");
+		//
+	}
+
+	/**
+	 * 通过id设置text
+	 * <p>
+	 * 若text为null或"",则使用or
+	 * 
+	 * @param resId
+	 * @param text
+	 * @param or
+	 */
+	private void setTextView(final int resId, String text, String or) {
+		final String content;
+		if (TextUtils.isEmpty(text)) {
+			content = or;
+		} else {
+			content = text;
+		}
+		runOnUiThread(new Runnable() {
+
+			@Override
+			public void run() {
+				((TextView) findViewById(resId)).setText(content);
+			}
+		});
 	}
 
 	public void enterBtn(View view) {

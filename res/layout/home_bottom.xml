@@ -45,7 +45,7 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             ProgressWheel:barColor="@color/red"
-            ProgressWheel:barWidth="5dp"
+            ProgressWheel:barWidth="8dp"
             ProgressWheel:rimColor="@color/red"
             ProgressWheel:rimWidth="2dp"
             ProgressWheel:spinSpeed="3dp"

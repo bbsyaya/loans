@@ -1,6 +1,7 @@
 package com.will.loans.ui.fragment;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
 import com.will.loans.ui.activity.LoansDetail;
 import com.will.loans.weight.AutoLoadPull2RefreshListView;
@@ -16,11 +20,27 @@ import com.will.loans.weight.AutoLoadPull2RefreshListView.OnLoadMoreListener;
 import com.will.loans.weight.AutoLoadPull2RefreshListView.OnRefreshListener;
 import com.will.loans.weight.ProgressWheel;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class ProductFirst extends BaseFragment implements OnLoadMoreListener,
 		OnRefreshListener, OnItemClickListener {
 	private AutoLoadPull2RefreshListView mListView;
 
 	private LoansAdapter mAdapter;
+
+	private AQuery aq;
+
+	List<JSONObject> products = new ArrayList<JSONObject>();
+
+	private int mPageNum = 1;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,11 +51,48 @@ public class ProductFirst extends BaseFragment implements OnLoadMoreListener,
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+		aq = new AQuery(getActivity(), view);
 		initView(view);
-		getDate();
+		getDate(false);
 	}
 
-	private void getDate() {
+	private void getDate(final boolean isRefresh) {
+		JSONObject jo = new JSONObject();
+		try {
+			jo.put("timeStamp", new Date().getTime());
+			jo.put("pageNum", mPageNum);
+			// jo.put("token", "1FBE22C74C30107226974F5EA89C6B8D");
+			// jo.put("verCode", "960295");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("jsonData", jo.toString());
+		// aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
+		// loginFirst
+		// registerOrLoginByMsg
+		aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/proList", params,
+				JSONObject.class, new AjaxCallback<JSONObject>() {
+					@Override
+					public void callback(String url, JSONObject json,
+							AjaxStatus status) {
+						if (isRefresh) {
+							products.clear();
+							mListView.onRefreshComplete();
+						} else {
+							mListView.onLoadMoreComplete();
+						}
+						if (json == null) {
+							return;
+						}
+						JSONArray ja = null;
+						ja = json.optJSONArray("proList");
+						for (int i = 0; i < ja.length(); i++) {
+							products.add(ja.optJSONObject(i));
+						}
+						mAdapter.notifyDataSetChanged();
+					}
+				});
 
 	}
 
@@ -54,19 +111,16 @@ public class ProductFirst extends BaseFragment implements OnLoadMoreListener,
 
 		@Override
 		public int getCount() {
-			// TODO Auto-generated method stub
-			return 10;
+			return products.size();
 		}
 
 		@Override
-		public Object getItem(int position) {
-			// TODO Auto-generated method stub
-			return null;
+		public JSONObject getItem(int position) {
+			return products.get(position);
 		}
 
 		@Override
 		public long getItemId(int position) {
-			// TODO Auto-generated method stub
 			return 0;
 		}
 
@@ -77,24 +131,50 @@ public class ProductFirst extends BaseFragment implements OnLoadMoreListener,
 				viewHolder = new ViewHolder();
 				convertView = getActivity().getLayoutInflater().inflate(
 						R.layout.item_loans, null);
+				viewHolder.loans_title = (TextView) convertView
+						.findViewById(R.id.loans_title);
+				viewHolder.loans_plan = (TextView) convertView
+						.findViewById(R.id.loans_plan);
+				viewHolder.loans_number = (TextView) convertView
+						.findViewById(R.id.loans_number);
+				viewHolder.loans_persent = (TextView) convertView
+						.findViewById(R.id.loans_persent);
+				viewHolder.loans_low = (TextView) convertView
+						.findViewById(R.id.loans_low);
 				viewHolder.progressWheel = (ProgressWheel) convertView
 						.findViewById(R.id.progress_bar_two);
+				viewHolder.progressWheel = (ProgressWheel) convertView
+						.findViewById(R.id.progress_bar_two);
+				viewHolder.percentTV = (TextView) convertView
+						.findViewById(R.id.percentTV);
 				convertView.setTag(viewHolder);
 			}
+			JSONObject item = getItem(position);
 			viewHolder = (ViewHolder) convertView.getTag();
-			viewHolder.progressWheel.setProgress(100);
-			viewHolder.progressWheel.setText("21%");
+			viewHolder.loans_title.setText(item.optString("proName"));
+			viewHolder.loans_plan.setText(item.optString("syms"));
+			viewHolder.loans_number.setText(Html
+					.fromHtml("<font color=#7CC0D9>限</font>"
+							+ item.optInt("timeLimit") + "个月"));
+			viewHolder.loans_persent.setText(item.optInt("percent") + "%");
+			viewHolder.loans_low.setText(Html.fromHtml("<strong>"
+					+ item.optInt("startBuy") + "</strong>元起购"));
+			viewHolder.progressWheel
+					.setProgress((int) (item.optInt("percent") * 3.6));
+			viewHolder.percentTV.setText("" + item.optInt("percent"));
 			return convertView;
 		}
 
 		class ViewHolder {
-			TextView title;
+			TextView loans_title;
 
-			TextView time;
+			TextView loans_plan;
 
-			TextView persent;
+			TextView loans_number;
 
-			TextView limit;
+			TextView loans_persent;
+
+			TextView loans_low;
 
 			TextView bigPersent;
 
@@ -104,6 +184,8 @@ public class ProductFirst extends BaseFragment implements OnLoadMoreListener,
 
 			TextView status;
 
+			TextView percentTV;
+
 			ProgressWheel progressWheel;
 		}
 
@@ -111,20 +193,20 @@ public class ProductFirst extends BaseFragment implements OnLoadMoreListener,
 
 	@Override
 	public void onRefresh() {
-		mListView.onRefreshComplete();
-
+		mPageNum = 1;
+		getDate(true);
 	}
 
 	@Override
 	public void onLoadMore() {
-		// TODO Auto-generated method stub
-		mListView.onLoadMoreComplete();
+		mPageNum++;
+		getDate(false);
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
+		LoansDetail.pro = mAdapter.getItem(position - 1);
 		jump2Activity(new LoansDetail());
-		// startActivity(new Intent(getActivity(), ProductDetail.class));
 	}
 }
