@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,8 +20,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
@@ -32,8 +36,15 @@ import com.will.loans.utils.ScreenProperties;
 import com.will.loans.weight.ProgressWheel;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Home extends BaseFragment implements OnClickListener {
 
@@ -59,6 +70,10 @@ public class Home extends BaseFragment implements OnClickListener {
 
 	private final long FLING_PAGE_INTERVAL = 3000;
 
+	List<JSONObject> products = new ArrayList<JSONObject>();
+
+	private View view;
+
 	private Handler handler = new Handler() {
 
 		@Override
@@ -80,6 +95,7 @@ public class Home extends BaseFragment implements OnClickListener {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+		this.view = view;
 		aq = new AQuery(getActivity(), view);
 		setTitleText(view, R.string.tab_mine, R.string.refresh,
 				R.string.tab_home);
@@ -97,6 +113,73 @@ public class Home extends BaseFragment implements OnClickListener {
 
 		initRefreshView();
 		initViewPager();
+
+		getDate(true);
+	}
+
+	private void getDate(final boolean isRefresh) {
+		JSONObject jo = new JSONObject();
+		try {
+			jo.put("timeStamp", new Date().getTime());
+			jo.put("pageNum", 1);
+			// jo.put("token", "1FBE22C74C30107226974F5EA89C6B8D");
+			// jo.put("verCode", "960295");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("jsonData", jo.toString());
+		// aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
+		// loginFirst
+		// registerOrLoginByMsg
+		aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/proList", params,
+				JSONObject.class, new AjaxCallback<JSONObject>() {
+					@Override
+					public void callback(String url, JSONObject json,
+							AjaxStatus status) {
+						if (json == null) {
+							return;
+						}
+						JSONArray ja = null;
+						ja = json.optJSONArray("proList");
+						for (int i = 0; i < ja.length(); i++) {
+							products.add(ja.optJSONObject(i));
+						}
+						updateView();
+					}
+
+				});
+
+	}
+
+	private void updateView() {
+		JSONObject jo = products.get(0);
+		setTextView(R.id.home_year_num, jo.optString("percent"), "0");
+	}
+
+	/**
+	 * 通过id设置text
+	 * <p>
+	 * 若text为null或"",则使用or
+	 * 
+	 * @param resId
+	 * @param text
+	 * @param or
+	 */
+	private void setTextView(final int resId, String text, String or) {
+		final String content;
+		if (TextUtils.isEmpty(text)) {
+			content = or;
+		} else {
+			content = text;
+		}
+		getActivity().runOnUiThread(new Runnable() {
+
+			@Override
+			public void run() {
+				((TextView) view.findViewById(resId)).setText(content);
+			}
+		});
 	}
 
 	Runnable r = new Runnable() {
