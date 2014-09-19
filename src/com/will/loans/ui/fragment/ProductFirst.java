@@ -15,6 +15,7 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
 import com.will.loans.ui.activity.LoansDetail;
+import com.will.loans.utils.Configs;
 import com.will.loans.weight.AutoLoadPull2RefreshListView;
 import com.will.loans.weight.AutoLoadPull2RefreshListView.OnLoadMoreListener;
 import com.will.loans.weight.AutoLoadPull2RefreshListView.OnRefreshListener;
@@ -71,8 +72,8 @@ public class ProductFirst extends BaseFragment implements OnLoadMoreListener,
 		// aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
 		// loginFirst
 		// registerOrLoginByMsg
-		aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/proList", params,
-				JSONObject.class, new AjaxCallback<JSONObject>() {
+		aq.ajax(Configs.HOST + "/proList", params, JSONObject.class,
+				new AjaxCallback<JSONObject>() {
 					@Override
 					public void callback(String url, JSONObject json,
 							AjaxStatus status) {

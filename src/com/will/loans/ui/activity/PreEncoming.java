@@ -12,6 +12,7 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
+import com.will.loans.utils.Configs;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,7 +23,7 @@ import java.util.Map;
 
 public class PreEncoming extends BaseActivity implements TextWatcher,
 		OnClickListener {
-	private final String mUrl = "http://daidaitong.imwanmei.com:8080/mobile/estimateProfit";
+	private final String mUrl = Configs.HOST + "/estimateProfit";
 	private TextView mTitle, mMoney, mMonth, mPreEcoming;
 	private EditText mNum;
 	private Button mGetEncoming;

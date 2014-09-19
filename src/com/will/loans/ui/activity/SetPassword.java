@@ -8,17 +8,17 @@ import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
+import com.will.loans.utils.Configs;
 import com.will.loans.utils.SharePreferenceUtil;
 import com.will.loans.weight.CustomProgressDialog;
 
@@ -122,9 +122,9 @@ public class SetPassword extends BaseTextActivity implements
 		JSONObject jo = new JSONObject();
 		try {
 			jo.put("timeStamp", new Date().getTime());
-			if(type==0) {
+			if (type == 0) {
 				jo.put("loginPsw", epwET.getText().toString());
-			}else {
+			} else {
 				jo.put("tradePsw", epwET.getText().toString());
 			}
 			jo.put("userid", SharePreferenceUtil.getUserPref(SetPassword.this)
@@ -145,9 +145,9 @@ public class SetPassword extends BaseTextActivity implements
 				true);
 		String url = "";
 		if (type == 0) {
-			url = "http://daidaitong.imwanmei.com:8080/mobile/setLoginPsw";
+			url = Configs.HOST + "/setLoginPsw";
 		} else {
-			url = "http://daidaitong.imwanmei.com:8080/mobile/setTradePsw";
+			url = Configs.HOST + "/setTradePsw";
 		}
 		mAQuery.ajax(url, params, JSONObject.class,
 				new AjaxCallback<JSONObject>() {
@@ -158,15 +158,20 @@ public class SetPassword extends BaseTextActivity implements
 						Log.e("11", "" + json.toString());
 						if (json.optString("resultflag").equals("0")) {
 							if (type == 0) {
-								SharePreferenceUtil.getUserPref(SetPassword.this).setPasswd(epwET.getText().toString());
+								SharePreferenceUtil.getUserPref(
+										SetPassword.this).setPasswd(
+										epwET.getText().toString());
 								Toast.makeText(SetPassword.this, "设置密码成功",
 										Toast.LENGTH_SHORT).show();
-								Intent intent = new Intent(SetPassword.this,HomePage.class);
-								intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  
+								Intent intent = new Intent(SetPassword.this,
+										HomePage.class);
+								intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 								startActivity(intent);
 								finish();
 							} else {
-								SharePreferenceUtil.getUserPref(SetPassword.this).setTradePassword(epwET.getText().toString());
+								SharePreferenceUtil.getUserPref(
+										SetPassword.this).setTradePassword(
+										epwET.getText().toString());
 								Toast.makeText(SetPassword.this, "设置交易密码成功",
 										Toast.LENGTH_SHORT).show();
 								finish();
@@ -189,7 +194,7 @@ public class SetPassword extends BaseTextActivity implements
 			}
 		}
 	};
-	
+
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		if (pwET.getText().length() > 5

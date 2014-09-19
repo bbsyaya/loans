@@ -21,6 +21,7 @@ import com.will.loans.R;
 import com.will.loans.ui.activity.LoansDetail;
 import com.will.loans.ui.activity.Register;
 import com.will.loans.ui.activity.SetPassword;
+import com.will.loans.utils.Configs;
 import com.will.loans.utils.SharePreferenceUtil;
 
 import org.json.JSONException;
@@ -135,8 +136,8 @@ public class EditPayActivity extends BasePayActivity {
 		// aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
 		// loginFirst
 		// registerOrLoginByMsg
-		aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/buyProduct",
-				params, JSONObject.class, new AjaxCallback<JSONObject>() {
+		aq.ajax(Configs.HOST + "/buyProduct", params, JSONObject.class,
+				new AjaxCallback<JSONObject>() {
 					@Override
 					public void callback(String url, JSONObject json,
 							AjaxStatus status) {

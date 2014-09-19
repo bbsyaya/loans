@@ -14,6 +14,7 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
 import com.will.loans.pay.EditPayActivity;
+import com.will.loans.utils.Configs;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,8 +50,8 @@ public class LoansDetail extends BaseActivity {
 		}
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("jsonData", jo.toString());
-		aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/proDetail", params,
-				JSONObject.class, new AjaxCallback<JSONObject>() {
+		aq.ajax(Configs.HOST + "/proDetail", params, JSONObject.class,
+				new AjaxCallback<JSONObject>() {
 					@Override
 					public void callback(String url, JSONObject json,
 							AjaxStatus status) {

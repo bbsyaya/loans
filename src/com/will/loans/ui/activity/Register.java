@@ -18,6 +18,7 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
+import com.will.loans.utils.Configs;
 import com.will.loans.weight.CustomProgressDialog;
 
 import org.json.JSONException;
@@ -136,8 +137,8 @@ public class Register extends BaseTextActivity implements
 				"", // title
 				"正在努力加载中,请稍候...", // message
 				true);
-		mAQuery.ajax("http://daidaitong.imwanmei.com:8080/mobile/loginFirst",
-				params, JSONObject.class, new AjaxCallback<JSONObject>() {
+		mAQuery.ajax(Configs.HOST + "/loginFirst", params, JSONObject.class,
+				new AjaxCallback<JSONObject>() {
 					@Override
 					public void callback(String url, JSONObject json,
 							AjaxStatus status) {

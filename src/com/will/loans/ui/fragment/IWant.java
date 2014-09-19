@@ -17,6 +17,7 @@ import com.androidquery.callback.AjaxStatus;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.will.loans.R;
 import com.will.loans.ui.activity.TradeResult;
+import com.will.loans.utils.Configs;
 import com.will.loans.utils.SharePreferenceUtil;
 
 import org.json.JSONException;
@@ -115,8 +116,8 @@ public class IWant extends BaseFragment implements OnClickListener {
 		// aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
 		// loginFirst
 		// registerOrLoginByMsg
-		aq.ajax("http://daidaitong.imwanmei.com:8080/daidaitongServer/mobile/todayProfit",
-				params, JSONObject.class, new AjaxCallback<JSONObject>() {
+		aq.ajax(Configs.HOST + "/todayProfit", params, JSONObject.class,
+				new AjaxCallback<JSONObject>() {
 					@Override
 					public void callback(String url, JSONObject json,
 							AjaxStatus status) {

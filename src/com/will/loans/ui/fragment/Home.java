@@ -33,6 +33,7 @@ import com.will.loans.R;
 import com.will.loans.beans.bean.BannerItem;
 import com.will.loans.ui.activity.LoansDetail;
 import com.will.loans.ui.activity.Register;
+import com.will.loans.utils.Configs;
 import com.will.loans.utils.ScreenProperties;
 import com.will.loans.weight.ProgressWheel;
 
@@ -139,8 +140,8 @@ public class Home extends BaseFragment implements OnClickListener {
 		// aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
 		// loginFirst
 		// registerOrLoginByMsg
-		aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/proList", params,
-				JSONObject.class, new AjaxCallback<JSONObject>() {
+		aq.ajax(Configs.HOST + "/proList", params, JSONObject.class,
+				new AjaxCallback<JSONObject>() {
 					@Override
 					public void callback(String url, JSONObject json,
 							AjaxStatus status) {

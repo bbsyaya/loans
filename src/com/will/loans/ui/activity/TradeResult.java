@@ -1,19 +1,5 @@
 package com.will.loans.ui.activity;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.androidquery.AQuery;
-import com.androidquery.callback.AjaxCallback;
-import com.androidquery.callback.AjaxStatus;
-import com.will.loans.R;
-import com.will.loans.utils.SharePreferenceUtil;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -24,6 +10,21 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
+import com.will.loans.R;
+import com.will.loans.utils.Configs;
+import com.will.loans.utils.SharePreferenceUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TradeResult extends Activity {
 
@@ -74,8 +75,8 @@ public class TradeResult extends Activity {
 		// aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
 		// loginFirst
 		// registerOrLoginByMsg
-		aq.ajax("http://daidaitong.imwanmei.com:8080/daidaitongServer/mobile/tradeRecList",
-				params, JSONObject.class, new AjaxCallback<JSONObject>() {
+		aq.ajax(Configs.HOST + "/tradeRecList", params, JSONObject.class,
+				new AjaxCallback<JSONObject>() {
 					@Override
 					public void callback(String url, JSONObject json,
 							AjaxStatus status) {
@@ -86,7 +87,7 @@ public class TradeResult extends Activity {
 
 	class Adatper extends BaseAdapter {
 
-		private Context mContext;
+		private final Context mContext;
 
 		public Adatper(Context context) {
 			mContext = context;
