@@ -1,12 +1,5 @@
 package com.will.loans.ui.activity;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,13 +17,23 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 登陆页面
+ * 
  * @author will
- *
+ * 
  */
 @SuppressLint("NewApi")
-public class Register extends BaseTextActivity implements OnCheckedChangeListener {
+public class Register extends BaseTextActivity implements
+		OnCheckedChangeListener {
 	private EditText mPhoneNum;
 
 	private TextView mBigPhoneNum;
@@ -101,8 +104,8 @@ public class Register extends BaseTextActivity implements OnCheckedChangeListene
 		}
 	}
 
-	//	private CustomProgressDialog mCustomProgressDialog = CustomProgressDialog
-	//			.createDialog(getApplication());
+	// private CustomProgressDialog mCustomProgressDialog = CustomProgressDialog
+	// .createDialog(getApplication());
 
 	public void getLoginInfo() {
 
@@ -121,8 +124,7 @@ public class Register extends BaseTextActivity implements OnCheckedChangeListene
 		// aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
 		// loginFirst
 		// registerOrLoginByMsg
-		mAQuery.ajax(
-				"http://daidaitong.imwanmei.com:8080/mobile/loginFirst",
+		mAQuery.ajax("http://daidaitong.imwanmei.com:8080/mobile/loginFirst",
 				params, JSONObject.class, mRegisterCallback);
 	}
 
@@ -132,26 +134,32 @@ public class Register extends BaseTextActivity implements OnCheckedChangeListene
 			super.callback(url, object, status);
 			Log.d("", object.toString());
 			if (status.getCode() == 200) {
-				//				mCustomProgressDialog.dismiss();
+				// mCustomProgressDialog.dismiss();
 			}
 			try {
 				Intent intent = null;
-				String state = object.getString("resultflag");
-				String token = object.getString("token");
+				String state = object.optString("resultflag");
+				String token = object.optString("token");
 				if (state.equals("0")) {
-					intent = new Intent(Register.this, FillPassword.class).putExtra(FillVerifyCode.NUM, mPhoneNum.getText().toString()).putExtra(FillVerifyCode.TOKEN, token);
-				}else if(state.equals("1")){
+					intent = new Intent(Register.this, FillPassword.class)
+							.putExtra(FillVerifyCode.NUM,
+									mPhoneNum.getText().toString()).putExtra(
+									FillVerifyCode.TOKEN, token);
+				} else if (state.equals("1")) {
 
-				}else if(state.equals("3")){
-					intent = new Intent(Register.this, FillVerifyCode.class).putExtra(FillVerifyCode.NUM, mPhoneNum.getText().toString()).putExtra(FillVerifyCode.TOKEN, token);
-				}else if(state.equals("2")){
+				} else if (state.equals("3")) {
+					intent = new Intent(Register.this, FillVerifyCode.class)
+							.putExtra(FillVerifyCode.NUM,
+									mPhoneNum.getText().toString()).putExtra(
+									FillVerifyCode.TOKEN, token);
+				} else if (state.equals("2")) {
 					intent = new Intent(Register.this, Login.class);
 				}
-				if (intent!=null) {
+				if (intent != null) {
 					startActivity(intent);
 					Register.this.finish();
 				}
-			} catch (JSONException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
