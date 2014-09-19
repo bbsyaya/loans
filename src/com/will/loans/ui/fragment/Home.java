@@ -7,6 +7,7 @@ import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,10 +31,14 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.will.loans.R;
 import com.will.loans.beans.bean.BannerItem;
-import com.will.loans.ui.activity.FillPassword;
+import com.will.loans.ui.activity.LoansDetail;
 import com.will.loans.ui.activity.Register;
 import com.will.loans.utils.ScreenProperties;
 import com.will.loans.weight.ProgressWheel;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,10 +46,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class Home extends BaseFragment implements OnClickListener {
 
@@ -57,6 +58,8 @@ public class Home extends BaseFragment implements OnClickListener {
 	private RadioGroup groupPoint;
 
 	private List<BannerItem> wheel;
+
+	private Button enterBtn;
 
 	boolean wheelRunning;
 
@@ -74,7 +77,7 @@ public class Home extends BaseFragment implements OnClickListener {
 
 	private View view;
 
-	private Handler handler = new Handler() {
+	private final Handler handler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
@@ -104,6 +107,8 @@ public class Home extends BaseFragment implements OnClickListener {
 				.setOnClickListener(this);
 		((Button) view.findViewById(R.id.title_btn_left))
 				.setOnClickListener(this);
+		enterBtn = ((Button) view.findViewById(R.id.enterBtn));
+		enterBtn.setOnClickListener(this);
 		pwTwo = (ProgressWheel) view.findViewById(R.id.progress_bar_two);
 		new Thread(r).start();
 		groupPoint = (RadioGroup) view.findViewById(R.id.rg_points);
@@ -113,6 +118,8 @@ public class Home extends BaseFragment implements OnClickListener {
 
 		initRefreshView();
 		initViewPager();
+
+		enterBtn.setEnabled(false);
 
 		getDate(true);
 	}
@@ -140,6 +147,8 @@ public class Home extends BaseFragment implements OnClickListener {
 						if (json == null) {
 							return;
 						}
+						Log.e("11", json.toString());
+						enterBtn.setEnabled(true);
 						JSONArray ja = null;
 						ja = json.optJSONArray("proList");
 						for (int i = 0; i < ja.length(); i++) {
@@ -154,7 +163,13 @@ public class Home extends BaseFragment implements OnClickListener {
 
 	private void updateView() {
 		JSONObject jo = products.get(0);
-		setTextView(R.id.home_year_num, jo.optString("percent"), "0");
+		setTextView(R.id.nameTV, jo.optString("proName") + "", "");
+		setTextView(R.id.home_year_num, jo.optInt("percent") + "", "");
+		setTextView(R.id.home_tv_month, jo.optInt("timeLimit") + "", "");
+		setTextView(R.id.home_tv_limit, jo.optInt("startBuy") + "", "");
+		setTextView(R.id.percentTV, jo.optInt("percent") + "", "");
+		setTextView(R.id.home_year_num, jo.optDouble("nhsy") + "", "");
+		pwTwo.setProgress((int) (jo.optInt("percent") * 3.6));
 	}
 
 	/**
@@ -372,6 +387,10 @@ public class Home extends BaseFragment implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		case R.id.enterBtn:
+			LoansDetail.pro = products.get(0);
+			jump2Activity(new LoansDetail());
+			break;
 		case R.id.title_btn_right:
 
 			break;

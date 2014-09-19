@@ -19,6 +19,7 @@ import com.unionpay.UPPayAssistEx;
 import com.unionpay.uppay.PayActivity;
 import com.will.loans.R;
 import com.will.loans.ui.activity.LoansDetail;
+import com.will.loans.ui.activity.Register;
 import com.will.loans.ui.activity.SetPassword;
 import com.will.loans.utils.SharePreferenceUtil;
 
@@ -33,7 +34,7 @@ public class EditPayActivity extends BasePayActivity {
 
 	private EditText moneyET;
 
-	private JSONObject product = LoansDetail.pro;
+	private final JSONObject product = LoansDetail.pro;
 
 	private AQuery aq;
 
@@ -52,6 +53,13 @@ public class EditPayActivity extends BasePayActivity {
 
 			@Override
 			public void onClick(View v) {
+				if (SharePreferenceUtil.getUserPref(EditPayActivity.this)
+						.getTradePassword().equals("")) {
+					SetPassword.type = 1;
+					startActivity(new Intent(EditPayActivity.this,
+							SetPassword.class));
+					return;
+				}
 				mLoadingDialog = ProgressDialog.show(EditPayActivity.this, // context
 						"", // title
 						"正在努力的获取tn中,请稍候...", // message
@@ -91,9 +99,15 @@ public class EditPayActivity extends BasePayActivity {
 		});
 		updateView();
 
-		if (SharePreferenceUtil.getUserPref(this).getTradePassword().equals("")) {
-			SetPassword.type = 1;
-			startActivity(new Intent(EditPayActivity.this, SetPassword.class));
+		if (SharePreferenceUtil.getUserPref(this).getToken().equals("")) {
+			startActivity(new Intent(EditPayActivity.this, Register.class));
+		} else {
+			if (SharePreferenceUtil.getUserPref(this).getTradePassword()
+					.equals("")) {
+				SetPassword.type = 1;
+				startActivity(new Intent(EditPayActivity.this,
+						SetPassword.class));
+			}
 		}
 	}
 
@@ -110,8 +124,9 @@ public class EditPayActivity extends BasePayActivity {
 							.getToken());
 			jo.put("amount", moneyET.getText().toString());
 			jo.put("proId", product.optString("id"));
-			jo.put("tradePsw", SharePreferenceUtil.getUserPref(EditPayActivity.this)
-					.getTradePassword());
+			jo.put("tradePsw",
+					SharePreferenceUtil.getUserPref(EditPayActivity.this)
+							.getTradePassword());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -120,8 +135,8 @@ public class EditPayActivity extends BasePayActivity {
 		// aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
 		// loginFirst
 		// registerOrLoginByMsg
-		aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/buyProduct", params,
-				JSONObject.class, new AjaxCallback<JSONObject>() {
+		aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/buyProduct",
+				params, JSONObject.class, new AjaxCallback<JSONObject>() {
 					@Override
 					public void callback(String url, JSONObject json,
 							AjaxStatus status) {

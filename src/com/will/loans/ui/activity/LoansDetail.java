@@ -119,4 +119,8 @@ public class LoansDetail extends BaseActivity {
 	public void enterBtn(View view) {
 		startActivity(new Intent(LoansDetail.this, EditPayActivity.class));
 	}
+
+	public void preEarnBtn(View view) {
+		startActivity(new Intent(LoansDetail.this, PreEncoming.class));
+	}
 }

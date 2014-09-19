@@ -9,7 +9,7 @@
         style="@style/Width_match_height_wrap"
         android:layout_marginTop="10dp" >
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/nameTV"
             style="@style/Width_wrap_height_wrap"
             android:layout_centerInParent="true"
             android:maxEms="10"
@@ -136,6 +136,7 @@
         android:textColor="@color/gray_dark" />
     <!-- 投标按钮 -->
     <Button
+        android:id="@+id/enterBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"

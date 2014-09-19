@@ -13,13 +13,13 @@ import com.will.loans.utils.SharePreferenceUtil;
 
 public class HomePage extends FragmentActivity implements
 		OnCheckedChangeListener {
-	private String MAIN_TAB = "tab_main";
+	private final String MAIN_TAB = "tab_main";
 
-	private String MINE_TAB = "tab_mine";
+	private final String MINE_TAB = "tab_mine";
 
-	private String LIST_TAB = "tab_list";
+	private final String LIST_TAB = "tab_list";
 
-	private String MORE_TAB = "tab_more";
+	private final String MORE_TAB = "tab_more";
 
 	private TabHost mTabHost;
 
@@ -70,6 +70,11 @@ public class HomePage extends FragmentActivity implements
 			break;
 		case R.id.main_tab_mine:
 			setTabByTag(isChecked, MINE_TAB);
+			if (SharePreferenceUtil.getUserPref(HomePage.this).getToken()
+					.equals("")
+					&& isChecked) {
+				startActivity(new Intent(HomePage.this, Register.class));
+			}
 			break;
 		case R.id.main_tab_more:
 			setTabByTag(isChecked, MORE_TAB);

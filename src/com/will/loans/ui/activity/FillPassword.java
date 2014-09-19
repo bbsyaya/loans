@@ -1,8 +1,6 @@
-
 package com.will.loans.ui.activity;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Editable;
@@ -26,109 +24,117 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FillPassword extends BaseTextActivity {
-	
-    protected static JSONObject registerInfo;
+
+	protected static JSONObject registerInfo;
 
 	private EditText mPsw;
 
-    private Button mLogin;
+	private Button mLogin;
 
-    private AQuery mAQuery;
+	private AQuery mAQuery;
 
 	private ProgressDialog mLoadingDialog;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fill_psw);
-        ((TextView) findViewById(R.id.title_tv))
-		.setText("填写登录密码");
-        initView();
-    }
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_fill_psw);
+		((TextView) findViewById(R.id.title_tv)).setText("填写登录密码");
+		initView();
+	}
 
-    private void initView() {
-        initTop();
-        mAQuery = new AQuery(this);
-        mPsw = (EditText) findViewById(R.id.et_psw);
-        mLogin = (Button) findViewById(R.id.btn_login);
-        mLogin.setOnClickListener(this);
-        findViewById(R.id.forget_psw).setOnClickListener(this);
-        mPsw.addTextChangedListener(this);
-        //设置下划线
-        ((TextView) findViewById(R.id.forget_psw)).getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
-    }
+	private void initView() {
+		initTop();
+		mAQuery = new AQuery(this);
+		mPsw = (EditText) findViewById(R.id.et_psw);
+		mLogin = (Button) findViewById(R.id.btn_login);
+		mLogin.setOnClickListener(this);
+		findViewById(R.id.forget_psw).setOnClickListener(this);
+		mPsw.addTextChangedListener(this);
+		// 设置下划线
+		((TextView) findViewById(R.id.forget_psw)).getPaint().setFlags(
+				Paint.UNDERLINE_TEXT_FLAG);
+	}
 
-    public void buildParams() {
-        JSONObject jo = new JSONObject();
-        try {
-            jo.put("timeStamp", new Date().getTime());
-            jo.put("phoneNum", registerInfo.optString("phoneNum"));
-            jo.put("loginPsw", mPsw.getText().toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("jsonData", jo.toString());
-        // aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
-        // loginFirst
-        // registerOrLoginByMsg
-        mLoadingDialog = ProgressDialog.show(FillPassword.this, // context
+	public void buildParams() {
+		JSONObject jo = new JSONObject();
+		try {
+			jo.put("timeStamp", new Date().getTime());
+			jo.put("phoneNum", registerInfo.optString("phoneNum"));
+			jo.put("loginPsw", mPsw.getText().toString());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("jsonData", jo.toString());
+		// aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
+		// loginFirst
+		// registerOrLoginByMsg
+		mLoadingDialog = ProgressDialog.show(FillPassword.this, // context
 				"", // title
 				"正在努力加载中，请稍候...", // message
-				true); 
-        mAQuery.ajax("http://daidaitong.imwanmei.com:8080/mobile/loginByPsw", params,
-                JSONObject.class, new AjaxCallback<JSONObject>() {
-                    @Override
-                    public void callback(String url, JSONObject json, AjaxStatus status) {
-                        mLoadingDialog.cancel();
-                        Log.e("11", json.toString());
-                        if(json.optString("resultflag").equals("0")){
-                        	SharePreferenceUtil.getUserPref(FillPassword.this).setUserId(json.optString("userid"));
-							SharePreferenceUtil.getUserPref(FillPassword.this).setToken(json.optString("token"));
-							SharePreferenceUtil.getUserPref(FillPassword.this).setUsername(registerInfo.optString("phoneNum"));
-                        	Intent intent = new Intent(FillPassword.this,HomePage.class);
-							startActivity(intent);
-                        }
-                    }
-                });
-    }
+				true);
+		mAQuery.ajax("http://daidaitong.imwanmei.com:8080/mobile/loginByPsw",
+				params, JSONObject.class, new AjaxCallback<JSONObject>() {
+					@Override
+					public void callback(String url, JSONObject json,
+							AjaxStatus status) {
+						mLoadingDialog.cancel();
+						Log.e("11", json.toString());
+						if (json.optString("resultflag").equals("0")) {
+							SharePreferenceUtil.getUserPref(FillPassword.this)
+									.setUserId(json.optString("userid"));
+							SharePreferenceUtil.getUserPref(FillPassword.this)
+									.setToken(json.optString("token"));
+							SharePreferenceUtil.getUserPref(FillPassword.this)
+									.setUsername(
+											registerInfo.optString("phoneNum"));
+							// Intent intent = new Intent(FillPassword.this,
+							// HomePage.class);
+							// startActivity(intent);
+							finish();
+						}
+					}
+				});
+	}
 
-    private void initTop() {
-        // TODO Auto-generated method stub
+	private void initTop() {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-    }
+	@Override
+	public void beforeTextChanged(CharSequence s, int start, int count,
+			int after) {
+	}
 
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-    	 if (s.length() > 0) {
-             mLogin.setEnabled(true);
-         } else {
-             mLogin.setEnabled(false);
-         }
-    }
+	@Override
+	public void onTextChanged(CharSequence s, int start, int before, int count) {
+		if (s.length() > 0) {
+			mLogin.setEnabled(true);
+		} else {
+			mLogin.setEnabled(false);
+		}
+	}
 
-    @Override
-    public void afterTextChanged(Editable s) {
-        // TODO Auto-generated method stub
+	@Override
+	public void afterTextChanged(Editable s) {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.forget_psw:
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.forget_psw:
 
-                break;
-            case R.id.btn_login:
-            	buildParams();
-                break;
-            default:
-                break;
-        }
-    }
+			break;
+		case R.id.btn_login:
+			buildParams();
+			break;
+		default:
+			break;
+		}
+	}
 }

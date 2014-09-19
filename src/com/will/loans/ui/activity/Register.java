@@ -39,15 +39,14 @@ public class Register extends BaseTextActivity implements
 	private Button mNextBtn;
 
 	private AQuery mAQuery;
-	
+
 	private ProgressDialog mLoadingDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
-		((TextView) findViewById(R.id.title_tv))
-		.setText("登录");
+		((TextView) findViewById(R.id.title_tv)).setText("登录");
 		initView();
 	}
 
@@ -64,7 +63,7 @@ public class Register extends BaseTextActivity implements
 		findViewById(R.id.user_use_self).setOnClickListener(this);
 
 		mCheckBox.setChecked(false);
-		//buildParams();
+		// buildParams();
 	}
 
 	@Override
@@ -143,21 +142,24 @@ public class Register extends BaseTextActivity implements
 					public void callback(String url, JSONObject json,
 							AjaxStatus status) {
 						mLoadingDialog.cancel();
-						Log.e("11", "" +json.toString());
+						Log.e("11", "" + json.toString());
 						try {
 							json.put("phoneNum", mPhoneNum.getText().toString());
 						} catch (JSONException e) {
 							e.printStackTrace();
 						}
-						if(json.optString("resultflag").equals("0")){
+						if (json.optString("resultflag").equals("0")) {
 							FillPassword.registerInfo = json;
 							startActivity(new Intent(Register.this,
 									FillPassword.class));
+							finish();
 						}
-						if (json.optString("resultflag").equals("2")||json.optString("resultflag").equals("3")) {
+						if (json.optString("resultflag").equals("2")
+								|| json.optString("resultflag").equals("3")) {
 							FillVerifyCode.registerInfo = json;
 							startActivity(new Intent(Register.this,
 									FillVerifyCode.class));
+							finish();
 						}
 					}
 				});
