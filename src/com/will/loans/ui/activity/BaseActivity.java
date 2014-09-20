@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.will.loans.R;
 import com.will.loans.application.AppContext;
 
 public class BaseActivity extends Activity implements OnClickListener{
@@ -13,11 +14,19 @@ public class BaseActivity extends Activity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AppContext.getInstance().addActivity(this);
+
 	}
+
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
+		switch (v.getId()) {
+		case R.id.title_back:
+			finish();
+			break;
+		default:
+			break;
+		}
 
 	}
 }

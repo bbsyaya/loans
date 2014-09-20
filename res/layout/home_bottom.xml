@@ -31,6 +31,7 @@
                 android:layout_height="40dp"
                 android:paddingTop="8dp"
                 android:text="新手标"
+                android:textColor="@android:color/white"
                 android:textAppearance="?android:attr/textAppearanceSmallInverse"
                 android:textSize="10sp"
                 android:textStyle="bold" />

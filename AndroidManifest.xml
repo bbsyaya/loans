@@ -83,5 +83,7 @@
         <activity android:name=".pay.JARActivity" >
         </activity>
         <activity android:name=".ui.activity.PreEncoming"></activity>
+        <activity android:name=".ui.activity.ForgetPassword"></activity>
+        <activity android:name=".ui.activity.SetPassword"></activity>
     </application>
 </manifest>

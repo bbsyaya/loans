@@ -59,4 +59,12 @@
     <string name="p2refresh_doing_end_refresh">加载中&#8230;</string>
     <string name="p2refresh_refresh_lasttime">最近更新&#160;&#058;&#160;</string>
     <!-- 产品详情 -->
+    
+    <string name="cancel">取消</string>
+    <string name="fill_phone_num">填写手机号码</string>
+    <string name="fill_verify_num">填写验证码</string>
+    <string name="fill_password">填写登陆密码</string>
+    <string name="daidaitong">贷贷通社区</string>
+    <string name="reget_verifycode">重新获取验证码</string>
+    <string name="countdown_code">秒后重新获取</string>
 </resources>

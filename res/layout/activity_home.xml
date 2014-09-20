@@ -42,11 +42,14 @@
         <FrameLayout
             android:layout_width="fill_parent"
             android:layout_height="50dp" >
+                <View 
+        android:layout_width="match_parent"
+        android:background="#d9d9d9"
+        android:layout_height="1dp"/>
             <RadioGroup
                 android:id="@+id/main_tab_group"
                 style="@style/Width_match_height_match"
                 android:background="@drawable/tab_normal_bg"
-                android:gravity="center"
                 android:orientation="horizontal" >
                 <!-- 必须设置background，才能够水平居中. 垂直居中？没办法。 gravity 无效 -->
                 <RadioButton

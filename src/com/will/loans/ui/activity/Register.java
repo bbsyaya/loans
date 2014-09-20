@@ -1,7 +1,15 @@
 package com.will.loans.ui.activity;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
@@ -11,34 +19,32 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import com.will.loans.beans.json.LoginFirst;
+import com.will.loans.constant.ServerInfo;
+import com.will.loans.utils.SharePreferenceUtil;
 
 /**
  * 登陆页面
- * 
+ *
  * @author will
- * 
+ *
  */
 @SuppressLint("NewApi")
-public class Register extends BaseTextActivity implements
-		OnCheckedChangeListener {
+public class Register extends BaseTextActivity implements OnCheckedChangeListener {
 	private EditText mPhoneNum;
 
 	private TextView mBigPhoneNum;
 
 	private CheckBox mCheckBox;
+
+	private ImageView mImageView;
 
 	private Button mNextBtn;
 
@@ -53,15 +59,22 @@ public class Register extends BaseTextActivity implements
 
 	private void initView() {
 		mAQuery = new AQuery(this);
+		findViewById(R.id.title_back).setVisibility(View.VISIBLE);
+		findViewById(R.id.title_back).setOnClickListener(this);
+		((TextView)findViewById(R.id.title_tv)).setText(R.string.fill_phone_num);
 		mPhoneNum = (EditText) findViewById(R.id.phone_num);
 		mBigPhoneNum = (TextView) findViewById(R.id.phone_num_big);
 		mCheckBox = (CheckBox) findViewById(R.id.cb_agree);
+		mImageView = (ImageView) findViewById(R.id.del_img);
+		mImageView.setOnClickListener(this);
 		mPhoneNum.addTextChangedListener(this);
 		mCheckBox.setOnCheckedChangeListener(this);
 		mNextBtn = (Button) findViewById(R.id.btn_next);
 		mNextBtn.setOnClickListener(this);
 		findViewById(R.id.user_use).setOnClickListener(this);
 		findViewById(R.id.user_use_self).setOnClickListener(this);
+		((TextView) findViewById(R.id.user_use)).getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+		((TextView) findViewById(R.id.user_use_self)).getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
 	}
 
 	@Override
@@ -76,8 +89,10 @@ public class Register extends BaseTextActivity implements
 			mNextBtn.setEnabled(true);
 			mBigPhoneNum.setVisibility(View.VISIBLE);
 			mBigPhoneNum.setText(s);
+			mImageView.setVisibility(View.VISIBLE);
 		} else {
 			mNextBtn.setEnabled(false);
+			mImageView.setVisibility(View.INVISIBLE);
 			mBigPhoneNum.setVisibility(View.GONE);
 		}
 	}
@@ -91,13 +106,17 @@ public class Register extends BaseTextActivity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.user_use:
-
+			startActivity(new Intent(Register.this,WebBrowser.class).putExtra(WebBrowser.URL_STRING, "http://www.baidu.com"));
 			break;
 		case R.id.user_use_self:
-
+			startActivity(new Intent(Register.this,WebBrowser.class).putExtra(WebBrowser.URL_STRING, "http://www.baidu.com"));
 			break;
 		case R.id.btn_next:
 			buildParams();
+			break;
+		case R.id.del_img:
+			mPhoneNum.setText("");
+			mNextBtn.setEnabled(false);
 			break;
 		default:
 			break;
@@ -121,47 +140,50 @@ public class Register extends BaseTextActivity implements
 		}
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("jsonData", jo.toString());
-		// aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
-		// loginFirst
-		// registerOrLoginByMsg
-		mAQuery.ajax("http://daidaitong.imwanmei.com:8080/mobile/loginFirst",
-				params, JSONObject.class, mRegisterCallback);
+		mAQuery.ajax(ServerInfo.LOGINFIRST,params, LoginFirst.class, mRegisterCallback);
 	}
 
-	AjaxCallback<JSONObject> mRegisterCallback = new AjaxCallback<JSONObject>() {
+	AjaxCallback<LoginFirst> mRegisterCallback = new AjaxCallback<LoginFirst>() {
 		@Override
-		public void callback(String url, JSONObject object, AjaxStatus status) {
+		public void callback(String url, LoginFirst object, AjaxStatus status) {
 			super.callback(url, object, status);
-			Log.d("", object.toString());
-			if (status.getCode() == 200) {
+			Log.d("", object.resultflag+"  " + object.resultMsg);
+			if (status!=null&&status.getCode() == 200) {
 				// mCustomProgressDialog.dismiss();
-			}
-			try {
-				Intent intent = null;
-				String state = object.optString("resultflag");
-				String token = object.optString("token");
-				if (state.equals("0")) {
-					intent = new Intent(Register.this, FillPassword.class)
-							.putExtra(FillVerifyCode.NUM,
-									mPhoneNum.getText().toString()).putExtra(
-									FillVerifyCode.TOKEN, token);
-				} else if (state.equals("1")) {
+				try {
+					Intent intent = null;
+					String state = object.resultflag;
+					String token = object.token;
+					SharePreferenceUtil.getUserPref(Register.this).setToken(token);
+					if (state.equals("0")) {
+						intent = new Intent(Register.this, FillPassword.class)
+						.putExtra(FillVerifyCode.NUM,
+								mPhoneNum.getText().toString()).putExtra(
+										FillVerifyCode.TOKEN, token);
+					} else if (state.equals("1")) {
 
-				} else if (state.equals("3")) {
-					intent = new Intent(Register.this, FillVerifyCode.class)
-							.putExtra(FillVerifyCode.NUM,
-									mPhoneNum.getText().toString()).putExtra(
-									FillVerifyCode.TOKEN, token);
-				} else if (state.equals("2")) {
-					intent = new Intent(Register.this, Login.class);
+					} else if (state.equals("3")) {
+						intent = new Intent(Register.this, FillVerifyCode.class)
+						.putExtra(FillVerifyCode.NUM,
+								mPhoneNum.getText().toString()).putExtra(
+										FillVerifyCode.TOKEN, token);
+					} else if (state.equals("2")) {
+						intent = new Intent(Register.this, SetPassword.class);
+						intent.putExtra(SetPassword.SETTYPE, 0);
+					}
+
+					//					intent = new Intent(Register.this, FillPassword.class)
+					//					.putExtra(FillVerifyCode.NUM,
+					//							mPhoneNum.getText().toString()).putExtra(
+					//									FillVerifyCode.TOKEN, token);
+					if (intent != null) {
+						startActivity(intent);
+						Register.this.finish();
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				if (intent != null) {
-					startActivity(intent);
-					Register.this.finish();
-				}
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 		}
 	};

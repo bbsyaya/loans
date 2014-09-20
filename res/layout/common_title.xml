@@ -7,18 +7,35 @@
     <Button
         android:id="@+id/title_btn_left"
         style="@style/TitleBtn"
+        android:textColor="@color/title_text"
+        android:visibility="gone"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_alignParentLeft="true" />
+    <Button
+        android:id="@+id/title_back"
+        style="@style/TitleBtn"
+        android:textColor="@color/title_text"
+        android:drawableLeft="@drawable/bg_back"
+        android:visibility="gone"
+        android:text="@string/cancel"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_alignParentLeft="true" />
     <Button
         android:id="@+id/title_btn_right"
         style="@style/TitleBtn"
+        android:textColor="@color/title_text"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_alignParentRight="true" />
     <TextView
         android:id="@+id/title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textColor="@color/title_text"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_centerInParent="true" />
     <View 
-        android:layout_below="@id/title_btn_left"
+        android:layout_below="@id/title_tv"
         android:layout_width="match_parent"
         android:background="#d9d9d9"
         android:layout_height="1dp"/>

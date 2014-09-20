@@ -23,6 +23,9 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
 import com.will.loans.beans.UserinfoCache;
+import com.will.loans.beans.json.LoginFirst;
+import com.will.loans.constant.ServerInfo;
+import com.will.loans.utils.Toaster;
 
 public class FillVerifyCode extends BaseTextActivity {
 	private EditText mVerifyCode;
@@ -33,7 +36,8 @@ public class FillVerifyCode extends BaseTextActivity {
 	public static final String  NUM = "com.will.loans.num";
 	public static final String  TOKEN = "com.will.loans.token";
 	private AQuery mAQuery;
-
+	private CountDown mCountDownTimer;
+	private Long millisInFuture = 60*1000L, countDownInterval=1000L;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -50,15 +54,13 @@ public class FillVerifyCode extends BaseTextActivity {
 			jo.put("timeStamp", new Date().getTime());
 			jo.put("phoneNum", mNum);
 			jo.put("verCode", mVerifyCode.getText().toString());
-			jo.put("token", TOKEN);
+			jo.put("token", token);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("jsonData", jo.toString());
-		mAQuery.ajax(
-				"http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
-				params, JSONObject.class, mRegisterCallback);
+		mAQuery.ajax(ServerInfo.REGISTERORLOGINBYMSG,params, JSONObject.class, mRegisterCallback);
 	}
 
 	AjaxCallback<JSONObject> mRegisterCallback = new AjaxCallback<JSONObject>() {
@@ -88,7 +90,11 @@ public class FillVerifyCode extends BaseTextActivity {
 
 	private void init() {
 		initTop();
+		mCountDownTimer = new CountDown(millisInFuture, countDownInterval);
 		mAQuery = new AQuery(this);
+		findViewById(R.id.title_back).setVisibility(View.VISIBLE);
+		findViewById(R.id.title_back).setOnClickListener(this);
+		((TextView)findViewById(R.id.title_tv)).setText(R.string.fill_verify_num);
 		mVerifyCode = (EditText) findViewById(R.id.et_veri_code);
 		mCountDown = (Button) findViewById(R.id.btn_count_down);
 		((TextView) findViewById(R.id.tv_send_msg)).setText("已向"+mNum+"发送短信，请再输入框中填写验证码完成注册");;
@@ -97,6 +103,7 @@ public class FillVerifyCode extends BaseTextActivity {
 		mLogin.setOnClickListener(this);
 		mCountDown.setOnClickListener(this);
 		mVerifyCode.addTextChangedListener(this);
+
 	}
 
 	private void initTop() {
@@ -104,13 +111,42 @@ public class FillVerifyCode extends BaseTextActivity {
 
 	}
 
+	public void reGetVerycode() {
+		JSONObject jo = new JSONObject();
+		try {
+			jo.put("timeStamp", System.currentTimeMillis());
+			jo.put("phoneNum", mNum);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("jsonData", jo.toString());
+		mAQuery.ajax(ServerInfo.LOGINFIRST,params, LoginFirst.class, new AjaxCallback<LoginFirst>(){
+			@Override
+			public void callback(String url, LoginFirst object,
+					AjaxStatus status) {
+				if (status!=null&&status.getCode() == 200) {
+					Toaster.showShort(FillVerifyCode.this, "获取验证码成功！");
+				}
+			}
+		});
+	}
+
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_confirm:
 			buildParams();
 			break;
-
+		case R.id.btn_count_down:
+			reGetVerycode();
+			mCountDownTimer.start();
+			mCountDown.setEnabled(false);
+			break;
+		case R.id.title_back:
+			finish();
+			break;
 		default:
 			break;
 		}
@@ -125,14 +161,14 @@ public class FillVerifyCode extends BaseTextActivity {
 
 		@Override
 		public void onTick(long millisUntilFinished) {
-			// TODO Auto-generated method stub
+			mCountDown.setText(millisUntilFinished/1000+getResources().getString(R.string.countdown_code));
 
 		}
 
 		@Override
 		public void onFinish() {
-			// TODO Auto-generated method stub
-
+			mCountDown.setEnabled(true);
+			mCountDown.setText(R.string.reget_verifycode);
 		}
 
 	}

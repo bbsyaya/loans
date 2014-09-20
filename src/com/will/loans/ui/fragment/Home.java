@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -30,6 +31,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.will.loans.R;
 import com.will.loans.beans.bean.BannerItem;
 import com.will.loans.ui.activity.Register;
+import com.will.loans.ui.activity.WebBrowser;
 import com.will.loans.utils.ScreenProperties;
 import com.will.loans.weight.ProgressWheel;
 
@@ -79,7 +81,7 @@ public class Home extends BaseFragment implements OnClickListener {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		aq = new AQuery(getActivity(), view);
-		setTitleText(view, R.string.tab_mine, R.string.refresh,
+		setTitleText(view, R.string.daidaitong, R.string.login,
 				R.string.tab_home);
 		setTitleVisible(view, View.VISIBLE, View.VISIBLE, View.VISIBLE);
 		((Button) view.findViewById(R.id.title_btn_right))
@@ -115,7 +117,7 @@ public class Home extends BaseFragment implements OnClickListener {
 	};
 
 	private void getData() {
-
+		homePRSV.onRefreshComplete();
 	}
 
 	/**
@@ -288,10 +290,11 @@ public class Home extends BaseFragment implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.title_btn_right:
+			jump2Activity(new Register());
 
 			break;
 		case R.id.title_btn_left:
-			jump2Activity(new Register());
+			getActivity().startActivity(new Intent().setClass(getActivity(), WebBrowser.class).putExtra(WebBrowser.URL_STRING, "http://www.baidu.com"));
 			break;
 		default:
 			break;
