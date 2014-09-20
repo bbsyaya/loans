@@ -28,7 +28,6 @@ import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
 import com.will.loans.beans.json.LoginFirst;
 import com.will.loans.constant.ServerInfo;
-import com.will.loans.utils.SharePreferenceUtil;
 
 /**
  * 登陆页面
@@ -114,6 +113,9 @@ public class Register extends BaseTextActivity implements OnCheckedChangeListene
 		case R.id.btn_next:
 			buildParams();
 			break;
+		case R.id.title_back:
+			finish();
+			break;
 		case R.id.del_img:
 			mPhoneNum.setText("");
 			mNextBtn.setEnabled(false);
@@ -154,7 +156,6 @@ public class Register extends BaseTextActivity implements OnCheckedChangeListene
 					Intent intent = null;
 					String state = object.resultflag;
 					String token = object.token;
-					SharePreferenceUtil.getUserPref(Register.this).setToken(token);
 					if (state.equals("0")) {
 						intent = new Intent(Register.this, FillPassword.class)
 						.putExtra(FillVerifyCode.NUM,
@@ -162,14 +163,11 @@ public class Register extends BaseTextActivity implements OnCheckedChangeListene
 										FillVerifyCode.TOKEN, token);
 					} else if (state.equals("1")) {
 
-					} else if (state.equals("3")) {
+					} else if (state.equals("3")||state.equals("2")) {
 						intent = new Intent(Register.this, FillVerifyCode.class)
 						.putExtra(FillVerifyCode.NUM,
 								mPhoneNum.getText().toString()).putExtra(
 										FillVerifyCode.TOKEN, token);
-					} else if (state.equals("2")) {
-						intent = new Intent(Register.this, SetPassword.class);
-						intent.putExtra(SetPassword.SETTYPE, 0);
 					}
 
 					//					intent = new Intent(Register.this, FillPassword.class)

@@ -23,6 +23,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.androidquery.AQuery;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -33,6 +34,7 @@ import com.will.loans.beans.bean.BannerItem;
 import com.will.loans.ui.activity.Register;
 import com.will.loans.ui.activity.WebBrowser;
 import com.will.loans.utils.ScreenProperties;
+import com.will.loans.utils.SharePreferenceUtil;
 import com.will.loans.weight.ProgressWheel;
 
 public class Home extends BaseFragment implements OnClickListener {
@@ -44,6 +46,8 @@ public class Home extends BaseFragment implements OnClickListener {
 	private ViewPager viewPager;
 
 	private RadioGroup groupPoint;
+
+	private TextView mLeftBtn;
 
 	private List<BannerItem> wheel;
 
@@ -78,11 +82,22 @@ public class Home extends BaseFragment implements OnClickListener {
 	}
 
 	@Override
+	public void onResume() {
+		super.onResume();
+		if (!SharePreferenceUtil.getUserPref(getActivity())
+				.getToken().equals("")) {
+			mLeftBtn.setText("刷新");
+		}
+	}
+
+
+	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		aq = new AQuery(getActivity(), view);
 		setTitleText(view, R.string.daidaitong, R.string.login,
 				R.string.tab_home);
+		mLeftBtn = (TextView) view.findViewById(R.id.title_btn_right);
 		setTitleVisible(view, View.VISIBLE, View.VISIBLE, View.VISIBLE);
 		((Button) view.findViewById(R.id.title_btn_right))
 		.setOnClickListener(this);
@@ -290,7 +305,12 @@ public class Home extends BaseFragment implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.title_btn_right:
-			jump2Activity(new Register());
+			if (!SharePreferenceUtil.getUserPref(getActivity())
+					.getToken().equals("")) {
+
+			} else {
+				jump2Activity(new Register());
+			}
 
 			break;
 		case R.id.title_btn_left:

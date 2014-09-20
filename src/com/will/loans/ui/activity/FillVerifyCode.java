@@ -8,6 +8,7 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
@@ -22,9 +23,9 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
-import com.will.loans.beans.UserinfoCache;
 import com.will.loans.beans.json.LoginFirst;
 import com.will.loans.constant.ServerInfo;
+import com.will.loans.utils.SharePreferenceUtil;
 import com.will.loans.utils.Toaster;
 
 public class FillVerifyCode extends BaseTextActivity {
@@ -74,8 +75,9 @@ public class FillVerifyCode extends BaseTextActivity {
 			try {
 				String state = object.getString("resultflag");
 				if (state.equals("0")) {
-					UserinfoCache.setToken(object.getString("token"));
-					UserinfoCache.userId = object.getString("userid");
+					SharePreferenceUtil.getUserPref(FillVerifyCode.this).setToken(object.getString("token"));
+					SharePreferenceUtil.getUserPref(FillVerifyCode.this).setUserId(object.getString("userid"));
+					startActivity(new Intent(FillVerifyCode.this,SetPassword.class).putExtra(SetPassword.SETTYPE, 0));
 					FillVerifyCode.this.finish();
 				}else{
 					Toast.makeText(getApplication(), object.getString("resultMsg"), 1*1000).show();
