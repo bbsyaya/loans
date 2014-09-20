@@ -19,6 +19,7 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
+import com.will.loans.constant.ServerInfo;
 import com.will.loans.pay.EditPayActivity;
 
 public class LoansDetail extends BaseActivity {
@@ -26,14 +27,20 @@ public class LoansDetail extends BaseActivity {
 	public static JSONObject pro;
 	private AQuery aq;
 
+	private String title;
+
+	public static String TITLETXT = "com.will.loansdetail.title";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		aq = new AQuery(this);
 		setContentView(R.layout.loans_detail);
-		((Button) findViewById(R.id.title_btn_left)).setText(R.string.back);
+		findViewById(R.id.title_back).setVisibility(View.VISIBLE);
+		findViewById(R.id.title_back).setOnClickListener(this);
 		((Button) findViewById(R.id.title_btn_right)).setText(R.string.refresh);
+		((TextView)findViewById(R.id.title_tv)).setText(pro.optString("proName"));
 		if (pro != null) {
 			getData();
 		}
@@ -49,7 +56,7 @@ public class LoansDetail extends BaseActivity {
 		}
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("jsonData", jo.toString());
-		aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/proDetail", params,
+		aq.ajax(ServerInfo.PRODETAIL, params,
 				JSONObject.class, new AjaxCallback<JSONObject>() {
 			@Override
 			public void callback(String url, JSONObject json,
@@ -66,6 +73,7 @@ public class LoansDetail extends BaseActivity {
 	}
 
 	private void updateView(JSONObject jo) {
+
 		findViewById(R.id.detailLayout).setVisibility(View.VISIBLE);
 		((ProgressBar) findViewById(R.id.percentPB)).setProgress(pro
 				.optInt("percent"));
@@ -95,7 +103,7 @@ public class LoansDetail extends BaseActivity {
 	 * 通过id设置text
 	 * <p>
 	 * 若text为null或"",则使用or
-	 * 
+	 *
 	 * @param resId
 	 * @param text
 	 * @param or
@@ -114,6 +122,18 @@ public class LoansDetail extends BaseActivity {
 				((TextView) findViewById(resId)).setText(content);
 			}
 		});
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.title_back:
+			finish();
+			break;
+		default:
+			break;
+		}
+
 	}
 
 	public void enterBtn(View view) {

@@ -33,6 +33,14 @@ OnCheckedChangeListener {
 		initView();
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (mTabHost!=null) {
+			mTabHost.setCurrentTabByTag(LIST_TAB);
+		}
+	}
+
 	private void initView() {
 		mTabHost = (TabHost) findViewById(android.R.id.tabhost);
 		mTabHost.setup();

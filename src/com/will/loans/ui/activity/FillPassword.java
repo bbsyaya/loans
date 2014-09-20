@@ -22,8 +22,8 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
-import com.will.loans.beans.UserinfoCache;
 import com.will.loans.constant.ServerInfo;
+import com.will.loans.utils.SharePreferenceUtil;
 
 public class FillPassword extends BaseTextActivity {
 	private EditText mPsw;
@@ -80,10 +80,11 @@ public class FillPassword extends BaseTextActivity {
 				System.out.println(" " + object.toString());
 				try {
 					String result = object.getString("resultflag");
-					UserinfoCache.setToken(object.getString("token"));
-					UserinfoCache.userId = object.getString("userid");
+					SharePreferenceUtil.getUserPref(FillPassword.this).setToken(object.getString("token"));
+					SharePreferenceUtil.getUserPref(FillPassword.this).setUserId(object.getString("userid"));
 					if (result.equals("0")) {
 						Toast.makeText(getApplication(), "登陆成功", 1*1000).show();
+						FillPassword.this.finish();
 					}else{
 						Toast.makeText(getApplication(), object.getString("resultMsg"), 1*1000).show();
 					}

@@ -65,5 +65,9 @@ public class ServerInfo {
 	 * 预估收益接口
 	 */
 	public static final String ESTIMATEPROFIT = IMAGE_PREFIX + "estimateProfit";
+	/**
+	 * 产品购买接口
+	 */
+	public static final String BUYPRODUCT = IMAGE_PREFIX + "buyProduct";
 
 }

@@ -1,8 +1,14 @@
 package com.will.loans.ui.fragment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +16,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,11 +34,15 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.will.loans.R;
 import com.will.loans.beans.bean.BannerItem;
+import com.will.loans.constant.ServerInfo;
+import com.will.loans.ui.activity.LoansDetail;
 import com.will.loans.ui.activity.Register;
 import com.will.loans.ui.activity.WebBrowser;
 import com.will.loans.utils.ScreenProperties;
@@ -47,7 +59,8 @@ public class Home extends BaseFragment implements OnClickListener {
 
 	private RadioGroup groupPoint;
 
-	private TextView mLeftBtn;
+	private TextView mLeftBtn,title,persent,month,limit,pay;
+	private Button enterBtn;
 
 	private List<BannerItem> wheel;
 
@@ -62,6 +75,11 @@ public class Home extends BaseFragment implements OnClickListener {
 	private final int MESSAGE_WHAT = 0;
 
 	private final long FLING_PAGE_INTERVAL = 3000;
+
+	List<JSONObject> products = new ArrayList<JSONObject>();
+
+	private View view;
+
 
 	private Handler handler = new Handler() {
 
@@ -95,6 +113,7 @@ public class Home extends BaseFragment implements OnClickListener {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		aq = new AQuery(getActivity(), view);
+		this.view = view;
 		setTitleText(view, R.string.daidaitong, R.string.login,
 				R.string.tab_home);
 		mLeftBtn = (TextView) view.findViewById(R.id.title_btn_right);
@@ -103,6 +122,8 @@ public class Home extends BaseFragment implements OnClickListener {
 		.setOnClickListener(this);
 		((Button) view.findViewById(R.id.title_btn_left))
 		.setOnClickListener(this);
+		enterBtn = ((Button) view.findViewById(R.id.enterBtn));
+		enterBtn.setOnClickListener(this);
 		pwTwo = (ProgressWheel) view.findViewById(R.id.progress_bar_two);
 		new Thread(r).start();
 		groupPoint = (RadioGroup) view.findViewById(R.id.rg_points);
@@ -112,6 +133,9 @@ public class Home extends BaseFragment implements OnClickListener {
 
 		initRefreshView();
 		initViewPager();
+
+		enterBtn.setEnabled(false);
+		getDate(true);
 	}
 
 	Runnable r = new Runnable() {
@@ -131,9 +155,86 @@ public class Home extends BaseFragment implements OnClickListener {
 		}
 	};
 
-	private void getData() {
-		homePRSV.onRefreshComplete();
+	private void getDate(final boolean isRefresh) {
+		JSONObject jo = new JSONObject();
+		try {
+			jo.put("timeStamp", System.currentTimeMillis());
+			jo.put("pageNum", 1);
+			// jo.put("token", "1FBE22C74C30107226974F5EA89C6B8D");
+			// jo.put("verCode", "960295");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("jsonData", jo.toString());
+		// aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
+		// loginFirst
+		// registerOrLoginByMsg
+		aq.ajax(ServerInfo.PROLIST, params, JSONObject.class,
+				new AjaxCallback<JSONObject>() {
+			@Override
+			public void callback(String url, JSONObject json,
+					AjaxStatus status) {
+				if (json == null) {
+					return;
+				}
+				homePRSV.onRefreshComplete();
+				Log.e("11", json.toString());
+				enterBtn.setEnabled(true);
+				JSONArray ja = null;
+				ja = json.optJSONArray("proList");
+				for (int i = 0; i < ja.length(); i++) {
+					products.add(ja.optJSONObject(i));
+				}
+				updateView();
+			}
+
+		});
+
 	}
+
+	private void updateView() {
+		JSONObject jo = products.get(0);
+		((TextView) view.findViewById(R.id.tv_title)).setText(jo.optString("proName") + "");
+		((TextView) view.findViewById(R.id.home_year_num)).setText(jo.optInt("percent") + "%");
+		((TextView) view.findViewById(R.id.home_tv_month)).setText(jo.optInt("startBuy") + "");
+		((TextView) view.findViewById(R.id.home_tv_limit)).setText(jo.optInt("timeLimit") + "");
+		((TextView) view.findViewById(R.id.percentTV)).setText(jo.optInt("percent") + "");
+		((TextView) view.findViewById(R.id.home_year_num)).setText(jo.optDouble("nhsy") + "");
+		//		setTextView(R.id.nameTV, jo.optString("proName") + "", "");
+		//		setTextView(R.id.home_year_num, jo.optInt("percent") + "", "");
+		//		setTextView(R.id.home_tv_month, jo.optInt("timeLimit") + "", "");
+		//		setTextView(R.id.home_tv_limit, jo.optInt("startBuy") + "", "");
+		//		setTextView(R.id.percentTV, jo.optInt("percent") + "", "");
+		//		setTextView(R.id.home_year_num, jo.optDouble("nhsy") + "", "");
+		pwTwo.setProgress((int) (jo.optInt("percent") * 3.6));
+	}
+
+	/**
+	 * 通过id设置text
+	 * <p>
+	 * 若text为null或"",则使用or
+	 *
+	 * @param resId
+	 * @param text
+	 * @param or
+	 */
+	private void setTextView(final int resId, String text, String or) {
+		final String content;
+		if (TextUtils.isEmpty(text)) {
+			content = or;
+		} else {
+			content = text;
+		}
+		getActivity().runOnUiThread(new Runnable() {
+
+			@Override
+			public void run() {
+				((TextView) view.findViewById(resId)).setText(content);
+			}
+		});
+	}
+
 
 	/**
 	 * 初始化下拉刷新監聽器
@@ -142,7 +243,7 @@ public class Home extends BaseFragment implements OnClickListener {
 		homePRSV.setOnRefreshListener(new OnRefreshListener<ScrollView>() {
 			@Override
 			public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
-				getData();
+				getDate(true);
 			}
 		});
 	}
@@ -315,6 +416,11 @@ public class Home extends BaseFragment implements OnClickListener {
 			break;
 		case R.id.title_btn_left:
 			getActivity().startActivity(new Intent().setClass(getActivity(), WebBrowser.class).putExtra(WebBrowser.URL_STRING, "http://www.baidu.com"));
+			break;
+
+		case R.id.enterBtn:
+			LoansDetail.pro = products.get(0);
+			jump2Activity(new LoansDetail());
 			break;
 		default:
 			break;
