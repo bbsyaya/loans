@@ -67,4 +67,10 @@
     <string name="daidaitong">贷贷通社区</string>
     <string name="reget_verifycode">重新获取验证码</string>
     <string name="countdown_code">秒后重新获取</string>
+    
+    <string name="help">帮助</string>
+    <string name="amonut_earn">累计收益（元）</string>
+    <string name="amonut_point">总积分</string>
+    <string name="point_title">积分</string>
+    <string name="has_money">持有资产（元）</string>
 </resources>

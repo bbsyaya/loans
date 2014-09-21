@@ -7,7 +7,7 @@ import android.widget.ListView;
 
 import com.will.loans.R;
 
-public abstract class BaseCenter extends BaseActionBarActivity implements OnItemClickListener{
+public abstract class BaseCenter extends BaseActivity implements OnItemClickListener{
 	protected ListView mListView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -16,12 +16,16 @@ public abstract class BaseCenter extends BaseActionBarActivity implements OnItem
 		setContentView(R.layout.action_center);
 		initView();
 	}
-	
+
 	private void initView() {
 		mListView = (ListView) findViewById(R.id.list);
 		mListView.setAdapter(getAdapter());
 		mListView.setOnItemClickListener(this);
-		
+		init();
+	}
+
+	protected void init(){
+
 	}
 
 	protected abstract BaseAdapter getAdapter();

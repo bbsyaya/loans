@@ -77,6 +77,7 @@ public class FillVerifyCode extends BaseTextActivity {
 				if (state.equals("0")) {
 					SharePreferenceUtil.getUserPref(FillVerifyCode.this).setToken(object.getString("token"));
 					SharePreferenceUtil.getUserPref(FillVerifyCode.this).setUserId(object.getString("userid"));
+					SharePreferenceUtil.getUserPref(FillVerifyCode.this).setUsername(mNum);
 					startActivity(new Intent(FillVerifyCode.this,SetPassword.class).putExtra(SetPassword.SETTYPE, 0));
 					FillVerifyCode.this.finish();
 				}else{

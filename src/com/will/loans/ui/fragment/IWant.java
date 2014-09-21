@@ -1,5 +1,11 @@
 package com.will.loans.ui.fragment;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +20,18 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.will.loans.R;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import com.will.loans.constant.ServerInfo;
+import com.will.loans.ui.activity.AmountEarn;
+import com.will.loans.ui.activity.AmountMoney;
+import com.will.loans.ui.activity.AmountPoint;
+import com.will.loans.ui.activity.AppHelp;
+import com.will.loans.ui.activity.HasMoney;
+import com.will.loans.ui.activity.MessageCenter;
+import com.will.loans.ui.activity.PersonCenter;
+import com.will.loans.ui.activity.RemainMoney;
+import com.will.loans.ui.activity.TodayEarn;
+import com.will.loans.ui.activity.TradeHistory;
+import com.will.loans.utils.SharePreferenceUtil;
 
 public class IWant extends BaseFragment implements OnClickListener {
 
@@ -77,11 +88,14 @@ public class IWant extends BaseFragment implements OnClickListener {
 		super.onViewCreated(view, savedInstanceState);
 		aq = new AQuery(getActivity(), view);
 		((TextView) view.findViewById(R.id.title_tv))
-				.setText(R.string.tab_mine);
-		((Button) view.findViewById(R.id.title_btn_left))
-				.setText(R.string.login);
-		((Button) view.findViewById(R.id.title_btn_right))
-				.setText(R.string.refresh);
+		.setText(R.string.tab_mine);
+		((TextView) view.findViewById(R.id.title_tv_phone)).setText(SharePreferenceUtil.getUserPref(getActivity()).getUsername());
+		((Button) view.findViewById(R.id.title_btn_left)).setText(R.string.help);
+		view.findViewById(R.id.title_btn_left).setVisibility(View.VISIBLE);
+		view.findViewById(R.id.title_btn_right_msg_center).setVisibility(View.VISIBLE);
+		view.findViewById(R.id.title_btn_right_msg_center).setOnClickListener(this);
+		view.findViewById(R.id.title_btn_left).setOnClickListener(this);
+		view.findViewById(R.id.title_tv).setOnClickListener(this);
 
 		initButton(view);
 		initTextView(view);
@@ -99,26 +113,21 @@ public class IWant extends BaseFragment implements OnClickListener {
 	private void getDate() {
 		JSONObject jo = new JSONObject();
 		try {
-			jo.put("timeStamp", new Date().getTime());
-			jo.put("phoneNum", "13799568671");
-			jo.put("token", "1FBE22C74C30107226974F5EA89C6B8D");
-			jo.put("verCode", "960295");
+			jo.put("timeStamp", System.currentTimeMillis());
+			jo.put("token", SharePreferenceUtil.getUserPref(getActivity()).getToken());
+			jo.put("userid", SharePreferenceUtil.getUserPref(getActivity()).getUserId());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("jsonData", jo.toString());
-		// aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
-		// loginFirst
-		// registerOrLoginByMsg
-		aq.ajax("http://125.77.254.170:8086/daidaitongServer/mobile/registerOrLoginByMsg",
-				params, JSONObject.class, new AjaxCallback<JSONObject>() {
-					@Override
-					public void callback(String url, JSONObject object,
-							AjaxStatus status) {
-						// System.out.println(" " + object.toString());
-					}
-				});
+		aq.ajax(ServerInfo.USERMSG,params, JSONObject.class, new AjaxCallback<JSONObject>() {
+			@Override
+			public void callback(String url, JSONObject object,
+					AjaxStatus status) {
+				// System.out.println(" " + object.toString());
+			}
+		});
 	}
 
 	private void updateView() {
@@ -143,6 +152,13 @@ public class IWant extends BaseFragment implements OnClickListener {
 		amountPointBtn = (LinearLayout) view.findViewById(R.id.amountPointBtn);
 
 		todayEarnBtn.setOnClickListener(this);
+		amountEarnBtn.setOnClickListener(this);
+		amountMoneyBtn.setOnClickListener(this);
+		hasMoneyBtn.setOnClickListener(this);
+		remainMoneyBtn.setOnClickListener(this);
+		tradeHistoryBtn.setOnClickListener(this);
+		amountPointBtn.setOnClickListener(this);
+		view.findViewById(R.id.title_btn_right_msg_center).setOnClickListener(this);
 	}
 
 	private void initTextView(View view) {
@@ -159,18 +175,34 @@ public class IWant extends BaseFragment implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.todayEarnBtn:
+			jump2Activity(new TodayEarn());
 			break;
 		case R.id.amountEarnBtn:
+			jump2Activity(new AmountEarn());
 			break;
 		case R.id.amountMoneyBtn:
+			jump2Activity(new AmountMoney());
 			break;
 		case R.id.hasMoneyBtn:
+			jump2Activity(new HasMoney());
 			break;
 		case R.id.remainMoneyBtn:
+			jump2Activity(new RemainMoney());
 			break;
 		case R.id.tradeHistoryBtn:
+			jump2Activity(new TradeHistory());
 			break;
 		case R.id.amountPointBtn:
+			jump2Activity(new AmountPoint());
+			break;
+		case R.id.title_btn_right_msg_center:
+			jump2Activity(new MessageCenter());
+			break;
+		case R.id.title_tv_phone:
+			jump2Activity(new PersonCenter());
+			break;
+		case R.id.title_btn_left:
+			jump2Activity(new AppHelp());
 			break;
 		default:
 			break;

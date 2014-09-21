@@ -85,5 +85,14 @@
         <activity android:name=".ui.activity.PreEncoming"></activity>
         <activity android:name=".ui.activity.ForgetPassword"></activity>
         <activity android:name=".ui.activity.SetPassword"></activity>
+        <activity android:name=".ui.activity.TodayEarn"></activity>
+        <activity android:name=".ui.activity.AmountEarn"></activity>
+        <activity android:name=".ui.activity.AmountMoney"></activity>
+        <activity android:name=".ui.activity.AmountPoint"></activity>
+        <activity android:name=".ui.activity.AppHelp"></activity>
+        <activity android:name=".ui.activity.PersonCenter"></activity>
+        <activity android:name=".ui.activity.RemainMoney"></activity>
+        <activity android:name=".ui.activity.TradeHistory"></activity>
+        <activity android:name=".ui.activity.HasMoney"></activity>
     </application>
 </manifest>

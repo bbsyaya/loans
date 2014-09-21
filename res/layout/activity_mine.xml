@@ -4,7 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     <include layout="@layout/common_title"/>
-    <com.will.loans.weight.AutoLoadPull2RefreshListView 
+    <RelativeLayout 
+        style="@style/Width_match_height_match">
+        <ImageView style="@style/Width_wrap_height_wrap"
+            android:layout_centerInParent="true"
+            android:background="@drawable/ic_empty_data"/>
+        <com.will.loans.weight.AutoLoadPull2RefreshListView 
         android:id="@+id/trade_list"
-        style="@style/Width_match_height_match"></com.will.loans.weight.AutoLoadPull2RefreshListView>
+        style="@style/Width_match_height_match"/>
+    </RelativeLayout>
+    
 </LinearLayout>

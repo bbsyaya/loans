@@ -27,4 +27,5 @@
     <!-- title text -->
     <color name="title_text">#6c8a96</color>
     <color name="title_gray">#dbdee3</color>
+    <color name="mine_gray">#ebebeb</color>
 </resources>

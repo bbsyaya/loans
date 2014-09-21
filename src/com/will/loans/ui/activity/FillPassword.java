@@ -82,6 +82,7 @@ public class FillPassword extends BaseTextActivity {
 					String result = object.getString("resultflag");
 					SharePreferenceUtil.getUserPref(FillPassword.this).setToken(object.getString("token"));
 					SharePreferenceUtil.getUserPref(FillPassword.this).setUserId(object.getString("userid"));
+					SharePreferenceUtil.getUserPref(FillPassword.this).setUsername(mNum);
 					if (result.equals("0")) {
 						Toast.makeText(getApplication(), "登陆成功", 1*1000).show();
 						FillPassword.this.finish();
