@@ -35,7 +35,7 @@ public class EditPayActivity extends BasePayActivity implements OnClickListener{
 
 	private EditText moneyET;
 
-	private final JSONObject product = LoansDetail.pro;
+	public static JSONObject product;
 
 	private AQuery aq;
 

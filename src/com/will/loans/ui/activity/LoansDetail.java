@@ -137,6 +137,7 @@ public class LoansDetail extends BaseActivity {
 	}
 
 	public void enterBtn(View view) {
+		EditPayActivity.product = pro;
 		startActivity(new Intent(LoansDetail.this, EditPayActivity.class));
 	}
 

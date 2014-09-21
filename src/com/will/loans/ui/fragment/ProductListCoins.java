@@ -1,6 +1,8 @@
 
 package com.will.loans.ui.fragment;
 
+import org.json.JSONObject;
+
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,8 @@ import com.will.loans.R;
 import com.will.loans.ui.activity.ProductDetail;
 
 public class ProductListCoins extends BasePRoductLis {
+	private LoansAdapter mAdapter;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -22,14 +26,12 @@ public class ProductListCoins extends BasePRoductLis {
 
 		@Override
 		public int getCount() {
-			// TODO Auto-generated method stub
-			return 10;
+			return products.size();
 		}
 
 		@Override
-		public Object getItem(int position) {
-			// TODO Auto-generated method stub
-			return null;
+		public JSONObject getItem(int position) {
+			return products.get(position);
 		}
 
 		@Override
@@ -67,8 +69,10 @@ public class ProductListCoins extends BasePRoductLis {
 
 	@Override
 	BaseAdapter getAdapter() {
-		// TODO Auto-generated method stub
-		return null;
+		if (mAdapter == null) {
+			mAdapter = new LoansAdapter();
+		}
+		return mAdapter;
 	}
 
 
@@ -80,12 +84,12 @@ public class ProductListCoins extends BasePRoductLis {
 
 	@Override
 	public void onLoadMore() {
-		// TODO Auto-generated method stub
 		mListView.onLoadMoreComplete();
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		ProductDetail.proDetail = mAdapter.getItem(position);
 		jump2Activity(new ProductDetail());
 	}
 }

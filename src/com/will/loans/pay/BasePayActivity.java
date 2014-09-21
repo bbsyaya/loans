@@ -101,7 +101,7 @@ Runnable {
 			/*************************************************
 			 * 步骤2：通过银联工具类启动支付插件
 			 ************************************************/
-			doStartUnionPayPlugin(BasePayActivity.this, tn, mMode);
+			doStartUnionPayPlugin(this, tn, mMode);
 		}
 
 		return false;

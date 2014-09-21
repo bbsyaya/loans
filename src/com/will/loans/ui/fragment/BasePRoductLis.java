@@ -80,9 +80,6 @@ OnItemClickListener {
 		}
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("jsonData", jo.toString());
-		// aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
-		// loginFirst
-		// registerOrLoginByMsg
 		aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/proList", params,
 				JSONObject.class, new AjaxCallback<JSONObject>() {
 			@Override
