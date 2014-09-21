@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <include layout="@layout/common_title" />
+    <EditText
+        android:id="@+id/feedback_content"
+        style="@style/Width_match_height_wrap"
+        android:layout_margin="10dp"
+        android:background="@drawable/feedback_bg"
+        android:gravity="top"
+        android:hint="感谢您对我们的支持，我们期待您宝贵的意见，请点击输入..."
+        android:lines="4"
+        android:padding="10dp" />
+    <LinearLayout
+        style="@style/Width_wrap_height_wrap"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" >
+        <TextView
+            style="@style/Width_wrap_height_wrap"
+            android:text="如有疑问，可直接拨打客服热线" />
+        <TextView
+            android:id="@+id/feedback_phone"
+            style="@style/Width_wrap_height_wrap"
+            android:text="400-870-5800" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/feedback_send"
+        style="@style/Width_match_height_wrap"
+        android:layout_margin="10dp"
+        android:background="@drawable/speak_hint_dialog_btn"
+        android:enabled="false"
+        android:text="发送"
+        android:textColor="@android:color/white" />
+</LinearLayout>
