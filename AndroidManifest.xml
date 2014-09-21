@@ -110,5 +110,7 @@
         </activity>
         <activity android:name=".ui.activity.About" >
         </activity>
+        <activity android:name=".ui.activity.RealNameAuthentication" >
+        </activity>
     </application>
 </manifest>
