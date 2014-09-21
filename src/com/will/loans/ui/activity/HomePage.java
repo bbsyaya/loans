@@ -37,7 +37,7 @@ OnCheckedChangeListener {
 	protected void onResume() {
 		super.onResume();
 		if (mTabHost!=null) {
-			mTabHost.setCurrentTabByTag(LIST_TAB);
+			mTabHost.setCurrentTabByTag(mCurrentTab);
 		}
 	}
 

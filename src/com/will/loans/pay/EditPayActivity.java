@@ -30,7 +30,6 @@ import com.will.loans.ui.activity.LoansDetail;
 import com.will.loans.ui.activity.Register;
 import com.will.loans.ui.activity.SetPassword;
 import com.will.loans.utils.SharePreferenceUtil;
-import com.will.loans.utils.Toaster;
 
 public class EditPayActivity extends BasePayActivity implements OnClickListener{
 
@@ -140,15 +139,16 @@ public class EditPayActivity extends BasePayActivity implements OnClickListener{
 			public void callback(String url, JSONObject json,
 					AjaxStatus status) {
 				mLoadingDialog.cancel();
-				String result = json.optString("resultflag");
-				if (result.equals("0")) {
-					String tn = json.optString("tn");
-					Message msg = mHandler.obtainMessage();
-					msg.obj = tn;
-					mHandler.sendMessage(msg);
-				}else if(result.equals("1")||result.equals("2")){
-					Toaster.showShort(getParent(), json.optString("resultMsg"));
-				}
+				//				String result = json.optString("resultflag");
+				String tn = json.optString("tn");
+				Message msg = mHandler.obtainMessage();
+				msg.obj = tn;
+				mHandler.sendMessage(msg);
+				//				if (result.equals("0")) {
+				//					Toaster.showShort(getParent(), json.optString("resultMsg"));
+				//				}else if(result.equals("1")||result.equals("2")){
+				//					Toaster.showShort(getParent(), json.optString("resultMsg"));
+				//				}
 			}
 		});
 
