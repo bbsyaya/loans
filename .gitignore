@@ -214,3 +214,7 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+gen/android/support/v7/appcompat/R.java
+gen/android/support/v7/appcompat/R.java
+gen/com/handmark/pulltorefresh/library/R.java
+project.properties
