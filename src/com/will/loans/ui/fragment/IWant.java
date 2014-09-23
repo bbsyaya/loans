@@ -114,6 +114,7 @@ public class IWant extends BaseFragment implements OnClickListener {
 		view.findViewById(R.id.title_btn_left).setOnClickListener(this);
 		view.findViewById(R.id.title_tv).setOnClickListener(this);
 		view.findViewById(R.id.title_tv_phone).setOnClickListener(this);
+		view.findViewById(R.id.title_tv_phone).setVisibility(View.VISIBLE);
 
 		initButton(view);
 		initTextView(view);

@@ -4,9 +4,9 @@ package com.will.loans.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.will.loans.R;
@@ -17,7 +17,7 @@ public class PersonCenter extends BaseActivity implements OnCheckedChangeListene
 	private boolean mIsGestureOpen = false;
 	private TextView mUserId, mUsername, mIdCard, mBankcard, mChangeLoginPsw, mChangeTradePsw;
 
-	private RadioButton mButton;
+	private CheckBox mButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class PersonCenter extends BaseActivity implements OnCheckedChangeListene
 		mBankcard = (TextView) findViewById(R.id.account_bank);
 		mChangeLoginPsw = (TextView) findViewById(R.id.account_change_psw);
 		mChangeTradePsw = (TextView) findViewById(R.id.account_change_trade_psw);
-		mButton = (RadioButton) findViewById(R.id.account_open_toggle);
+		mButton = (CheckBox) findViewById(R.id.account_open_toggle);
 		mButton.setChecked(mIsGestureOpen);
 		initListener();
 	}
@@ -78,9 +78,11 @@ public class PersonCenter extends BaseActivity implements OnCheckedChangeListene
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		// TODO Auto-generated method stub
+		if (isChecked) {
+			//			startActivity(new Intent(PersonCenter.this,GuideGesturePasswordActivity.class));
+		}else{
+
+		}
 
 	}
-
-
 }

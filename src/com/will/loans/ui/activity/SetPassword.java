@@ -134,8 +134,8 @@ public class SetPassword extends BaseTextActivity implements OnCheckedChangeList
 	}
 
 	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
+	protected void onViewClick(View view) {
+		switch (view.getId()) {
 		case R.id.user_use:
 
 			break;

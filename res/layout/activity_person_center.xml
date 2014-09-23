@@ -186,7 +186,7 @@
             android:layout_toRightOf="@+id/left_img_open"
             android:text="@string/account_open_gesture"
             android:textAppearance="?android:attr/textAppearanceSmall" />
-        <RadioButton
+        <CheckBox
             android:id="@+id/account_open_toggle"
             style="@style/Width_wrap_height_wrap"
             android:layout_alignParentRight="true"
