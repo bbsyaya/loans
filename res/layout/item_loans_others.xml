@@ -19,7 +19,7 @@
                 android:text="车金融b234号"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
             <TextView
-                android:id="@+id/loans_title"
+                android:id="@+id/loans_buy_num"
                 style="@style/Width_0_height_wrap"
                 android:layout_weight="1"
                 android:text="已申购 0 人"
@@ -61,22 +61,31 @@
         android:layout_weight="1"
         android:gravity="right"
         android:orientation="vertical" >
-        <TextView
-            android:id="@+id/loans_low"
+                <RelativeLayout
             style="@style/Width_wrap_height_wrap"
-            android:layout_alignParentRight="true"
-            android:paddingLeft="3dp"
-            android:paddingTop="12dp"
-            android:rotation="45"
-            android:text="新手标"
-            android:textSize="10sp" />
+            android:layout_alignParentRight="true" >
+            <ImageView
+                android:id="@+id/tv_flag"
+                style="@style/Width_wrap_height_wrap"
+                android:background="@drawable/sale_blue_icon" />
+            <com.will.loans.weight.RotationTextView
+                android:id="@+id/tv_flag_text"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:paddingTop="8dp"
+                android:text="新手标"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse"
+                android:textSize="10sp"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+        </RelativeLayout>
         <TextView
-            android:id="@+id/loans_number"
+            android:id="@+id/loans_month"
             style="@style/Width_wrap_height_wrap"
             android:layout_marginTop="12dp"
             android:text="限12个月" />
         <TextView
-            android:id="@+id/loans_low"
+            android:id="@+id/loans_limit"
             style="@style/Width_wrap_height_wrap"
             android:text="50元起购" />
     </LinearLayout>

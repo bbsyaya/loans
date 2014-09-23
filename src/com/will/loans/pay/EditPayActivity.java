@@ -14,10 +14,12 @@ import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
@@ -26,7 +28,7 @@ import com.unionpay.UPPayAssistEx;
 import com.unionpay.uppay.PayActivity;
 import com.will.loans.R;
 import com.will.loans.constant.ServerInfo;
-import com.will.loans.ui.activity.LoansDetail;
+import com.will.loans.ui.activity.RealNameAuthentication;
 import com.will.loans.ui.activity.Register;
 import com.will.loans.ui.activity.SetPassword;
 import com.will.loans.utils.SharePreferenceUtil;
@@ -35,7 +37,7 @@ public class EditPayActivity extends BasePayActivity implements OnClickListener{
 
 	private EditText moneyET;
 
-	private final JSONObject product = LoansDetail.pro;
+	public static JSONObject product;
 
 	private AQuery aq;
 
@@ -139,16 +141,20 @@ public class EditPayActivity extends BasePayActivity implements OnClickListener{
 			public void callback(String url, JSONObject json,
 					AjaxStatus status) {
 				mLoadingDialog.cancel();
-				//				String result = json.optString("resultflag");
-				String tn = json.optString("tn");
-				Message msg = mHandler.obtainMessage();
-				msg.obj = tn;
-				mHandler.sendMessage(msg);
-				//				if (result.equals("0")) {
-				//					Toaster.showShort(getParent(), json.optString("resultMsg"));
-				//				}else if(result.equals("1")||result.equals("2")){
-				//					Toaster.showShort(getParent(), json.optString("resultMsg"));
-				//				}
+				String result = json.optString("resultflag");
+				if (result.equals("0")) {
+					String tn = json.optString("tn");
+					Message msg = mHandler.obtainMessage();
+					msg.obj = tn;
+					mHandler.sendMessage(msg);
+				}else if(result.equals("1")){
+					Log.d("", json.optString("resultMsg"));
+					Toast.makeText(getApplication(), json.optString("resultMsg"), 1*1000).show();
+				}else{
+					Toast.makeText(getApplication(), json.optString("resultMsg"), 1*1000).show();
+					startActivity(new Intent(EditPayActivity.this,RealNameAuthentication.class));
+					Log.d("", json.optString("resultMsg"));
+				}
 			}
 		});
 

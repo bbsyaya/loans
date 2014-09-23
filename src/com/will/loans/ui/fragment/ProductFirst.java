@@ -24,7 +24,6 @@ public class ProductFirst extends BasePRoductLis {
 
 	}
 
-
 	class LoansAdapter extends BaseAdapter {
 
 		@Override
@@ -118,7 +117,9 @@ public class ProductFirst extends BasePRoductLis {
 
 	@Override
 	BaseAdapter getAdapter() {
-		// TODO Auto-generated method stub
-		return new LoansAdapter();
+		if (mAdapter == null) {
+			mAdapter = new LoansAdapter();
+		}
+		return mAdapter;
 	}
 }

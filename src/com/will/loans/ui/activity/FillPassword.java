@@ -70,28 +70,27 @@ public class FillPassword extends BaseTextActivity {
 		}
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("jsonData", jo.toString());
-		// aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
-		// loginFirst
-		// registerOrLoginByMsg
 		mAQuery.ajax(ServerInfo.LOGINBYPSW, params,
 				JSONObject.class, new AjaxCallback<JSONObject>() {
 			@Override
 			public void callback(String url, JSONObject object, AjaxStatus status) {
 				System.out.println(" " + object.toString());
-				try {
-					String result = object.getString("resultflag");
-					SharePreferenceUtil.getUserPref(FillPassword.this).setToken(object.getString("token"));
-					SharePreferenceUtil.getUserPref(FillPassword.this).setUserId(object.getString("userid"));
-					SharePreferenceUtil.getUserPref(FillPassword.this).setUsername(mNum);
-					if (result.equals("0")) {
-						Toast.makeText(getApplication(), "登陆成功", 1*1000).show();
-						FillPassword.this.finish();
-					}else{
-						Toast.makeText(getApplication(), object.getString("resultMsg"), 1*1000).show();
+				if (object!=null) {
+					try {
+						String result = object.getString("resultflag");
+						SharePreferenceUtil.getUserPref(FillPassword.this).setToken(object.getString("token"));
+						SharePreferenceUtil.getUserPref(FillPassword.this).setUserId(object.getString("userid"));
+						SharePreferenceUtil.getUserPref(FillPassword.this).setUsername(mNum);
+						if (result.equals("0")) {
+							Toast.makeText(getApplication(), "登陆成功", 1*1000).show();
+							FillPassword.this.finish();
+						}else{
+							Toast.makeText(getApplication(), object.getString("resultMsg"), 1*1000).show();
+						}
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
 			}
 		});

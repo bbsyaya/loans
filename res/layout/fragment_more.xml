@@ -87,7 +87,7 @@
                             style="@style/Width_wrap_height_wrap"
                             android:layout_marginLeft="20dp"
                             android:text="基金的申购赎回流程？"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textSize="12sp"
                             android:textColor="@color/title_text" />
                     </LinearLayout>
                     <ImageView

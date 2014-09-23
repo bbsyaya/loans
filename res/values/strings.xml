@@ -62,6 +62,7 @@
     <string name="cancel">取消</string>
     <string name="fill_phone_num">填写手机号码</string>
     <string name="fill_verify_num">填写验证码</string>
+    <string name="realname_auth">实名验证</string>
     <string name="fill_password">填写登陆密码</string>
     <string name="daidaitong">贷贷通社区</string>
     <string name="reget_verifycode">重新获取验证码</string>
