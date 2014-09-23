@@ -24,6 +24,9 @@
     <color name="bottom_text_gray">#dedede</color>
     <color name="red">#FA5C5B</color>
     <color name="progress_color">#f00</color>
+    <color name="gesture_background">#ff303237</color>
+    <color name="color_hei_8">#00000000</color>
+    <drawable name="trans">@color/color_hei_8</drawable>
     <!-- title text -->
     <color name="title_text">#6c8a96</color>
     <color name="title_gray">#dbdee3</color>
