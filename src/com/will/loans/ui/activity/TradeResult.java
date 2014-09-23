@@ -67,6 +67,7 @@ public class TradeResult extends Activity {
 			jo.put("userid", SharePreferenceUtil.getUserPref(this).getUserId());
 			jo.put("token", SharePreferenceUtil.getUserPref(this).getToken());
 			jo.put("pageNum", "1");
+			jo.put("sign", SharePreferenceUtil.getUserPref(this).getToken()+ServerInfo.sign);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

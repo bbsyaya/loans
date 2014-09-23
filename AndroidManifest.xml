@@ -112,5 +112,6 @@
         </activity>
         <activity android:name=".ui.activity.RealNameAuthentication" >
         </activity>
+        <activity android:name=".ui.activity.BankCardManager"></activity>
     </application>
 </manifest>

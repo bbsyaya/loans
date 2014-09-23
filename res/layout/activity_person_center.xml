@@ -91,6 +91,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall" />
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/account_bankcard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -140,6 +141,7 @@
             android:layout_toRightOf="@id/left_img_change"
             android:orientation="vertical" >
             <TextView
+                android:id="@+id/account_change_psw"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="5dp"
@@ -153,6 +155,7 @@
                 android:layout_marginLeft="5dp"
                 android:background="#d9d9d9" />
             <TextView
+                android:id="@+id/account_change_trade_psw"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="5dp"

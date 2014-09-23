@@ -49,6 +49,7 @@ public class RealNameAuthentication extends BaseTextActivity {
 			jo.put("userid", SharePreferenceUtil.getUserPref(RealNameAuthentication.this).getUserId());
 			jo.put("realName", mPersonName.getText().toString());
 			jo.put("idcardNo", mPersonIdNum.getText().toString());
+			jo.put("sign", ServerInfo.sign);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

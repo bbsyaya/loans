@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.will.loans.ui.activity.PersonCenter;
+
 /**
  * Created with IntelliJ IDEA. User: peng Date: 13-12-20 Time: 上午8:47 To change
  * this template use File | Settings | File Templates.
@@ -189,6 +191,15 @@ public class SharePreferenceUtil {
 
 	public String getPersonDesc() {
 		return sp.getString("desc", "");
+	}
+
+	public void setIsGestureOpen(boolean flag){
+		editor.putBoolean(PersonCenter.ISGESTUREOPEN, flag);
+		editor.commit();
+	}
+
+	public boolean getIsGestureOpen(){
+		return sp.getBoolean(PersonCenter.ISGESTUREOPEN, false);
 	}
 
 	public void putString(String key, String value) {

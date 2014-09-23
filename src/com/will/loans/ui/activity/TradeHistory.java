@@ -1,10 +1,13 @@
 package com.will.loans.ui.activity;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,15 +23,18 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
 import com.will.loans.constant.ServerInfo;
+import com.will.loans.utils.GenerateMD5Password;
 import com.will.loans.utils.SharePreferenceUtil;
 
 public class TradeHistory extends BaseMineActivity {
 	private Adatper mAdapter;
+	List<JSONObject> tradeList = new ArrayList<JSONObject>();
 
 	@Override
 	protected void initView() {
 		super.initView();
 		((TextView)findViewById(R.id.title_tv)).setText(R.string.trade_record);
+		getDate();
 	}
 
 	@Override
@@ -45,6 +51,7 @@ public class TradeHistory extends BaseMineActivity {
 			jo.put("userid", SharePreferenceUtil.getUserPref(this).getUserId());
 			jo.put("token", SharePreferenceUtil.getUserPref(this).getToken());
 			jo.put("pageNum", "1");
+			jo.put("sign",GenerateMD5Password.encodeByMD5(SharePreferenceUtil.getUserPref(this).getToken()+ServerInfo.sign));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -56,6 +63,16 @@ public class TradeHistory extends BaseMineActivity {
 			public void callback(String url, JSONObject json,
 					AjaxStatus status) {
 				Log.e("11", "iwant ------ " + json.toString());
+				if (json != null) {
+					JSONArray ja = null;
+					ja = json.optJSONArray("proList");
+					for (int i = 0; i < ja.length(); i++) {
+						tradeList.add(ja.optJSONObject(i));
+					}
+					if (mAdapter!=null) {
+						mAdapter.notifyDataSetChanged();
+					}
+				}
 			}
 		});
 	}
@@ -79,13 +96,13 @@ public class TradeHistory extends BaseMineActivity {
 
 		@Override
 		public int getCount() {
-			return 10;
+			return tradeList.size();
 		}
 
 		@Override
-		public Object getItem(int arg0) {
+		public JSONObject getItem(int arg0) {
 			// TODO Auto-generated method stub
-			return null;
+			return tradeList.get(arg0);
 		}
 
 		@Override
@@ -109,10 +126,14 @@ public class TradeHistory extends BaseMineActivity {
 			}else{
 				viewHolder = (ViewHolder) view.getTag();
 			}
+			JSONObject item = getItem(position);
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			viewHolder.time.setText(sdf.format(new Date()));
+			viewHolder.time.setText(sdf.format(item.optString("tradeTime")));
+			viewHolder.product_status.setText(item.optString("tradeStatus"));
+			viewHolder.status.setText(item.optString("tradeType"));
+			viewHolder.title.setText(item.optString("proName"));
 			viewHolder.money.setText(Html
-					.fromHtml("<font color=#ff0000>" + 50 * position
+					.fromHtml("<font color=#ff0000>" + item.optString("tradeMoney")
 							+ "</font>" + "元"));
 			return view;
 		}

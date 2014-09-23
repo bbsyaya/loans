@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+    <include layout="@layout/common_title"/>
+
+        <com.will.loans.weight.AutoLoadPull2RefreshListView 
+        android:id="@+id/trade_list"
+        style="@style/Width_match_height_match"/>
+    <TextView 
+        android:text="@string/about_phone"
+        style="@style/Width_wrap_height_wrap"/>
+</LinearLayout>

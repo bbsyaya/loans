@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/edittext_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/iv_card"
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/about_title_icon" />
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent" 
+        android:layout_height="1dp"
+        android:background="#d9d9d9"
+        />
+	<LinearLayout 
+	    android:layout_width="match_parent"
+	    android:gravity="center_vertical"
+	    android:layout_height="wrap_content">
+	    <LinearLayout 
+	        android:layout_marginLeft="20dp"
+	        android:orientation="vertical"
+	        
+	        style="@style/Width_wrap_height_wrap">
+	        <TextView 
+	            android:id="@+id/loans_type"
+	            android:text="sssss"
+	            style="@style/Width_wrap_height_wrap"/>
+	        <TextView 
+	            android:id="@+id/loans_validate"
+	            android:text="ddddddd"
+	            android:layout_marginLeft="10dp"
+	            style="@style/Width_wrap_height_wrap"/>
+	    </LinearLayout>
+	    <TextView 
+	        android:layout_marginLeft="20dp"
+	            android:text="当日剩余申购额度"
+	            style="@style/Width_wrap_height_wrap"/>
+	        <TextView 
+	            android:id="@+id/loans_money"
+	            android:text="ddddddd"
+	            android:textColor="@color/red"
+	            android:layout_marginLeft="10dp"
+	            style="@style/Width_wrap_height_wrap"/>
+	        <TextView 
+	            android:text="元"
+	            style="@style/Width_wrap_height_wrap"/>
+	</LinearLayout>
+</LinearLayout>

@@ -16,6 +16,7 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
 import com.will.loans.constant.ServerInfo;
+import com.will.loans.utils.SharePreferenceUtil;
 
 public class TodayEarn extends BaseMineActivity {
 
@@ -24,9 +25,10 @@ public class TodayEarn extends BaseMineActivity {
 	private TodayAdapter todayAdapter;
 	@Override
 	protected void initView() {
-		date = smf.format(System.currentTimeMillis())+"收益";
+		date = smf.format(System.currentTimeMillis()-60*60*24*1000)+"收益";
 		((TextView)findViewById(R.id.title_tv)).setText(date);
 		todayAdapter = new TodayAdapter();
+		getDate();
 	}
 
 	class TodayAdapter extends BaseAdapter{
@@ -79,14 +81,14 @@ public class TodayEarn extends BaseMineActivity {
 		JSONObject jo = new JSONObject();
 		try {
 			jo.put("timeStamp", System.currentTimeMillis());
-			//			jo.put("token", SharePreferenceUtil.getUserPref(getActivity()).getToken());
-			//			jo.put("userid", SharePreferenceUtil.getUserPref(getActivity()).getUserId());
+			jo.put("token", SharePreferenceUtil.getUserPref(this).getToken());
+			jo.put("userid", SharePreferenceUtil.getUserPref(this).getUserId());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("jsonData", jo.toString());
-		aq.ajax(ServerInfo.USERMSG,params, JSONObject.class, new AjaxCallback<JSONObject>() {
+		aq.ajax(ServerInfo.TODAYPROFIT,params, JSONObject.class, new AjaxCallback<JSONObject>() {
 			@Override
 			public void callback(String url, JSONObject object,
 					AjaxStatus status) {

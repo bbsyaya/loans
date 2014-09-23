@@ -56,6 +56,7 @@ public class FillVerifyCode extends BaseTextActivity {
 			jo.put("phoneNum", mNum);
 			jo.put("verCode", mVerifyCode.getText().toString());
 			jo.put("token", token);
+			jo.put("sign", ServerInfo.sign);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

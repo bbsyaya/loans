@@ -91,6 +91,16 @@ OnCheckedChangeListener {
 
 	}
 
+	public void setCurrentTab(){
+		if (mCurrentTab.equals(LIST_TAB)) {
+			((RadioButton) findViewById(R.id.main_tab_product_list)).setChecked(true);
+		}else if(mCurrentTab.equals(MAIN_TAB)){
+			((RadioButton) findViewById(R.id.main_tab_home)).setChecked(true);
+		}else if(mCurrentTab.equals(MORE_TAB)){
+			((RadioButton) findViewById(R.id.main_tab_more)).setChecked(true);
+		}
+	}
+
 	private void setTabByTag(boolean isChecked, String tab) {
 		if (isChecked) {
 			mTabHost.setCurrentTabByTag(tab);
