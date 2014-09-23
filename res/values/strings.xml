@@ -59,4 +59,53 @@
     <string name="p2refresh_doing_end_refresh">加载中&#8230;</string>
     <string name="p2refresh_refresh_lasttime">最近更新&#160;&#058;&#160;</string>
     <!-- 产品详情 -->
+    <string name="cancel">取消</string>
+    <string name="fill_phone_num">填写手机号码</string>
+    <string name="fill_verify_num">填写验证码</string>
+    <string name="realname_auth">实名验证</string>
+    <string name="fill_password">填写登陆密码</string>
+    <string name="daidaitong">贷贷通社区</string>
+    <string name="reget_verifycode">重新获取验证码</string>
+    <string name="countdown_code">秒后重新获取</string>
+    <string name="help">帮助</string>
+    <string name="amonut_earn">累计收益（元）</string>
+    <string name="amonut_point">总积分</string>
+    <string name="point_title">积分</string>
+    <string name="has_money">持有资产（元）</string>
+    <!-- about -->
+    <string name="about_desc">一款适合普通大众群体使用的掌上理财软件，免费提供给用户受益稳定及安全的理财产品，你可以随时、随地、随心
+        婉转理财。基金销售系统由中国领先的第三方投资顾问公司上海好买财富旗下好买基金销售公司提供。贷贷通，指尖上的财富！我们提倡轻松、安全、文件、低门槛的理财方式！</string>
+    <string name="about_welcome">欢迎页</string>
+    <string name="about_title">关于</string>
+    <string name="about_phone">客服热线：400-870-5800</string>
+    <string name="about_qq">客服QQ群：888888</string>
+    <string name="about_email">客服邮箱：kefu@daidaitong.com</string>
+    <string name="about_web">网站：www.baidu.com</string>
+    <!-- 屏幕手势锁 -->
+    <string name="lockscreen_access_pattern_start">"开始绘制图案"</string>
+    <string name="lockscreen_access_pattern_cleared">"图案已清除"</string>
+    <string name="lockscreen_access_pattern_cell_added">"已添加单元格"</string>
+    <string name="lockscreen_access_pattern_detected">"图案绘制完成"</string>
+    <string name="lockpattern_retry_button_text">"重试"</string>
+    <string name="lockpattern_continue_button_text">"继续"</string>
+    <string name="lockpattern_confirm_button_text">"确认"</string>
+    <string name="lockpattern_recording_intro_header">"绘制解锁图案"</string>
+    <string name="lockpattern_settings_help_how_to_record">"如何绘制解锁图案"</string>
+    <string name="lockpattern_recording_incorrect_too_short">"至少连接4个点，请重试"</string>
+    <string name="lockpattern_pattern_entered_header">"图案已记录"</string>
+    <string name="lockpattern_need_to_confirm">"请再次绘制解锁图案"</string>
+    <string name="lockpattern_need_to_unlock_wrong">"与上次输入不一致，请重试"</string>
+    <string name="lockpattern_pattern_confirmed_header">"确认保存新解锁图案"</string>
+    <string name="lockpattern_recording_inprogress">"完成后松开手指"</string>
+    <string name="gesture_password_guide_text">你可以创建一个解锁图案，这样他人在借用你的手机时，将无法打开应用。</string>
+    <string name="gesture_password_guide_creat_btn">创建手势密码</string>
+    <!-- 账户中心 -->
+    <string name="account">账户</string>
+    <string name="account_center">账户中心</string>
+    <string name="account_realname">实名认证</string>
+    <string name="account_idcard">身份认证</string>
+    <string name="account_bankcard">银行卡管理</string>
+    <string name="account_change_psw">修改登录密码</string>
+    <string name="account_change_trade">修改交易密码</string>
+    <string name="account_open_gesture">开启手势</string>
 </resources>

@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
@@ -18,14 +19,19 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
+import com.will.loans.beans.json.LoginFirst;
+import com.will.loans.constant.ServerInfo;
+
 /**
  * 登陆页面
+ *
  * @author will
  *
  */
@@ -36,6 +42,8 @@ public class Register extends BaseTextActivity implements OnCheckedChangeListene
 	private TextView mBigPhoneNum;
 
 	private CheckBox mCheckBox;
+
+	private ImageView mImageView;
 
 	private Button mNextBtn;
 
@@ -50,15 +58,22 @@ public class Register extends BaseTextActivity implements OnCheckedChangeListene
 
 	private void initView() {
 		mAQuery = new AQuery(this);
+		findViewById(R.id.title_back).setVisibility(View.VISIBLE);
+		findViewById(R.id.title_back).setOnClickListener(this);
+		((TextView)findViewById(R.id.title_tv)).setText(R.string.fill_phone_num);
 		mPhoneNum = (EditText) findViewById(R.id.phone_num);
 		mBigPhoneNum = (TextView) findViewById(R.id.phone_num_big);
 		mCheckBox = (CheckBox) findViewById(R.id.cb_agree);
+		mImageView = (ImageView) findViewById(R.id.del_img);
+		mImageView.setOnClickListener(this);
 		mPhoneNum.addTextChangedListener(this);
 		mCheckBox.setOnCheckedChangeListener(this);
 		mNextBtn = (Button) findViewById(R.id.btn_next);
 		mNextBtn.setOnClickListener(this);
 		findViewById(R.id.user_use).setOnClickListener(this);
 		findViewById(R.id.user_use_self).setOnClickListener(this);
+		((TextView) findViewById(R.id.user_use)).getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+		((TextView) findViewById(R.id.user_use_self)).getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
 	}
 
 	@Override
@@ -73,8 +88,10 @@ public class Register extends BaseTextActivity implements OnCheckedChangeListene
 			mNextBtn.setEnabled(true);
 			mBigPhoneNum.setVisibility(View.VISIBLE);
 			mBigPhoneNum.setText(s);
+			mImageView.setVisibility(View.VISIBLE);
 		} else {
 			mNextBtn.setEnabled(false);
+			mImageView.setVisibility(View.INVISIBLE);
 			mBigPhoneNum.setVisibility(View.GONE);
 		}
 	}
@@ -88,21 +105,28 @@ public class Register extends BaseTextActivity implements OnCheckedChangeListene
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.user_use:
-
+			startActivity(new Intent(Register.this,WebBrowser.class).putExtra(WebBrowser.URL_STRING, "http://www.baidu.com"));
 			break;
 		case R.id.user_use_self:
-
+			startActivity(new Intent(Register.this,WebBrowser.class).putExtra(WebBrowser.URL_STRING, "http://www.baidu.com"));
 			break;
 		case R.id.btn_next:
 			buildParams();
+			break;
+		case R.id.title_back:
+			finish();
+			break;
+		case R.id.del_img:
+			mPhoneNum.setText("");
+			mNextBtn.setEnabled(false);
 			break;
 		default:
 			break;
 		}
 	}
 
-	//	private CustomProgressDialog mCustomProgressDialog = CustomProgressDialog
-	//			.createDialog(getApplication());
+	// private CustomProgressDialog mCustomProgressDialog = CustomProgressDialog
+	// .createDialog(getApplication());
 
 	public void getLoginInfo() {
 
@@ -118,42 +142,46 @@ public class Register extends BaseTextActivity implements OnCheckedChangeListene
 		}
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("jsonData", jo.toString());
-		// aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
-		// loginFirst
-		// registerOrLoginByMsg
-		mAQuery.ajax(
-				"http://daidaitong.imwanmei.com:8080/mobile/loginFirst",
-				params, JSONObject.class, mRegisterCallback);
+		mAQuery.ajax(ServerInfo.LOGINFIRST,params, LoginFirst.class, mRegisterCallback);
 	}
 
-	AjaxCallback<JSONObject> mRegisterCallback = new AjaxCallback<JSONObject>() {
+	AjaxCallback<LoginFirst> mRegisterCallback = new AjaxCallback<LoginFirst>() {
 		@Override
-		public void callback(String url, JSONObject object, AjaxStatus status) {
+		public void callback(String url, LoginFirst object, AjaxStatus status) {
 			super.callback(url, object, status);
-			Log.d("", object.toString());
-			if (status.getCode() == 200) {
-				//				mCustomProgressDialog.dismiss();
-			}
-			try {
-				Intent intent = null;
-				String state = object.getString("resultflag");
-				String token = object.getString("token");
-				if (state.equals("0")) {
-					intent = new Intent(Register.this, FillPassword.class).putExtra(FillVerifyCode.NUM, mPhoneNum.getText().toString()).putExtra(FillVerifyCode.TOKEN, token);
-				}else if(state.equals("1")){
+			Log.d("", object.resultflag+"  " + object.resultMsg);
+			if (status!=null&&status.getCode() == 200) {
+				// mCustomProgressDialog.dismiss();
+				try {
+					Intent intent = null;
+					String state = object.resultflag;
+					String token = object.token;
+					if (state.equals("0")) {
+						intent = new Intent(Register.this, FillPassword.class)
+						.putExtra(FillVerifyCode.NUM,
+								mPhoneNum.getText().toString()).putExtra(
+										FillVerifyCode.TOKEN, token);
+					} else if (state.equals("1")) {
 
-				}else if(state.equals("3")){
-					intent = new Intent(Register.this, FillVerifyCode.class).putExtra(FillVerifyCode.NUM, mPhoneNum.getText().toString()).putExtra(FillVerifyCode.TOKEN, token);
-				}else if(state.equals("2")){
-					intent = new Intent(Register.this, Login.class);
+					} else if (state.equals("3")||state.equals("2")) {
+						intent = new Intent(Register.this, FillVerifyCode.class)
+						.putExtra(FillVerifyCode.NUM,
+								mPhoneNum.getText().toString()).putExtra(
+										FillVerifyCode.TOKEN, token);
+					}
+
+					//					intent = new Intent(Register.this, FillPassword.class)
+					//					.putExtra(FillVerifyCode.NUM,
+					//							mPhoneNum.getText().toString()).putExtra(
+					//									FillVerifyCode.TOKEN, token);
+					if (intent != null) {
+						startActivity(intent);
+						Register.this.finish();
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				if (intent!=null) {
-					startActivity(intent);
-					Register.this.finish();
-				}
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 		}
 	};

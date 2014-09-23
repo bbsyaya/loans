@@ -8,24 +8,44 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
 
+import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
-import com.will.loans.ui.activity.ProductDetail;
+import com.will.loans.constant.ServerInfo;
 import com.will.loans.weight.AutoLoadPull2RefreshListView;
 import com.will.loans.weight.AutoLoadPull2RefreshListView.OnLoadMoreListener;
 import com.will.loans.weight.AutoLoadPull2RefreshListView.OnRefreshListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 产品列表 其他产品列表父页面
  * 
  * @author yushan.peng
  */
-public class BasePRoductLis extends BaseFragment implements OnLoadMoreListener, OnRefreshListener,
-        OnItemClickListener {
-    private AutoLoadPull2RefreshListView mListView;
+public abstract class BasePRoductLis extends BaseFragment implements OnLoadMoreListener,
+        OnRefreshListener, OnItemClickListener {
+    protected AutoLoadPull2RefreshListView mListView;
 
-    private LoansAdapter mAdapter;
+    private BaseAdapter mAdapter;
+
+    private AQuery aq;
+
+    protected String type = "WYD";
+
+    List<JSONObject> products = new ArrayList<JSONObject>();
+
+    private int mPageNum = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,80 +55,69 @@ public class BasePRoductLis extends BaseFragment implements OnLoadMoreListener, 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        aq = new AQuery(getActivity(), view);
         initView(view);
+        getDate(false);
     }
 
     private void initView(View view) {
         mListView = (AutoLoadPull2RefreshListView) view.findViewById(R.id.refresh_listview);
         mListView.setOnItemClickListener(this);
-        mAdapter = new LoansAdapter();
-        mListView.setAdapter(mAdapter);
+        mListView.setAdapter(getAdapter());
         mListView.setAutoLoadMore(true);
         mListView.setOnRefreshListener(this);
         mListView.setOnLoadListener(this);
     }
 
-    class LoansAdapter extends BaseAdapter {
-
-        @Override
-        public int getCount() {
-            // TODO Auto-generated method stub
-            return 10;
+    private void getDate(final boolean isRefresh) {
+        JSONObject jo = new JSONObject();
+        try {
+            jo.put("timeStamp", new Date().getTime());
+            jo.put("pageNum", mPageNum);
+            jo.put("type", type);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-
-        @Override
-        public Object getItem(int position) {
-            // TODO Auto-generated method stub
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            // TODO Auto-generated method stub
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            convertView = getActivity().getLayoutInflater().inflate(R.layout.item_loans_others,
-                    null);
-            return convertView;
-        }
-
-        class ViewHolder {
-            TextView title;
-
-            TextView time;
-
-            TextView persent;
-
-            TextView limit;
-
-            TextView bigPersent;
-
-            TextView bigPersentNum;
-
-            TextView indicat;
-
-            TextView status;
-        }
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("jsonData", jo.toString());
+        aq.ajax(ServerInfo.PROLIST, params, JSONObject.class, new AjaxCallback<JSONObject>() {
+            @Override
+            public void callback(String url, JSONObject json, AjaxStatus status) {
+                if (isRefresh) {
+                    products.clear();
+                    mListView.onRefreshComplete();
+                } else {
+                    mListView.onLoadMoreComplete();
+                }
+                if (json == null) {
+                    return;
+                }
+                JSONArray ja = null;
+                ja = json.optJSONArray("proList");
+                for (int i = 0; i < ja.length(); i++) {
+                    products.add(ja.optJSONObject(i));
+                }
+                mAdapter.notifyDataSetChanged();
+            }
+        });
 
     }
 
+    abstract BaseAdapter getAdapter();
+
     @Override
     public void onRefresh() {
-        mListView.onRefreshComplete();
-
+        mPageNum = 1;
+        getDate(true);
     }
 
     @Override
     public void onLoadMore() {
-        // TODO Auto-generated method stub
-        mListView.onLoadMoreComplete();
+        mPageNum++;
+        getDate(false);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        jump2Activity(new ProductDetail());
     }
 }

@@ -9,8 +9,8 @@
         style="@style/RegisterEt"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:paddingLeft="10dp"
         android:layout_marginTop="20dp"
-        android:drawableLeft="@drawable/user_phone_icon"
         android:gravity="left|center_vertical"
         android:hint="填写登录密码" />
     <TextView
@@ -25,7 +25,8 @@
         android:layout_margin="15dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/speak_hint_dialog_btn"
-        android:text="下一步"
+        android:text="登陆"
+        android:enabled="false"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@android:color/white" />
 </LinearLayout>

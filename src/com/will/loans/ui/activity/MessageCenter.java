@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.will.loans.R;
+import com.will.loans.utils.Toaster;
 
 public class MessageCenter extends BaseCenter {
     private MessageAdapter mMessageAdapter;
@@ -16,6 +17,31 @@ public class MessageCenter extends BaseCenter {
     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    protected void init() {
+        super.init();
+        ((TextView) findViewById(R.id.title_tv)).setText(R.string.more_message_center);
+        ((TextView) findViewById(R.id.title_btn_right)).setText(R.string.read);
+        findViewById(R.id.title_tv).setOnClickListener(this);
+        findViewById(R.id.title_back).setVisibility(View.VISIBLE);
+        findViewById(R.id.title_back).setOnClickListener(this);
+        ((TextView) findViewById(R.id.title_back)).setText(R.string.back);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()) {
+            case R.id.more_message_center:
+                Toaster.showShort(this, "已标记为已读");
+                break;
+
+            default:
+                break;
+        }
     }
 
     @Override

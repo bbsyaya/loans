@@ -6,14 +6,17 @@
     <ImageView
         android:id="@+id/start_iv_logo"
         style="@style/Width_wrap_height_wrap"
+        android:layout_margin="20dp"
         android:layout_alignParentBottom="true"
         android:layout_gravity="left|center_vertical"
         android:background="@drawable/welcome_yylc"
         android:scaleType="fitXY" />
+        
     <ImageView
         android:id="@+id/start_iv_ad"
         style="@style/Width_match_height_match"
         android:layout_above="@id/start_iv_logo"
         android:background="@drawable/welcome_input"
         android:scaleType="fitXY" />
+
 </RelativeLayout>

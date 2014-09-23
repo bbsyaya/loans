@@ -1,5 +1,6 @@
 package com.will.loans.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.widget.CompoundButton;
@@ -8,9 +9,10 @@ import android.widget.RadioButton;
 import android.widget.TabHost;
 
 import com.will.loans.R;
+import com.will.loans.utils.SharePreferenceUtil;
 
 public class HomePage extends FragmentActivity implements
-		OnCheckedChangeListener {
+OnCheckedChangeListener {
 	private String MAIN_TAB = "tab_main";
 
 	private String MINE_TAB = "tab_mine";
@@ -31,6 +33,14 @@ public class HomePage extends FragmentActivity implements
 		initView();
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (mTabHost!=null) {
+			mTabHost.setCurrentTabByTag(mCurrentTab);
+		}
+	}
+
 	private void initView() {
 		mTabHost = (TabHost) findViewById(android.R.id.tabhost);
 		mTabHost.setup();
@@ -43,13 +53,13 @@ public class HomePage extends FragmentActivity implements
 
 	private void initListener() {
 		((RadioButton) findViewById(R.id.main_tab_home))
-				.setOnCheckedChangeListener(this);
+		.setOnCheckedChangeListener(this);
 		((RadioButton) findViewById(R.id.main_tab_product_list))
-				.setOnCheckedChangeListener(this);
+		.setOnCheckedChangeListener(this);
 		((RadioButton) findViewById(R.id.main_tab_mine))
-				.setOnCheckedChangeListener(this);
+		.setOnCheckedChangeListener(this);
 		((RadioButton) findViewById(R.id.main_tab_more))
-				.setOnCheckedChangeListener(this);
+		.setOnCheckedChangeListener(this);
 	}
 
 	public void addTab(String tab, String indicator, int resId) {
@@ -67,7 +77,12 @@ public class HomePage extends FragmentActivity implements
 			setTabByTag(isChecked, LIST_TAB);
 			break;
 		case R.id.main_tab_mine:
-			setTabByTag(isChecked, MINE_TAB);
+			if (isChecked&&SharePreferenceUtil.getUserPref(HomePage.this)
+					.getToken().equals("")) {
+				startActivity(new Intent(HomePage.this,Register.class));
+			}else{
+				setTabByTag(isChecked, MINE_TAB);
+			}
 			break;
 		case R.id.main_tab_more:
 			setTabByTag(isChecked, MORE_TAB);

@@ -1,22 +1,19 @@
+
 package com.will.loans.pay;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
@@ -24,138 +21,191 @@ import com.androidquery.callback.AjaxStatus;
 import com.unionpay.UPPayAssistEx;
 import com.unionpay.uppay.PayActivity;
 import com.will.loans.R;
-import com.will.loans.beans.UserinfoCache;
-import com.will.loans.ui.activity.LoansDetail;
+import com.will.loans.constant.ServerInfo;
+import com.will.loans.ui.activity.RealNameAuthentication;
+import com.will.loans.ui.activity.SetPassword;
+import com.will.loans.utils.SharePreferenceUtil;
 
-public class EditPayActivity extends BasePayActivity {
+import org.json.JSONException;
+import org.json.JSONObject;
 
-	private EditText moneyET;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
-	private JSONObject jo = LoansDetail.pro;
+public class EditPayActivity extends BasePayActivity implements OnClickListener {
 
-	private AQuery aq;
+    private EditText moneyET, mTradePsw;
 
-	@Override
-	public void doStartUnionPayPlugin(Activity activity, String tn, String mode) {
-		UPPayAssistEx.startPayByJAR(activity, PayActivity.class, null, null,
-				tn, mode);
-	}
+    public static JSONObject product;
 
-	@Override
-	protected void afterSetContentView() {
+    private AQuery aq;
 
-		aq = new AQuery(this);
+    @Override
+    public void doStartUnionPayPlugin(Activity activity, String tn, String mode) {
+        UPPayAssistEx.startPayByJAR(activity, PayActivity.class, null, null, tn, mode);
+    }
 
-		nextBtn.setOnClickListener(new OnClickListener() {
+    private void checkHaveTradePsw() {
+        JSONObject jo = new JSONObject();
+        try {
+            jo.put("timeStamp", new Date().getTime());
+            jo.put("userid", SharePreferenceUtil.getUserPref(EditPayActivity.this).getUserId());
+            jo.put("token", SharePreferenceUtil.getUserPref(EditPayActivity.this).getToken());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("jsonData", jo.toString());
+        aq.ajax(ServerInfo.HASTRADEPSW, params, JSONObject.class, new AjaxCallback<JSONObject>() {
+            @Override
+            public void callback(String url, JSONObject json, AjaxStatus status) {
+                if (json != null) {
+                    if (json.optString("tradePsw").equals("")) {
+                        startActivity(new Intent(EditPayActivity.this, SetPassword.class).putExtra(
+                                SetPassword.SETTYPE, 1));
+                        return;
+                    } else {
+                        mLoadingDialog = ProgressDialog.show(EditPayActivity.this, // context
+                                "", // title
+                                "正在努力的获取tn中,请稍候...", // message
+                                true); // 进度是否是不确定的，这只和创建进度条有关
+                        getDate();
+                    }
+                }
+            }
+        });
 
-			@Override
-			public void onClick(View v) {
-				mLoadingDialog = ProgressDialog.show(EditPayActivity.this, // context
-						"", // title
-						"正在努力的获取tn中,请稍候...", // message
-						true); // 进度是否是不确定的，这只和创建进度条有关
-				getDate();
-			}
-		});
-		nextBtn.setEnabled(false);
+    }
 
-		moneyET = (EditText) findViewById(R.id.moneyET);
-		moneyET.addTextChangedListener(new TextWatcher() {
+    @Override
+    protected void afterSetContentView() {
 
-			@Override
-			public void onTextChanged(CharSequence arg0, int arg1, int arg2,
-					int arg3) {
+        aq = new AQuery(this);
+        findViewById(R.id.title_back).setVisibility(View.VISIBLE);
+        findViewById(R.id.title_back).setOnClickListener(this);
+        ((TextView) findViewById(R.id.title_tv)).setText("投标");
+        nextBtn.setOnClickListener(new OnClickListener() {
 
-			}
+            @Override
+            public void onClick(View v) {
+                checkHaveTradePsw();
+            }
+        });
+        nextBtn.setEnabled(false);
 
-			@Override
-			public void beforeTextChanged(CharSequence arg0, int arg1,
-					int arg2, int arg3) {
+        moneyET = (EditText) findViewById(R.id.moneyET);
+        mTradePsw = (EditText) findViewById(R.id.trade_psw);
+        mTradePsw.addTextChangedListener(new TextWatcher() {
 
-			}
+            @Override
+            public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
 
-			@Override
-			public void afterTextChanged(Editable arg0) {
-				if (TextUtils.isEmpty(moneyET.getText().toString())) {
-					return;
-				}
-				int money = Integer.parseInt(moneyET.getText().toString());
-				if (money == 0 || money % jo.optInt("startBuy") != 0) {
-					nextBtn.setEnabled(false);
-				} else {
-					nextBtn.setEnabled(true);
-				}
-			}
-		});
-		updateView();
-	}
+            }
 
-	private void getDate() {
-		// TODO EditPay完善参数
-		JSONObject jo = new JSONObject();
-		try {
-			jo.put("timeStamp", new Date().getTime());
-			jo.put("userid", UserinfoCache.userId);
-			jo.put("token", UserinfoCache.token);
-			jo.put("amount", moneyET.getText().toString());
-			jo.put("proId", LoansDetail.pro.optInt("id"));
-			jo.put("tradePsw", "66668888");
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("jsonData", jo.toString());
-		// aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/registerOrLoginByMsg",
-		// loginFirst
-		// registerOrLoginByMsg
-		aq.ajax("http://daidaitong.imwanmei.com:8080/mobile/buyProduct", params,
-				JSONObject.class, new AjaxCallback<JSONObject>() {
-			@Override
-			public void callback(String url, JSONObject json,
-					AjaxStatus status) {
-				mLoadingDialog.cancel();
-				String tn = json.optString("tn");
-				Message msg = mHandler.obtainMessage();
-				msg.obj = tn;
-				mHandler.sendMessage(msg);
-			}
-		});
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
 
-	}
+            }
 
-	private void updateView() {
-		setTextView(R.id.nameTV, jo.optString("proName"), "");
-		setTextView(R.id.moneyTV, "起投金额：" + jo.optInt("startBuy") + "元"
-				+ "    手续费:无", "");
-		setTextView(R.id.timeTV, "理财年限：限" + jo.optString("timeLimit") + "个月",
-				"");
-		setTextView(R.id.multipleTV, "投资倍数为：" + jo.optInt("startBuy") + "的整数倍",
-				"");
-	}
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                if (TextUtils.isEmpty(moneyET.getText().toString())
+                        || TextUtils.isEmpty(mTradePsw.getText().toString())) {
+                    return;
+                }
+                int money = Integer.parseInt(moneyET.getText().toString());
+                if (money == 0 || money % product.optInt("startBuy") != 0) {
+                    nextBtn.setEnabled(false);
+                } else {
+                    nextBtn.setEnabled(true);
+                }
+            }
+        });
 
-	/**
-	 * 通过id设置text
-	 * <p>
-	 * 若text为null或"",则使用or
-	 * 
-	 * @param resId
-	 * @param text
-	 * @param or
-	 */
-	private void setTextView(final int resId, String text, String or) {
-		final String content;
-		if (TextUtils.isEmpty(text)) {
-			content = or;
-		} else {
-			content = text;
-		}
-		runOnUiThread(new Runnable() {
+        updateView();
+        checkHaveTradePsw();
+    }
 
-			@Override
-			public void run() {
-				((TextView) findViewById(resId)).setText(content);
-			}
-		});
-	}
+    private void getDate() {
+        // TODO EditPay完善参数
+        JSONObject jo = new JSONObject();
+        try {
+            jo.put("timeStamp", new Date().getTime());
+            jo.put("userid", SharePreferenceUtil.getUserPref(EditPayActivity.this).getUserId());
+            jo.put("token", SharePreferenceUtil.getUserPref(EditPayActivity.this).getToken());
+            jo.put("amount", moneyET.getText().toString());
+            jo.put("proId", product.optString("id"));
+            jo.put("tradePsw", mTradePsw.getText().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("jsonData", jo.toString());
+        aq.ajax(ServerInfo.BUYPRODUCT, params, JSONObject.class, new AjaxCallback<JSONObject>() {
+            @Override
+            public void callback(String url, JSONObject json, AjaxStatus status) {
+                mLoadingDialog.cancel();
+                String result = json.optString("resultflag");
+                if (result.equals("0")) {
+                    String tn = json.optString("tn");
+                    Message msg = mHandler.obtainMessage();
+                    msg.obj = tn;
+                    mHandler.sendMessage(msg);
+                } else if (result.equals("1")) {
+                    Log.d("", json.optString("resultMsg"));
+                    Toast.makeText(getApplication(), json.optString("resultMsg"), 1 * 1000).show();
+                } else {
+                    Toast.makeText(getApplication(), json.optString("resultMsg"), 1 * 1000).show();
+                    startActivity(new Intent(EditPayActivity.this, RealNameAuthentication.class));
+                    Log.d("", json.optString("resultMsg"));
+                }
+            }
+        });
 
+    }
+
+    private void updateView() {
+        setTextView(R.id.nameTV, product.optString("proName"), "");
+        setTextView(R.id.moneyTV, "起投金额：" + product.optInt("startBuy") + "元" + "    手续费:无", "");
+        setTextView(R.id.timeTV, "理财年限：限" + product.optString("timeLimit") + "个月", "");
+        setTextView(R.id.multipleTV, "投资倍数为：" + product.optInt("startBuy") + "的整数倍", "");
+    }
+
+    /**
+     * 通过id设置text
+     * <p>
+     * 若text为null或"",则使用or
+     * 
+     * @param resId
+     * @param text
+     * @param or
+     */
+    private void setTextView(final int resId, String text, String or) {
+        final String content;
+        if (TextUtils.isEmpty(text)) {
+            content = or;
+        } else {
+            content = text;
+        }
+        runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                ((TextView) findViewById(resId)).setText(content);
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.title_back:
+                finish();
+                break;
+            default:
+                break;
+        }
+
+    }
 }

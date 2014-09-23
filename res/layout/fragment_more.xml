@@ -45,8 +45,8 @@
                     android:id="@+id/more_message_center"
                     style="@style/MoreListItem" >
                     <ImageView
-                        android:layout_marginLeft="15dp"
                         style="@style/Width_wrap_height_wrap"
+                        android:layout_marginLeft="15dp"
                         android:src="@drawable/more_message_center_icon" />
                     <LinearLayout
                         style="@style/Width_wrap_height_wrap"
@@ -70,18 +70,25 @@
                     android:id="@+id/more_help_center"
                     style="@style/MoreListItem" >
                     <ImageView
-                        android:layout_marginLeft="15dp"
                         style="@style/Width_wrap_height_wrap"
+                        android:layout_marginLeft="15dp"
                         android:src="@drawable/more_help_icon" />
                     <LinearLayout
                         style="@style/Width_wrap_height_wrap"
                         android:layout_weight="1"
-                        android:gravity="center_vertical" >
+                        android:gravity="center_vertical"
+                        android:orientation="vertical" >
                         <TextView
                             style="@style/Width_wrap_height_wrap"
                             android:layout_marginLeft="20dp"
                             android:text="@string/more_help_center"
                             android:textAppearance="?android:attr/textAppearanceSmall" />
+                        <TextView
+                            style="@style/Width_wrap_height_wrap"
+                            android:layout_marginLeft="20dp"
+                            android:text="基金的申购赎回流程？"
+                            android:textSize="12sp"
+                            android:textColor="@color/title_text" />
                     </LinearLayout>
                     <ImageView
                         style="@style/Width_wrap_height_wrap"
@@ -94,13 +101,11 @@
                 android:background="@drawable/more_bg"
                 android:orientation="vertical" >
                 <LinearLayout style="@style/MoreListItem" >
-
                     <TextView
                         android:id="@+id/more_share"
                         style="@style/MoreItem"
                         android:drawableLeft="@drawable/more_to_friends_icon"
                         android:text="@string/more_share" />
-
                     <TextView
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
@@ -158,9 +163,9 @@
                     android:id="@+id/check_update_llyt"
                     style="@style/MoreListItem" >
                     <ImageView
-                        android:layout_marginLeft="15dp"
                         android:id="@+id/check_update"
                         style="@style/Width_wrap_height_wrap"
+                        android:layout_marginLeft="15dp"
                         android:src="@drawable/more_check_update_icon" />
                     <LinearLayout
                         style="@style/Width_wrap_height_wrap"
@@ -176,8 +181,8 @@
                         <TextView
                             android:id="@+id/more_check_update_number"
                             style="@style/Width_wrap_height_wrap"
-                            android:textSize="12sp"
-                            android:text="@string/more_current_version" />
+                            android:text="@string/more_current_version"
+                            android:textSize="12sp" />
                     </LinearLayout>
                     <ImageView
                         style="@style/Width_wrap_height_wrap"
@@ -191,20 +196,19 @@
                     android:id="@+id/more_about"
                     style="@style/MoreListItem" >
                     <ImageView
-                        android:layout_marginLeft="15dp"
                         style="@style/Width_wrap_height_wrap"
+                        android:layout_marginLeft="15dp"
                         android:src="@drawable/more_about_us_icon" />
                     <LinearLayout
                         style="@style/Width_wrap_height_wrap"
-                        android:layout_weight="1"
                         android:layout_marginLeft="20dp"
-                        android:orientation="vertical"
-                        android:gravity="center_vertical" >
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical" >
                         <TextView
                             style="@style/Width_wrap_height_wrap"
                             android:text="@string/more_about"
                             android:textAppearance="?android:attr/textAppearanceSmall" />
-                        
                     </LinearLayout>
                     <ImageView
                         style="@style/Width_wrap_height_wrap"

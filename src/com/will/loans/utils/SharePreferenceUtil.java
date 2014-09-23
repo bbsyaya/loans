@@ -31,6 +31,15 @@ public class SharePreferenceUtil {
 		return sUserPref;
 	}
 
+	public void setUserId(String str) {
+		editor.putString("userId", str);
+		editor.commit();
+	}
+
+	public String getUserId() {
+		return sp.getString("userId", "");
+	}
+
 	public void setUsername(String username) {
 		editor.putString("username", username);
 		editor.commit();
@@ -50,13 +59,23 @@ public class SharePreferenceUtil {
 		return sp.getString("passwd", "");
 	}
 
+	// 用户的密码
+	public void setTradePassword(String passwd) {
+		editor.putString("tradePassword", passwd);
+		editor.commit();
+	}
+
+	public String getTradePassword() {
+		return sp.getString("tradePassword", "");
+	}
+
 	public void setToken(String token) {
 		editor.putString("token", token);
 		editor.commit();
 	}
 
 	public String getToken() {
-		return sp.getString("token", null);
+		return sp.getString("token", "");
 	}
 
 	// 用户的昵称

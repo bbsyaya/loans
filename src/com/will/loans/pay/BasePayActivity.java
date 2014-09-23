@@ -1,5 +1,10 @@
 package com.will.loans.pay;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -16,13 +21,8 @@ import android.widget.Button;
 
 import com.will.loans.R;
 
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
-
 public abstract class BasePayActivity extends Activity implements Callback,
-		Runnable {
+Runnable {
 	public static final String LOG_TAG = "PayDemo";
 	private Context mContext = null;
 	protected Handler mHandler = null;
@@ -90,13 +90,14 @@ public abstract class BasePayActivity extends Activity implements Callback,
 			builder.setMessage("网络连接失败,请重试!");
 			builder.setNegativeButton("确定",
 					new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.dismiss();
-						}
-					});
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			});
 			builder.create().show();
 		} else {
+
 			tn = (String) msg.obj;
 			/*************************************************
 			 * 步骤2：通过银联工具类启动支付插件
