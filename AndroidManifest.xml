@@ -113,6 +113,8 @@
         <activity android:name=".ui.activity.RealNameAuthentication" >
         </activity>
         <activity android:name=".ui.activity.BankCardManager"></activity>
+        <activity android:name=".ui.activity.FundCompany"></activity>
+        <activity android:name=".ui.activity.BuyList"></activity>
         <activity android:name=".getsurepassword.pattern.GuideGesturePasswordActivity"></activity>
         <activity android:name=".getsurepassword.pattern.CreateGesturePasswordActivity"></activity>
         <activity android:name=".getsurepassword.pattern.UnlockGesturePasswordActivity"></activity>

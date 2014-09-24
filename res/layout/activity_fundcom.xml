@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <include layout="@layout/common_title"/>
+    <ScrollView 
+        style="@style/Width_match_height_match">
+        <LinearLayout 
+            android:orientation="vertical"
+            style="@style/Width_match_height_match">
+        
+	<LinearLayout 
+	    android:padding="10dp"
+	    android:layout_marginLeft="20dp"
+	    android:layout_marginRight="20dp"
+	    style="@style/Width_match_height_wrap">
+	    <LinearLayout 
+	        
+	        style="@style/Width_0_height_wrap"
+	        android:layout_weight="1"
+	        android:orientation="vertical">
+	        <TextView 
+	            android:id="@+id/sale_company"
+	            style="@style/Width_match_height_wrap"/>
+	        <TextView 
+	            android:id="@+id/sale_type"
+	            style="@style/Width_match_height_wrap"/>
+	    </LinearLayout>
+	    <ImageView 
+	        style="@style/Width_0_height_wrap"
+	        android:layout_weight="1"
+	        android:src="@drawable/about_copyright"/>
+	</LinearLayout>
+	<LinearLayout 
+	    android:padding="10dp"
+	    android:gravity="center_vertical"
+	    style="@style/Width_match_height_wrap">
+	    <ImageView style="@style/Width_wrap_height_wrap"
+	        android:src="@drawable/fund_about_detail_icon"/>
+	    <TextView 
+	        android:id="@+id/desc1"
+	        android:layout_marginLeft="10dp"
+	        style="@style/Width_wrap_height_wrap"/>
+	</LinearLayout>
+	<LinearLayout 
+	    android:padding="10dp"
+	    android:gravity="center_vertical"
+	    style="@style/Width_match_height_wrap">
+	    <ImageView style="@style/Width_wrap_height_wrap"
+	        android:src="@drawable/fund_about_order_icon"/>
+	    <TextView 
+	        android:id="@+id/desc2"
+	        android:layout_marginLeft="10dp"
+	        style="@style/Width_wrap_height_wrap"/>
+	</LinearLayout>
+	<LinearLayout 
+	    android:padding="10dp"
+	    android:gravity="center_vertical"
+	    style="@style/Width_match_height_wrap">
+	    <ImageView style="@style/Width_wrap_height_wrap"
+	        android:src="@drawable/fund_about_save_icon"/>
+	    <TextView 
+	        android:id="@+id/desc3"
+	        android:layout_marginLeft="10dp"
+	        style="@style/Width_wrap_height_wrap"/>
+	</LinearLayout>
+	</LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -226,12 +226,11 @@
                         android:layout_weight="0.6"
                         android:text="40%" />
                     <TextView
-                        android:id="@+id/one_year_number"
                         style="@style/Width_0_height_wrap"
                         android:layout_weight="1"
                         android:text="一年涨幅：" />
                     <TextView
-                        android:id="@+id/one_year_number_money"
+                        android:id="@+id/one_year_number"
                         style="@style/Width_0_height_wrap"
                         android:layout_weight="1"
                         android:text="5.05 %" />
@@ -247,6 +246,7 @@
                 android:text="关于"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
             <LinearLayout
+                android:id="@+id/detail_about"
                 style="@style/Width_match_height_wrap"
                 android:orientation="vertical"
                 android:background="@drawable/pie_bar_red"
@@ -261,7 +261,7 @@
                     <TextView
                         android:id="@+id/loans_company"
                         style="@style/Width_0_height_wrap"
-                        android:layout_weight="0.6"
+                        android:layout_weight="0.8"
                         android:text="工行瑞信" />
                     <TextView
                         style="@style/Width_0_height_wrap"
@@ -282,7 +282,8 @@
                     <TextView
                         android:id="@+id/loans_range_number"
                         style="@style/Width_0_height_wrap"
-                        android:layout_weight="0.6"
+                        android:layout_weight="0.8"
+                        android:maxLength="6"
                         android:text="234.4亿" />
                     <TextView
                         style="@style/Width_0_height_wrap"

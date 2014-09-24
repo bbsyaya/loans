@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/pie_bar_red_normal_bg" android:state_focused="true"></item>
-    <item android:drawable="@drawable/pie_bar_red_press_bg" android:state_pressed="true"></item>
-    <item android:drawable="@drawable/pie_bar_red_normal_bg"></item>
+    <item android:drawable="@drawable/pie_bar_blue_normal_bgr" android:state_focused="true"></item>
+    <item android:drawable="@drawable/pie_bar_blue_press_bgr" android:state_pressed="true"></item>
+    <item android:drawable="@drawable/pie_bar_blue_normal_bgr"></item>
 </selector>

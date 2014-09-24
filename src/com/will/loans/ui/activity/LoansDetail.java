@@ -21,6 +21,7 @@ import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
 import com.will.loans.constant.ServerInfo;
 import com.will.loans.pay.EditPayActivity;
+import com.will.loans.utils.SharePreferenceUtil;
 
 public class LoansDetail extends BaseActivity {
 
@@ -39,6 +40,7 @@ public class LoansDetail extends BaseActivity {
 		setContentView(R.layout.loans_detail);
 		findViewById(R.id.title_back).setVisibility(View.VISIBLE);
 		findViewById(R.id.title_back).setOnClickListener(this);
+		findViewById(R.id.buy_llyt).setOnClickListener(this);
 		((Button) findViewById(R.id.title_btn_right)).setText(R.string.refresh);
 		((TextView)findViewById(R.id.title_tv)).setText(pro.optString("proName"));
 		if (pro != null) {
@@ -130,6 +132,9 @@ public class LoansDetail extends BaseActivity {
 		case R.id.title_back:
 			finish();
 			break;
+		case R.id.buy_llyt:
+			startActivity(new Intent(LoansDetail.this,BuyList.class).putExtra(BuyList.MPROSTR, pro.optInt("id")));
+			break;
 		default:
 			break;
 		}
@@ -138,7 +143,11 @@ public class LoansDetail extends BaseActivity {
 
 	public void enterBtn(View view) {
 		EditPayActivity.product = pro;
-		startActivity(new Intent(LoansDetail.this, EditPayActivity.class));
+		if (!SharePreferenceUtil.getUserPref(getParent()).getToken().equals("")) {
+			startActivity(new Intent(LoansDetail.this, EditPayActivity.class));
+		}else{
+			startActivity(new Intent(LoansDetail.this, Register.class));
+		}
 	}
 
 	public void calculatorView(View view) {

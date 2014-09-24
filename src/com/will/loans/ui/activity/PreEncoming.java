@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -30,7 +31,9 @@ public class PreEncoming extends BaseActivity implements TextWatcher{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pre_encoming);
-
+		findViewById(R.id.title_back).setVisibility(View.VISIBLE);
+		findViewById(R.id.title_back).setOnClickListener(this);
+		((TextView)findViewById(R.id.title_tv)).setText("预估收益");
 		init();
 	}
 	private void init() {
@@ -82,7 +85,7 @@ public class PreEncoming extends BaseActivity implements TextWatcher{
 	};
 
 	@Override
-	public void onClick(android.view.View v) {
+	protected void onViewClick(View view) {
 		buildParams();
 	}
 	@Override
