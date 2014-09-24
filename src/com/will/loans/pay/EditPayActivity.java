@@ -23,6 +23,7 @@ import com.unionpay.uppay.PayActivity;
 import com.will.loans.R;
 import com.will.loans.constant.ServerInfo;
 import com.will.loans.ui.activity.RealNameAuthentication;
+import com.will.loans.ui.activity.Register;
 import com.will.loans.ui.activity.SetPassword;
 import com.will.loans.utils.GenerateMD5Password;
 import com.will.loans.utils.SharePreferenceUtil;
@@ -105,7 +106,11 @@ public class EditPayActivity extends BasePayActivity implements OnClickListener 
 
             @Override
             public void onClick(View v) {
-                checkHaveTradePsw();
+                if (SharePreferenceUtil.getUserPref(EditPayActivity.this).getToken().equals("")) {
+                    startActivity(new Intent(EditPayActivity.this, Register.class));
+                } else {
+                    checkHaveTradePsw();
+                }
             }
         });
         nextBtn.setEnabled(false);

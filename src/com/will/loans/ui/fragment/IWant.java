@@ -1,6 +1,7 @@
 
 package com.will.loans.ui.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -104,6 +105,27 @@ public class IWant extends BaseFragment implements OnClickListener {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("loans", "onresume");
+        //        getDate();
+    }
+
+    @Override
+    public void onDetach() {
+        // TODO Auto-generated method stub
+        super.onDetach();
+        Log.d("loans", "onDetach");
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        // TODO Auto-generated method stub
+        super.onAttach(activity);
+        Log.d("loans", "onAttach");
+    }
+
+    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         aq = new AQuery(getActivity(), view);
@@ -152,7 +174,7 @@ public class IWant extends BaseFragment implements OnClickListener {
             @Override
             public void callback(String url, UserInfoJson object, AjaxStatus status) {
                 Log.d("loans", object.toString());
-                if (object != null) {
+                if (object != null && object.userMsg != null) {
                     updateView(object);
                 }
             }

@@ -98,7 +98,7 @@ public class ProductListOthers extends BasePRoductLis {
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        ProductDetail.proDetail = mAdapter.getItem(position);
+        ProductDetail.proDetail = mAdapter.getItem(position - 1);
         jump2Activity(new ProductDetail());
     }
 }

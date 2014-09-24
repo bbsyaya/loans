@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TabHost;
 
 import com.will.loans.R;
@@ -75,6 +76,7 @@ public class HomePage extends FragmentActivity implements OnCheckedChangeListene
                 if (isChecked
                         && SharePreferenceUtil.getUserPref(HomePage.this).getToken().equals("")) {
                     startActivity(new Intent(HomePage.this, Register.class));
+                    setCurrentTab();
                 } else {
                     setTabByTag(isChecked, MINE_TAB);
                 }
@@ -88,11 +90,11 @@ public class HomePage extends FragmentActivity implements OnCheckedChangeListene
 
     public void setCurrentTab() {
         if (mCurrentTab.equals(LIST_TAB)) {
-            ((RadioButton) findViewById(R.id.main_tab_product_list)).setChecked(true);
+            ((RadioGroup) findViewById(R.id.main_tab_group)).check(1);
         } else if (mCurrentTab.equals(MAIN_TAB)) {
-            ((RadioButton) findViewById(R.id.main_tab_home)).setChecked(true);
+            ((RadioGroup) findViewById(R.id.main_tab_group)).check(0);
         } else if (mCurrentTab.equals(MORE_TAB)) {
-            ((RadioButton) findViewById(R.id.main_tab_more)).setChecked(true);
+            ((RadioGroup) findViewById(R.id.main_tab_group)).check(3);
         }
     }
 
