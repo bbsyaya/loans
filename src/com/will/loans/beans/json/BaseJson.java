@@ -8,6 +8,8 @@ import com.will.loans.beans.bean.BaseBeans;
  * this template use File | Settings | File Templates.
  */
 public class BaseJson extends BaseBeans {
-	public String resultflag;
-	public String resultMsg;
+    public String resultflag;
+
+    public String resultMsg;
+
 }

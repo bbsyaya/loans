@@ -2215,11 +2215,11 @@ containing a value of this type.
         public static final int person_num=0x7f050109;
         public static final int phone_num=0x7f050089;
         public static final int phone_num_big=0x7f05008b;
-        public static final int product_money=0x7f05011f;
+        public static final int product_money=0x7f05011e;
         public static final int product_status=0x7f05011d;
         public static final int product_time=0x7f05011c;
         public static final int product_title=0x7f05011b;
-        public static final int product_trade_status=0x7f05011e;
+        public static final int product_trade_status=0x7f05011f;
         public static final int product_tv_total=0x7f050105;
         public static final int product_tv_total_day=0x7f050106;
         public static final int progress_bar_two=0x7f0500e0;

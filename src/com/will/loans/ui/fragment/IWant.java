@@ -1,13 +1,6 @@
 
 package com.will.loans.ui.fragment;
 
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +16,7 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.will.loans.R;
+import com.will.loans.beans.json.UserInfoJson;
 import com.will.loans.constant.ServerInfo;
 import com.will.loans.ui.activity.AmountEarn;
 import com.will.loans.ui.activity.AmountMoney;
@@ -37,197 +31,213 @@ import com.will.loans.ui.activity.TradeHistory;
 import com.will.loans.utils.GenerateMD5Password;
 import com.will.loans.utils.SharePreferenceUtil;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
+
 public class IWant extends BaseFragment implements OnClickListener {
 
-	private PullToRefreshScrollView homePRSV;
+    private PullToRefreshScrollView homePRSV;
 
-	private LinearLayout todayEarnBtn;
+    private LinearLayout todayEarnBtn;
 
-	private LinearLayout amountEarnBtn;
+    private LinearLayout amountEarnBtn;
 
-	private LinearLayout amountMoneyBtn;
+    private LinearLayout amountMoneyBtn;
 
-	private LinearLayout hasMoneyBtn;
+    private LinearLayout hasMoneyBtn;
 
-	private LinearLayout remainMoneyBtn;
+    private LinearLayout remainMoneyBtn;
 
-	private LinearLayout tradeHistoryBtn;
+    private LinearLayout tradeHistoryBtn;
 
-	private LinearLayout amountPointBtn;
+    private LinearLayout amountPointBtn;
 
-	/**
-	 * 今日收益日期（09月12日收益（元））
-	 */
-	private TextView todayDateTV;
+    /**
+     * 今日收益日期
+     */
+    private TextView todayDateTV;
 
-	/**
-	 * 今日收益（元）
-	 */
-	private TextView todayEarnTV;
+    /**
+     * 今日收益（元）
+     */
+    private TextView todayEarnTV;
 
-	/**
-	 * 累计收益
-	 */
-	private TextView amountEarnTV;
+    /**
+     * 累计收益
+     */
+    private TextView amountEarnTV;
 
-	/**
-	 * 总资产
-	 */
-	private TextView amountMoneyTV;
+    /**
+     * 总资产
+     */
+    private TextView amountMoneyTV;
 
-	/**
-	 * 持有资产
-	 */
-	private TextView hasMoneyTV;
+    /**
+     * 持有资产
+     */
+    private TextView hasMoneyTV;
 
-	/**
-	 * 账户余额
-	 */
-	private TextView remainMoneyTV;
+    /**
+     * 账户余额
+     */
+    private TextView remainMoneyTV;
 
-	/**
-	 * 总积分
-	 */
-	private TextView amountPointTV;
-	private SimpleDateFormat smf = new SimpleDateFormat("MM月dd日");
-	private String date;
-	private AQuery aq;
+    /**
+     * 总积分
+     */
+    private TextView amountPointTV;
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		return inflater.inflate(R.layout.fragment_mine, null);
-	}
+    private SimpleDateFormat smf = new SimpleDateFormat("MM月dd日");
 
-	@Override
-	public void onViewCreated(View view, Bundle savedInstanceState) {
-		super.onViewCreated(view, savedInstanceState);
-		aq = new AQuery(getActivity(), view);
-		((TextView) view.findViewById(R.id.title_tv)).setText(R.string.tab_mine);
-		((TextView) view.findViewById(R.id.title_tv_phone)).setText(SharePreferenceUtil
-				.getUserPref(getActivity()).getUsername());
-		((Button) view.findViewById(R.id.title_btn_left)).setText(R.string.help);
-		date = smf.format(System.currentTimeMillis()-60*60*24*1000)+"收益（元）";
-		view.findViewById(R.id.title_btn_left).setVisibility(View.VISIBLE);
-		view.findViewById(R.id.title_btn_right_msg_center).setVisibility(View.VISIBLE);
-		view.findViewById(R.id.title_btn_right_msg_center).setOnClickListener(this);
-		view.findViewById(R.id.title_btn_left).setOnClickListener(this);
-		view.findViewById(R.id.title_tv).setOnClickListener(this);
-		view.findViewById(R.id.title_tv_phone).setOnClickListener(this);
-		view.findViewById(R.id.title_tv_phone).setVisibility(View.VISIBLE);
+    private String date;
 
-		initButton(view);
-		initTextView(view);
-		todayDateTV.setText(date);
-		getDate();
-	}
+    private AQuery aq;
 
-	/**
-	 * 请求接口数据
-	 */
-	private void getDate() {
-		JSONObject jo = new JSONObject();
-		try {
-			jo.put("timeStamp", System.currentTimeMillis());
-			jo.put("token", SharePreferenceUtil.getUserPref(getActivity()).getToken());
-			jo.put("userid", SharePreferenceUtil.getUserPref(getActivity()).getUserId());
-			jo.put("sign",GenerateMD5Password.encodeByMD5(SharePreferenceUtil.getUserPref(getActivity()).getToken()+ServerInfo.sign));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("jsonData", jo.toString());
-		aq.ajax(ServerInfo.USERMSG, params, JSONObject.class, new AjaxCallback<JSONObject>() {
-			@Override
-			public void callback(String url, JSONObject object, AjaxStatus status) {
-				if (object!=null) {
-					System.out.println(" " + object.toString());
-					Log.d("", object.toString());
-					//					updateView(object);
-				}
-			}
-		});
-	}
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        return inflater.inflate(R.layout.fragment_mine, null);
+    }
 
-	private void updateView(JSONObject object) {
-		// TODO 请求结束后调用刷新视图
-		//		todayDateTV.setText(object.optString(""));
-		todayEarnTV.setText(object.optString(""));
-		amountEarnTV.setText(object.optString(""));
-		amountMoneyTV.setText(object.optString(""));
-		hasMoneyTV.setText(object.optString(""));
-		remainMoneyTV.setText(object.optString(""));
-		amountPointTV.setText(object.optString(""));
-	}
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        aq = new AQuery(getActivity(), view);
+        ((TextView) view.findViewById(R.id.title_tv)).setText(R.string.tab_mine);
+        ((TextView) view.findViewById(R.id.title_tv_phone)).setText(SharePreferenceUtil
+                .getUserPref(getActivity()).getUsername());
+        ((Button) view.findViewById(R.id.title_btn_left)).setText(R.string.help);
+        date = smf.format(System.currentTimeMillis() - 60 * 60 * 24 * 1000) + "收益（元）";
+        view.findViewById(R.id.title_btn_left).setVisibility(View.VISIBLE);
+        view.findViewById(R.id.title_btn_right_msg_center).setVisibility(View.VISIBLE);
+        view.findViewById(R.id.title_btn_right_msg_center).setOnClickListener(this);
+        view.findViewById(R.id.title_btn_left).setOnClickListener(this);
+        view.findViewById(R.id.title_tv).setOnClickListener(this);
+        view.findViewById(R.id.title_tv_phone).setOnClickListener(this);
+        view.findViewById(R.id.title_tv_phone).setVisibility(View.VISIBLE);
 
-	private void initButton(View view) {
-		todayEarnBtn = (LinearLayout) view.findViewById(R.id.todayEarnBtn);
-		amountEarnBtn = (LinearLayout) view.findViewById(R.id.amountEarnBtn);
-		amountMoneyBtn = (LinearLayout) view.findViewById(R.id.amountMoneyBtn);
-		hasMoneyBtn = (LinearLayout) view.findViewById(R.id.hasMoneyBtn);
-		remainMoneyBtn = (LinearLayout) view.findViewById(R.id.remainMoneyBtn);
-		tradeHistoryBtn = (LinearLayout) view.findViewById(R.id.tradeHistoryBtn);
-		amountPointBtn = (LinearLayout) view.findViewById(R.id.amountPointBtn);
+        initButton(view);
+        initTextView(view);
+        todayDateTV.setText(date);
+        getDate();
+    }
 
-		todayEarnBtn.setOnClickListener(this);
-		amountEarnBtn.setOnClickListener(this);
-		amountMoneyBtn.setOnClickListener(this);
-		hasMoneyBtn.setOnClickListener(this);
-		remainMoneyBtn.setOnClickListener(this);
-		tradeHistoryBtn.setOnClickListener(this);
-		amountPointBtn.setOnClickListener(this);
-		view.findViewById(R.id.title_btn_right_msg_center).setOnClickListener(this);
-	}
+    protected SimpleDateFormat smfJson = new SimpleDateFormat("yyyy-MMddHHmm:ss");
 
-	private void initTextView(View view) {
-		todayDateTV = (TextView) view.findViewById(R.id.todayDateTV);
-		todayEarnTV = (TextView) view.findViewById(R.id.todayEarnTV);
-		amountEarnTV = (TextView) view.findViewById(R.id.amountEarnTV);
-		amountMoneyTV = (TextView) view.findViewById(R.id.amountMoneyTV);
-		hasMoneyTV = (TextView) view.findViewById(R.id.hasMoneyTV);
-		remainMoneyTV = (TextView) view.findViewById(R.id.remainMoneyTV);
-		amountPointTV = (TextView) view.findViewById(R.id.amountPointTV);
-	}
+    protected String key = "qHdKC5yNgKwdi1BFa5EKOw29fwYeetV78EcSN04H93jBYvoLkP631rFcSa3OT3Np";
 
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.todayEarnBtn:
-			jump2Activity(new TodayEarn());
-			break;
-		case R.id.amountEarnBtn:
-			jump2Activity(new AmountEarn());
-			break;
-		case R.id.amountMoneyBtn:
-			jump2Activity(new AmountMoney());
-			break;
-		case R.id.hasMoneyBtn:
-			jump2Activity(new HasMoney());
-			break;
-		case R.id.remainMoneyBtn:
-			jump2Activity(new RemainMoney());
-			break;
-		case R.id.tradeHistoryBtn:
-			jump2Activity(new TradeHistory());
-			break;
-		case R.id.amountPointBtn:
-			jump2Activity(new AmountPoint());
-			break;
-		case R.id.title_btn_right_msg_center:
-			jump2Activity(new MessageCenter());
-			break;
-		case R.id.title_tv_phone:
-			jump2Activity(new PersonCenter());
-			break;
-		case R.id.title_btn_left:
-			jump2Activity(new AppHelp());
-			break;
-		case R.id.title_tv:
-			jump2Activity(new PersonCenter());
-			break;
-		default:
-			break;
-		}
-	}
+    /**
+     * 请求接口数据
+     */
+    private void getDate() {
+        Long time = System.currentTimeMillis();
+        JSONObject jo = new JSONObject();
+        try {
+            jo.put("timeStamp", time);
+            jo.put("token", SharePreferenceUtil.getUserPref(getActivity()).getToken());
+            jo.put("userid", SharePreferenceUtil.getUserPref(getActivity()).getUserId());
+            jo.put("sign",
+                    GenerateMD5Password.encodeByMD5(SharePreferenceUtil.getUserPref(getActivity())
+                            .getToken() + smfJson.format(time) + key));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("jsonData", jo.toString());
+        aq.ajax(ServerInfo.USERMSG, params, UserInfoJson.class, new AjaxCallback<UserInfoJson>() {
+            @Override
+            public void callback(String url, UserInfoJson object, AjaxStatus status) {
+                Log.d("loans", object.toString());
+                if (object != null) {
+                    updateView(object);
+                }
+            }
+        });
+    }
+
+    private void updateView(UserInfoJson object) {
+        // TODO 请求结束后调用刷新视图
+        //		todayDateTV.setText(object.optString(""));
+        todayEarnTV.setText(object.userMsg.totalProfit + "元");
+        amountEarnTV.setText(object.userMsg.accountBalance + "元");
+        amountMoneyTV.setText("1535862");
+        hasMoneyTV.setText("1535862");
+        remainMoneyTV.setText("1535862");
+        amountPointTV.setText("1535862");
+    }
+
+    private void initButton(View view) {
+        todayEarnBtn = (LinearLayout) view.findViewById(R.id.todayEarnBtn);
+        amountEarnBtn = (LinearLayout) view.findViewById(R.id.amountEarnBtn);
+        amountMoneyBtn = (LinearLayout) view.findViewById(R.id.amountMoneyBtn);
+        hasMoneyBtn = (LinearLayout) view.findViewById(R.id.hasMoneyBtn);
+        remainMoneyBtn = (LinearLayout) view.findViewById(R.id.remainMoneyBtn);
+        tradeHistoryBtn = (LinearLayout) view.findViewById(R.id.tradeHistoryBtn);
+        amountPointBtn = (LinearLayout) view.findViewById(R.id.amountPointBtn);
+
+        todayEarnBtn.setOnClickListener(this);
+        amountEarnBtn.setOnClickListener(this);
+        amountMoneyBtn.setOnClickListener(this);
+        hasMoneyBtn.setOnClickListener(this);
+        remainMoneyBtn.setOnClickListener(this);
+        tradeHistoryBtn.setOnClickListener(this);
+        amountPointBtn.setOnClickListener(this);
+        view.findViewById(R.id.title_btn_right_msg_center).setOnClickListener(this);
+    }
+
+    private void initTextView(View view) {
+        todayDateTV = (TextView) view.findViewById(R.id.todayDateTV);
+        todayEarnTV = (TextView) view.findViewById(R.id.todayEarnTV);
+        amountEarnTV = (TextView) view.findViewById(R.id.amountEarnTV);
+        amountMoneyTV = (TextView) view.findViewById(R.id.amountMoneyTV);
+        hasMoneyTV = (TextView) view.findViewById(R.id.hasMoneyTV);
+        remainMoneyTV = (TextView) view.findViewById(R.id.remainMoneyTV);
+        amountPointTV = (TextView) view.findViewById(R.id.amountPointTV);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.todayEarnBtn:
+                jump2Activity(new TodayEarn());
+                break;
+            case R.id.amountEarnBtn:
+                jump2Activity(new AmountEarn());
+                break;
+            case R.id.amountMoneyBtn:
+                jump2Activity(new AmountMoney());
+                break;
+            case R.id.hasMoneyBtn:
+                jump2Activity(new HasMoney());
+                break;
+            case R.id.remainMoneyBtn:
+                jump2Activity(new RemainMoney());
+                break;
+            case R.id.tradeHistoryBtn:
+                jump2Activity(new TradeHistory());
+                break;
+            case R.id.amountPointBtn:
+                jump2Activity(new AmountPoint());
+                break;
+            case R.id.title_btn_right_msg_center:
+                jump2Activity(new MessageCenter());
+                break;
+            case R.id.title_tv_phone:
+                jump2Activity(new PersonCenter());
+                break;
+            case R.id.title_btn_left:
+                jump2Activity(new AppHelp());
+                break;
+            case R.id.title_tv:
+                jump2Activity(new PersonCenter());
+                break;
+            default:
+                break;
+        }
+    }
 
 }
