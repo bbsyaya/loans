@@ -42,6 +42,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.will.loans.R;
 import com.will.loans.beans.bean.BannerItem;
+import com.will.loans.beans.json.BannerInfo;
 import com.will.loans.constant.ServerInfo;
 import com.will.loans.ui.activity.LoansDetail;
 import com.will.loans.ui.activity.Register;
@@ -127,10 +128,35 @@ public class Home extends BaseFragment implements OnClickListener {
 		viewPager = (ViewPager) view.findViewById(R.id.vp_ads);
 
 		initRefreshView();
-		initViewPager();
+
 
 		enterBtn.setEnabled(false);
 		getDate(true);
+		getBanner();
+	}
+
+	private void getBanner() {
+		JSONObject jo = new JSONObject();
+		try {
+			jo.put("timeStamp", System.currentTimeMillis());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("jsonData", jo.toString());
+		aq.ajax(ServerInfo.PROLIST, params, BannerInfo.class, new AjaxCallback<BannerInfo>() {
+			@Override
+			public void callback(String url, BannerInfo json, AjaxStatus status) {
+				if (json == null) {
+					return;
+				}
+				wheel = json.banners;
+				initViewPager();
+				homePRSV.onRefreshComplete();
+			}
+
+		});
+
 	}
 
 	Runnable r = new Runnable() {
@@ -240,15 +266,14 @@ public class Home extends BaseFragment implements OnClickListener {
 
 		initViewPagerBound();
 
-		wheel = new ArrayList<BannerItem>();
-		wheel.add(new BannerItem("http://app.longyinglicai.com/activity/jmh/jm.html", "ACTIVITY",
-				"http://app.longyinglicai.com/activity/jmh/images/yyjm_banner_ios.png", 0));
-		wheel.add(new BannerItem("http://www.yingyinglicai.com/front/xxnj.htm", "ACTIVITY",
-				"http://app.longyinglicai.com/banner/8new-ios.jpg", 1));
-		wheel.add(new BannerItem("http://app.longyinglicai.com/activity/ajia.html", "ACTIVITY",
-				"http://app.longyinglicai.com/banner/APlus-android.png", 0));
-		wheel.add(new BannerItem("http://app.longyinglicai.com/activity/jgxy1.html", "ACTIVITY",
-				"http://app.longyinglicai.com/banner/jgxy1-ios.png", 0));
+		//		wheel.add(new BannerItem("http://app.longyinglicai.com/activity/jmh/jm.html", "ACTIVITY",
+		//				"http://app.longyinglicai.com/activity/jmh/images/yyjm_banner_ios.png", 0));
+		//		wheel.add(new BannerItem("http://www.yingyinglicai.com/front/xxnj.htm", "ACTIVITY",
+		//				"http://app.longyinglicai.com/banner/8new-ios.jpg", 1));
+		//		wheel.add(new BannerItem("http://app.longyinglicai.com/activity/ajia.html", "ACTIVITY",
+		//				"http://app.longyinglicai.com/banner/APlus-android.png", 0));
+		//		wheel.add(new BannerItem("http://app.longyinglicai.com/activity/jgxy1.html", "ACTIVITY",
+		//				"http://app.longyinglicai.com/banner/jgxy1-ios.png", 0));
 		if (wheel == null) {
 			return;
 		}
@@ -306,7 +331,7 @@ public class Home extends BaseFragment implements OnClickListener {
 		for (BannerItem videoItem : wheel) {
 			ImageView imageView = new ImageView(getActivity());
 			imageView.setScaleType(ScaleType.CENTER_CROP);
-			aq.id(imageView).image(videoItem.url, true, true);
+			aq.id(imageView).image(videoItem.bannerUrl, true, true);
 			pageViews.add(imageView);
 		}
 
@@ -326,7 +351,7 @@ public class Home extends BaseFragment implements OnClickListener {
 	private ImageView extraImageView(int i) {
 		ImageView imageView = new ImageView(getActivity());
 		imageView.setScaleType(ScaleType.CENTER_CROP);
-		aq.id(imageView).image(wheel.get(i).url, true, true);
+		aq.id(imageView).image(wheel.get(i).bannerUrl, true, true);
 
 		return imageView;
 

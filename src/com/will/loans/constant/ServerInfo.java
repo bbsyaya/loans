@@ -117,5 +117,17 @@ public class ServerInfo {
 	 * 用户前一天收益列表接口
 	 */
 	public static final String USERLASTDAYPROFIT = IMAGE_PREFIX + "userLastDayProfit";
+	/**
+	 * 用户个人账户信息接口
+	 */
+	public static final String USERACCOUNT = IMAGE_PREFIX + "userAccount";
+	/**
+	 * 用户总资产界面接口
+	 */
+	public static final String TOTALASSETS = IMAGE_PREFIX + "totalAssets";
+	/**
+	 * 获取banner
+	 */
+	public static final String getBanner = IMAGE_PREFIX + "getBanner";
 
 }
