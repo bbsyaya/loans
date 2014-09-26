@@ -1,6 +1,8 @@
 
 package com.will.loans.utils;
 
+import android.util.Log;
+
 import com.androidquery.callback.AjaxStatus;
 import com.androidquery.callback.Transformer;
 import com.google.gson.Gson;
@@ -19,7 +21,7 @@ public class GsonTransformer implements Transformer {
     public <T> T transform(String url, Class<T> type, String encoding, byte[] data,
             AjaxStatus status) {
         try {
-            //			Log.e("json return", new String(data, encoding));
+            Log.e("loans", new String(data, encoding));
             return gson.fromJson(new String(data, encoding), type);
         } catch (Exception e) {
             throw new RuntimeException(e);

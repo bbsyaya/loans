@@ -4,10 +4,10 @@ package com.will.loans.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TabHost;
 
 import com.will.loans.R;
@@ -26,20 +26,51 @@ public class HomePage extends FragmentActivity implements OnCheckedChangeListene
 
     private String mCurrentTab = MAIN_TAB;
 
+    private boolean mIsJump2Person = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        Log.d("loans", "homepage onCreate");
         initView();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (mTabHost != null) {
-            mTabHost.setCurrentTabByTag(mCurrentTab);
+        Log.d("loans", "homepage onResume");
+        if (mTabHost != null && mIsJump2Person
+                && !SharePreferenceUtil.getUserPref(getParent()).getToken().equals("")) {
+            Log.d("loans", "homepage setCurrentTabByTag  ");
+            mTabHost.setCurrentTabByTag(MINE_TAB);
+            mIsJump2Person = false;
+        } else {
+            setCurrentTab();
         }
+    }
+
+    private void setCurrentTab() {
+        if (mCurrentTab.equals(MAIN_TAB)) {
+            ((RadioButton) findViewById(R.id.main_tab_home)).setChecked(true);
+            ((RadioButton) findViewById(R.id.main_tab_home)).setSelected(true);
+        } else if (mCurrentTab.equals(MINE_TAB)) {
+            ((RadioButton) findViewById(R.id.main_tab_mine)).setChecked(true);
+            ((RadioButton) findViewById(R.id.main_tab_mine)).setSelected(true);
+        } else if (mCurrentTab.equals(LIST_TAB)) {
+            ((RadioButton) findViewById(R.id.main_tab_product_list)).setChecked(true);
+            ((RadioButton) findViewById(R.id.main_tab_product_list)).setSelected(true);
+        } else if (mCurrentTab.equals(MORE_TAB)) {
+            ((RadioButton) findViewById(R.id.main_tab_more)).setChecked(true);
+            ((RadioButton) findViewById(R.id.main_tab_more)).setSelected(true);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("loans", "homepage onPause");
     }
 
     private void initView() {
@@ -76,7 +107,7 @@ public class HomePage extends FragmentActivity implements OnCheckedChangeListene
                 if (isChecked
                         && SharePreferenceUtil.getUserPref(HomePage.this).getToken().equals("")) {
                     startActivity(new Intent(HomePage.this, Register.class));
-                    setCurrentTab();
+                    mIsJump2Person = true;
                 } else {
                     setTabByTag(isChecked, MINE_TAB);
                 }
@@ -86,16 +117,6 @@ public class HomePage extends FragmentActivity implements OnCheckedChangeListene
                 break;
         }
 
-    }
-
-    public void setCurrentTab() {
-        if (mCurrentTab.equals(LIST_TAB)) {
-            ((RadioGroup) findViewById(R.id.main_tab_group)).check(1);
-        } else if (mCurrentTab.equals(MAIN_TAB)) {
-            ((RadioGroup) findViewById(R.id.main_tab_group)).check(0);
-        } else if (mCurrentTab.equals(MORE_TAB)) {
-            ((RadioGroup) findViewById(R.id.main_tab_group)).check(3);
-        }
     }
 
     private void setTabByTag(boolean isChecked, String tab) {

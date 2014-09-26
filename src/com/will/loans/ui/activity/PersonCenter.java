@@ -3,7 +3,6 @@ package com.will.loans.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -11,18 +10,9 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
 import com.androidquery.AQuery;
-import com.androidquery.callback.AjaxCallback;
-import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
-import com.will.loans.beans.json.UserInfoJson;
-import com.will.loans.constant.ServerInfo;
-import com.will.loans.utils.SharePreferenceUtil;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.will.loans.beans.json.UserAccount;
+import com.will.loans.ui.fragment.IWant;
 
 public class PersonCenter extends BaseActivity implements OnCheckedChangeListener {
 
@@ -57,40 +47,15 @@ public class PersonCenter extends BaseActivity implements OnCheckedChangeListene
         mButton = (CheckBox) findViewById(R.id.account_open_toggle);
         mButton.setChecked(mIsGestureOpen);
         initListener();
-    }
-
-    /**
-     * 请求接口数据
-     */
-    private void getDate() {
-        time = System.currentTimeMillis();
-        JSONObject jo = new JSONObject();
-        try {
-            jo.put("timeStamp", time);
-            jo.put("token", SharePreferenceUtil.getUserPref(this).getToken());
-            jo.put("userid", SharePreferenceUtil.getUserPref(this).getUserId());
-            jo.put("sign", getMD5Code(time));
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if (IWant.useraccount != null) {
+            updateView(IWant.useraccount);
         }
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("jsonData", jo.toString());
-        aq.ajax(ServerInfo.USERMSG, params, UserInfoJson.class, new AjaxCallback<UserInfoJson>() {
-            @Override
-            public void callback(String url, UserInfoJson object, AjaxStatus status) {
-                Log.d("loans", object.toString());
-                if (object != null) {
-                    updateView(object);
-                }
-            }
-
-        });
     }
 
-    private void updateView(UserInfoJson object) {
-        mUserId.setText(object.userMsg.userName);
-        mUsername.setText(object.userMsg.realName);
-        mIdCard.setText(object.userMsg.idcardNo);
+    private void updateView(UserAccount object) {
+        mUserId.setText(object.userName);
+        mUsername.setText(object.realName);
+        mIdCard.setText(object.idcardNo);
     }
 
     private void initListener() {
