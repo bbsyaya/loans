@@ -2,6 +2,7 @@
 package com.will.loans.ui.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,12 +112,14 @@ public abstract class BasePRoductLis extends BaseFragment implements OnLoadMoreL
     public void onRefresh() {
         mPageNum = 1;
         getDate(true);
+        Log.d("loans", "ProductFirst  onRefresh");
     }
 
     @Override
     public void onLoadMore() {
         mPageNum++;
         getDate(false);
+        Log.d("loans", "ProductFirst  onLoadMore");
     }
 
     @Override

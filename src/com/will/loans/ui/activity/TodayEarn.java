@@ -1,11 +1,5 @@
+
 package com.will.loans.ui.activity;
-
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,95 +9,127 @@ import android.widget.TextView;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
+import com.will.loans.beans.bean.PreDayIncome;
+import com.will.loans.beans.json.PreIncomeJson;
 import com.will.loans.constant.ServerInfo;
 import com.will.loans.utils.SharePreferenceUtil;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class TodayEarn extends BaseMineActivity {
 
-	private String date;
-	private SimpleDateFormat smf = new SimpleDateFormat("MM月dd日");
-	private TodayAdapter todayAdapter;
-	@Override
-	protected void initView() {
-		date = smf.format(System.currentTimeMillis()-60*60*24*1000)+"收益";
-		((TextView)findViewById(R.id.title_tv)).setText(date);
-		todayAdapter = new TodayAdapter();
-		getDate();
-	}
+    private String date;
 
-	class TodayAdapter extends BaseAdapter{
+    private SimpleDateFormat smf = new SimpleDateFormat("MM月dd日");
 
-		@Override
-		public int getCount() {
-			// TODO Auto-generated method stub
-			return 1;
-		}
+    private TodayAdapter todayAdapter;
 
-		@Override
-		public Object getItem(int position) {
-			// TODO Auto-generated method stub
-			return null;
-		}
+    private int mPageNum = 1;
 
-		@Override
-		public long getItemId(int position) {
-			// TODO Auto-generated method stub
-			return 0;
-		}
+    private List<PreDayIncome> income = new ArrayList<PreDayIncome>();
 
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			if (convertView == null) {
-				convertView = getLayoutInflater().inflate(R.layout.item_mine, null);
+    @Override
+    protected void initView() {
+        date = smf.format(System.currentTimeMillis() - 60 * 60 * 24 * 1000) + "收益";
+        ((TextView) findViewById(R.id.title_tv)).setText(date);
+        todayAdapter = new TodayAdapter();
+        getDate();
+    }
 
-			}
-			((TextView)convertView.findViewById(R.id.mine_title)).setText(date+"(元)");
-			((TextView)convertView.findViewById(R.id.mine_num)).setText(10000.00+"");
-			return convertView;
-		}
+    class TodayAdapter extends BaseAdapter {
 
-	}
+        @Override
+        public int getCount() {
+            // TODO Auto-generated method stub
+            return income.size();
+        }
 
+        @Override
+        public Object getItem(int position) {
+            // TODO Auto-generated method stub
+            return null;
+        }
 
-	@Override
-	protected void onViewClick(View view) {
-		// TODO Auto-generated method stub
-		super.onViewClick(view);
-	}
+        @Override
+        public long getItemId(int position) {
+            // TODO Auto-generated method stub
+            return 0;
+        }
 
-	@Override
-	public void onRefresh() {
-		mAutoLoadLv.onRefreshComplete();
-	}
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = getLayoutInflater().inflate(R.layout.item_mine, null);
+            }
+            ((TextView) convertView.findViewById(R.id.mine_title)).setText(smf.format(income
+                    .get(position).profitDate) + "元");
+            ((TextView) convertView.findViewById(R.id.mine_num))
+                    .setText(income.get(position).profitMoney + "");
+            return convertView;
+        }
 
-	@Override
-	public void getDate() {
-		JSONObject jo = new JSONObject();
-		try {
-			jo.put("timeStamp", System.currentTimeMillis());
-			jo.put("token", SharePreferenceUtil.getUserPref(this).getToken());
-			jo.put("userid", SharePreferenceUtil.getUserPref(this).getUserId());
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("jsonData", jo.toString());
-		aq.ajax(ServerInfo.TODAYPROFIT,params, JSONObject.class, new AjaxCallback<JSONObject>() {
-			@Override
-			public void callback(String url, JSONObject object,
-					AjaxStatus status) {
-				System.out.println(" " + object.toString());
-			}
-		});
+    }
 
-	}
+    @Override
+    protected void onViewClick(View view) {
+        // TODO Auto-generated method stub
+        super.onViewClick(view);
+    }
 
-	@Override
-	public BaseAdapter getAdatper() {
-		if (todayAdapter==null) {
-			todayAdapter = new TodayAdapter();
-		}
-		return todayAdapter;
-	}
+    private boolean mIsHeadRefresh = false;
+
+    @Override
+    public void onRefresh() {
+        mIsHeadRefresh = true;
+        mPageNum = 1;
+        mAutoLoadLv.onRefreshComplete();
+    }
+
+    @Override
+    public void getDate() {
+        JSONObject jo = new JSONObject();
+        time = System.currentTimeMillis();
+        try {
+            jo.put("timeStamp", time);
+            jo.put("token", SharePreferenceUtil.getUserPref(this).getToken());
+            jo.put("userid", SharePreferenceUtil.getUserPref(this).getUserId());
+            jo.put("pageNum", mPageNum);
+            jo.put("sign", getMD5Code(time));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("jsonData", jo.toString());
+        aq.ajax(ServerInfo.USERLASTDAYPROFIT, params, PreIncomeJson.class,
+                new AjaxCallback<PreIncomeJson>() {
+                    @Override
+                    public void callback(String url, PreIncomeJson object, AjaxStatus status) {
+                        System.out.println(" " + object.toString());
+                        if (object != null && object.userProfits != null) {
+                            if (mIsHeadRefresh) {
+                                income.clear();
+                            }
+                            income.addAll(object.userProfits);
+                            todayAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+
+    }
+
+    @Override
+    public BaseAdapter getAdatper() {
+        if (todayAdapter == null) {
+            todayAdapter = new TodayAdapter();
+        }
+        return todayAdapter;
+    }
 
 }
