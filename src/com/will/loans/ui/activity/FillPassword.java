@@ -1,3 +1,4 @@
+
 package com.will.loans.ui.activity;
 
 import android.content.Intent;
@@ -15,6 +16,7 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
 import com.will.loans.constant.ServerInfo;
+import com.will.loans.utils.GenerateMD5Password;
 import com.will.loans.utils.SharePreferenceUtil;
 
 import org.json.JSONException;
@@ -25,129 +27,123 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FillPassword extends BaseTextActivity {
-	private EditText mPsw;
+    private EditText mPsw;
 
-	private Button mLogin;
+    private Button mLogin;
 
-	private AQuery mAQuery;
+    private AQuery mAQuery;
 
-	private String mNum, token;
-	public static final String NUM = "com.will.loans.num";
-	public static final String TOKEN = "com.will.loans.token";
+    private String mNum, token;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_fill_psw);
+    public static final String NUM = "com.will.loans.num";
 
-		initView();
-	}
+    public static final String TOKEN = "com.will.loans.token";
 
-	private void initView() {
-		initTop();
-		mNum = getIntent().getExtras().getString(NUM);
-		token = getIntent().getExtras().getString(TOKEN);
-		mAQuery = new AQuery(this);
-		mPsw = (EditText) findViewById(R.id.et_psw);
-		mLogin = (Button) findViewById(R.id.btn_login);
-		mLogin.setOnClickListener(this);
-		findViewById(R.id.forget_psw).setOnClickListener(this);
-		mPsw.addTextChangedListener(this);
-		// 设置下划线
-		((TextView) findViewById(R.id.forget_psw)).getPaint().setFlags(
-				Paint.UNDERLINE_TEXT_FLAG);
-	}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_fill_psw);
 
-	public void buildParams() {
-		time = System.currentTimeMillis();
-		JSONObject jo = new JSONObject();
-		try {
-			jo.put("timeStamp", new Date().getTime());
-			jo.put("phoneNum", mNum);
-			jo.put("loginPsw", mPsw.getText().toString());
-			jo.put("sign", getMD5Code(time));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("jsonData", jo.toString());
-		mAQuery.ajax(ServerInfo.LOGINBYPSW, params, JSONObject.class,
-				new AjaxCallback<JSONObject>() {
-					@Override
-					public void callback(String url, JSONObject object,
-							AjaxStatus status) {
-						System.out.println(" " + object.toString());
-						if (object != null) {
-							try {
-								String result = object.optString("resultflag");
-								SharePreferenceUtil.getUserPref(
-										FillPassword.this).setToken(
-										object.optString("token"));
-								SharePreferenceUtil.getUserPref(
-										FillPassword.this).setUserId(
-										object.optString("userid"));
-								SharePreferenceUtil.getUserPref(
-										FillPassword.this).setUsername(mNum);
-								if (result.equals("0")) {
-									Toast.makeText(getApplication(), "登陆成功",
-											1 * 1000).show();
-									FillPassword.this.finish();
-								} else {
-									Toast.makeText(getApplication(),
-											object.optString("resultMsg"),
-											1 * 1000).show();
-								}
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						}
-					}
-				});
-	}
+        initView();
+    }
 
-	private void initTop() {
-		findViewById(R.id.title_back).setVisibility(View.VISIBLE);
-		findViewById(R.id.title_back).setOnClickListener(this);
-		((TextView) findViewById(R.id.title_tv))
-				.setText(R.string.fill_password);
+    private void initView() {
+        initTop();
+        mNum = getIntent().getExtras().getString(NUM);
+        token = getIntent().getExtras().getString(TOKEN);
+        mAQuery = new AQuery(this);
+        mPsw = (EditText) findViewById(R.id.et_psw);
+        mLogin = (Button) findViewById(R.id.btn_login);
+        mLogin.setOnClickListener(this);
+        findViewById(R.id.forget_psw).setOnClickListener(this);
+        mPsw.addTextChangedListener(this);
+        // 设置下划线
+        ((TextView) findViewById(R.id.forget_psw)).getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+    }
 
-	}
+    public void buildParams() {
+        time = System.currentTimeMillis();
+        JSONObject jo = new JSONObject();
+        try {
+            jo.put("timeStamp", new Date().getTime());
+            jo.put("phoneNum", mNum);
+            jo.put("loginPsw", GenerateMD5Password.encodeByMD5(mPsw.getText().toString()));
+            jo.put("sign", getMD5Code(time));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("jsonData", jo.toString());
+        mAQuery.ajax(ServerInfo.LOGINBYPSW, params, JSONObject.class,
+                new AjaxCallback<JSONObject>() {
+                    @Override
+                    public void callback(String url, JSONObject object, AjaxStatus status) {
+                        System.out.println(" " + object.toString());
+                        if (object != null) {
+                            try {
+                                String result = object.optString("resultflag");
+                                SharePreferenceUtil.getUserPref(FillPassword.this).setToken(
+                                        object.optString("token"));
+                                SharePreferenceUtil.getUserPref(FillPassword.this).setUserId(
+                                        object.optString("userid"));
+                                SharePreferenceUtil.getUserPref(FillPassword.this)
+                                        .setUsername(mNum);
+                                if (result.equals("0")) {
+                                    Toast.makeText(getApplication(), "登陆成功", 1 * 1000).show();
+                                    FillPassword.this.finish();
+                                } else {
+                                    Toast.makeText(getApplication(), object.optString("resultMsg"),
+                                            1 * 1000).show();
+                                }
+                            } catch (Exception e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                });
+    }
 
-	@Override
-	public void beforeTextChanged(CharSequence s, int start, int count,
-			int after) {
+    private void initTop() {
+        findViewById(R.id.title_back).setVisibility(View.VISIBLE);
+        findViewById(R.id.title_back).setOnClickListener(this);
+        ((TextView) findViewById(R.id.title_tv)).setText(R.string.fill_password);
 
-	}
+    }
 
-	@Override
-	public void onTextChanged(CharSequence s, int start, int before, int count) {
-		if (s.length() > 0) {
-			mLogin.setEnabled(true);
-		} else {
-			mLogin.setEnabled(false);
-		}
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-	}
+    }
 
-	@Override
-	public void afterTextChanged(Editable s) {
-		// TODO Auto-generated method stub
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if (s.length() > 0) {
+            mLogin.setEnabled(true);
+        } else {
+            mLogin.setEnabled(false);
+        }
 
-	}
+    }
 
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.forget_psw:
-			startActivity(new Intent(FillPassword.this, ForgetPassword.class));
-			break;
-		case R.id.btn_login:
-			buildParams();
-			break;
-		default:
-			break;
-		}
-	}
+    @Override
+    public void afterTextChanged(Editable s) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.forget_psw:
+                startActivity(new Intent(FillPassword.this, ForgetPassword.class));
+                break;
+            case R.id.btn_login:
+                buildParams();
+                break;
+            default:
+                break;
+        }
+    }
 }

@@ -35,6 +35,7 @@ import com.will.loans.beans.bean.BannerItem;
 import com.will.loans.beans.json.BannerInfo;
 import com.will.loans.constant.ServerInfo;
 import com.will.loans.ui.activity.LoansDetail;
+import com.will.loans.ui.activity.Register;
 import com.will.loans.ui.activity.WebBrowser;
 import com.will.loans.utils.ScreenProperties;
 import com.will.loans.utils.SharePreferenceUtil;
@@ -421,13 +422,11 @@ public class Home extends BaseFragment implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.title_btn_right:
-                // if (!SharePreferenceUtil.getUserPref(getActivity()).getToken()
-                // .equals("")) {
-                //
-                // } else {
-                // jump2Activity(new Register());
-                // }
-                homePRSV.setRefreshing();
+                if (SharePreferenceUtil.getUserPref(getActivity()).getToken().equals("")) {
+                    startActivity(new Intent(getActivity(), Register.class));
+                } else {
+                    homePRSV.setRefreshing();
+                }
                 break;
             case R.id.title_btn_left:
                 getActivity().startActivity(

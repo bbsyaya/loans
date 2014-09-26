@@ -20,6 +20,7 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
 import com.will.loans.constant.ServerInfo;
+import com.will.loans.utils.GenerateMD5Password;
 import com.will.loans.utils.SharePreferenceUtil;
 import com.will.loans.weight.CustomProgressDialog;
 
@@ -163,7 +164,7 @@ public class SetPassword extends BaseTextActivity implements OnCheckedChangeList
         try {
             jo.put("timeStamp", time);
             if (type == 0) {
-                jo.put("loginPsw", epwET.getText().toString());
+                jo.put("loginPsw", GenerateMD5Password.encodeByMD5(epwET.getText().toString()));
             } else {
                 jo.put("tradePsw", epwET.getText().toString());
             }
