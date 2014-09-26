@@ -175,6 +175,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/bg_normal_btn"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
                     android:paddingBottom="10dp"
@@ -220,6 +221,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/bg_normal_btn"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
                     android:paddingBottom="10dp"
@@ -259,6 +261,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/bg_normal_btn"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
                     android:paddingBottom="10dp"
@@ -308,6 +311,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
+                        android:background="@drawable/bg_normal_btn"
                         android:text="浙江巨业担保有限公司提供全额本息担保"
                         android:textColor="@color/gray_dark" />
                     <ImageView
@@ -340,8 +344,8 @@
             android:background="@android:color/transparent"
             android:drawableLeft="@drawable/estimate_profit_icon_normal"
             android:drawablePadding="5dp"
-            android:onClick="calculatorView"
             android:gravity="left|center_vertical"
+            android:onClick="calculatorView"
             android:text="预估收益"
             android:textColor="@color/gray_dark"
             android:textSize="14sp" />

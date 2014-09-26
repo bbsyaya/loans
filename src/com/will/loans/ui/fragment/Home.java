@@ -1,15 +1,4 @@
-
 package com.will.loans.ui.fragment;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -45,11 +34,20 @@ import com.will.loans.beans.bean.BannerItem;
 import com.will.loans.beans.json.BannerInfo;
 import com.will.loans.constant.ServerInfo;
 import com.will.loans.ui.activity.LoansDetail;
-import com.will.loans.ui.activity.Register;
 import com.will.loans.ui.activity.WebBrowser;
 import com.will.loans.utils.ScreenProperties;
 import com.will.loans.utils.SharePreferenceUtil;
 import com.will.loans.weight.ProgressWheel;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class Home extends BaseFragment implements OnClickListener {
 
@@ -83,7 +81,9 @@ public class Home extends BaseFragment implements OnClickListener {
 
 	private View view;
 
-	private Handler handler = new Handler() {
+	private int mProgress = 0;
+
+	private final Handler handler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
@@ -95,7 +95,8 @@ public class Home extends BaseFragment implements OnClickListener {
 	};
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		return inflater.inflate(R.layout.fragment_home, null);
 	}
@@ -103,7 +104,8 @@ public class Home extends BaseFragment implements OnClickListener {
 	@Override
 	public void onResume() {
 		super.onResume();
-		if (!SharePreferenceUtil.getUserPref(getActivity()).getToken().equals("")) {
+		if (!SharePreferenceUtil.getUserPref(getActivity()).getToken()
+				.equals("")) {
 			mLeftBtn.setText("刷新");
 		}
 	}
@@ -113,22 +115,23 @@ public class Home extends BaseFragment implements OnClickListener {
 		super.onViewCreated(view, savedInstanceState);
 		aq = new AQuery(getActivity(), view);
 		this.view = view;
-		setTitleText(view, R.string.daidaitong, R.string.login, R.string.tab_home);
+		setTitleText(view, R.string.daidaitong, R.string.login,
+				R.string.tab_home);
 		mLeftBtn = (TextView) view.findViewById(R.id.title_btn_right);
 		setTitleVisible(view, View.INVISIBLE, View.VISIBLE, View.VISIBLE);
-		((Button) view.findViewById(R.id.title_btn_right)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.title_btn_left)).setOnClickListener(this);
+		((Button) view.findViewById(R.id.title_btn_right))
+				.setOnClickListener(this);
+		((Button) view.findViewById(R.id.title_btn_left))
+				.setOnClickListener(this);
 		enterBtn = ((Button) view.findViewById(R.id.enterBtn));
 		enterBtn.setOnClickListener(this);
 		pwTwo = (ProgressWheel) view.findViewById(R.id.progress_bar_two);
-		new Thread(r).start();
 		groupPoint = (RadioGroup) view.findViewById(R.id.rg_points);
 
 		homePRSV = (PullToRefreshScrollView) view.findViewById(R.id.homePRSV);
 		viewPager = (ViewPager) view.findViewById(R.id.vp_ads);
 
 		initRefreshView();
-
 
 		enterBtn.setEnabled(false);
 		getDate(true);
@@ -144,18 +147,20 @@ public class Home extends BaseFragment implements OnClickListener {
 		}
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("jsonData", jo.toString());
-		aq.ajax(ServerInfo.PROLIST, params, BannerInfo.class, new AjaxCallback<BannerInfo>() {
-			@Override
-			public void callback(String url, BannerInfo json, AjaxStatus status) {
-				if (json == null) {
-					return;
-				}
-				wheel = json.banners;
-				initViewPager();
-				homePRSV.onRefreshComplete();
-			}
+		aq.ajax(ServerInfo.PROLIST, params, BannerInfo.class,
+				new AjaxCallback<BannerInfo>() {
+					@Override
+					public void callback(String url, BannerInfo json,
+							AjaxStatus status) {
+						if (json == null) {
+							return;
+						}
+						wheel = json.banners;
+						initViewPager();
+						homePRSV.onRefreshComplete();
+					}
 
-		});
+				});
 
 	}
 
@@ -163,11 +168,11 @@ public class Home extends BaseFragment implements OnClickListener {
 		@Override
 		public void run() {
 			wheelRunning = true;
-			while (wheelProgress < 61) {
+			while (wheelProgress < mProgress) {
 				pwTwo.incrementProgress();
 				wheelProgress++;
 				try {
-					Thread.sleep(20);
+					Thread.sleep(5);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -186,49 +191,61 @@ public class Home extends BaseFragment implements OnClickListener {
 		}
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("jsonData", jo.toString());
-		aq.ajax(ServerInfo.PROLIST, params, JSONObject.class, new AjaxCallback<JSONObject>() {
-			@Override
-			public void callback(String url, JSONObject json, AjaxStatus status) {
-				if (json == null) {
-					return;
-				}
-				homePRSV.onRefreshComplete();
-				Log.e("11", json.toString());
-				enterBtn.setEnabled(true);
-				JSONArray ja = null;
-				ja = json.optJSONArray("proList");
-				for (int i = 0; i < ja.length(); i++) {
-					products.add(ja.optJSONObject(i));
-				}
-				updateView();
-			}
+		aq.ajax(ServerInfo.PROLIST, params, JSONObject.class,
+				new AjaxCallback<JSONObject>() {
+					@Override
+					public void callback(String url, JSONObject json,
+							AjaxStatus status) {
+						if (json == null) {
+							return;
+						}
+						homePRSV.onRefreshComplete();
+						Log.e("11", json.toString());
+						enterBtn.setEnabled(true);
+						JSONArray ja = null;
+						ja = json.optJSONArray("proList");
+						for (int i = 0; i < ja.length(); i++) {
+							products.add(ja.optJSONObject(i));
+						}
+						updateView();
+					}
 
-		});
+				});
 
 	}
 
 	private void updateView() {
 		JSONObject jo = products.get(0);
-		((TextView) view.findViewById(R.id.tv_title)).setText(jo.optString("proName") + "");
-		((TextView) view.findViewById(R.id.home_year_num)).setText(jo.optInt("percent") + "%");
-		((TextView) view.findViewById(R.id.home_tv_month)).setText(jo.optInt("startBuy") + "");
-		((TextView) view.findViewById(R.id.home_tv_limit)).setText(jo.optInt("timeLimit") + "");
-		((TextView) view.findViewById(R.id.percentTV)).setText(jo.optInt("percent") + "");
-		((TextView) view.findViewById(R.id.home_year_num)).setText(jo.optDouble("nhsy") + "");
-		//		setTextView(R.id.nameTV, jo.optString("proName") + "", "");
-		//		setTextView(R.id.home_year_num, jo.optInt("percent") + "", "");
-		//		setTextView(R.id.home_tv_month, jo.optInt("timeLimit") + "", "");
-		//		setTextView(R.id.home_tv_limit, jo.optInt("startBuy") + "", "");
-		//		setTextView(R.id.percentTV, jo.optInt("percent") + "", "");
-		//		setTextView(R.id.home_year_num, jo.optDouble("nhsy") + "", "");
-		pwTwo.setProgress((int) (jo.optInt("percent") * 3.6));
+		((TextView) view.findViewById(R.id.tv_title)).setText(jo
+				.optString("proName") + "");
+		((TextView) view.findViewById(R.id.home_year_num)).setText(jo
+				.optInt("percent") + "%");
+		((TextView) view.findViewById(R.id.home_tv_month)).setText(jo
+				.optInt("timeLimit") + "");
+		((TextView) view.findViewById(R.id.home_tv_limit)).setText(jo
+				.optInt("startBuy") + "");
+		((TextView) view.findViewById(R.id.percentTV)).setText(jo
+				.optInt("percent") + "");
+		((TextView) view.findViewById(R.id.home_year_num)).setText(jo
+				.optDouble("nhsy") + "");
+		// setTextView(R.id.nameTV, jo.optString("proName") + "", "");
+		// setTextView(R.id.home_year_num, jo.optInt("percent") + "", "");
+		// setTextView(R.id.home_tv_month, jo.optInt("timeLimit") + "", "");
+		// setTextView(R.id.home_tv_limit, jo.optInt("startBuy") + "", "");
+		// setTextView(R.id.percentTV, jo.optInt("percent") + "", "");
+		// setTextView(R.id.home_year_num, jo.optDouble("nhsy") + "", "");
+		// pwTwo.setProgress((int) (jo.optInt("percent") * 3.6));
+		wheelProgress = 0;
+		pwTwo.setProgress(0);
+		mProgress = (int) (jo.optInt("percent") * 3.6);
+		new Thread(r).start();
 	}
 
 	/**
 	 * 通过id设置text
 	 * <p>
 	 * 若text为null或"",则使用or
-	 *
+	 * 
 	 * @param resId
 	 * @param text
 	 * @param or
@@ -266,14 +283,22 @@ public class Home extends BaseFragment implements OnClickListener {
 
 		initViewPagerBound();
 
-		//		wheel.add(new BannerItem("http://app.longyinglicai.com/activity/jmh/jm.html", "ACTIVITY",
-		//				"http://app.longyinglicai.com/activity/jmh/images/yyjm_banner_ios.png", 0));
-		//		wheel.add(new BannerItem("http://www.yingyinglicai.com/front/xxnj.htm", "ACTIVITY",
-		//				"http://app.longyinglicai.com/banner/8new-ios.jpg", 1));
-		//		wheel.add(new BannerItem("http://app.longyinglicai.com/activity/ajia.html", "ACTIVITY",
-		//				"http://app.longyinglicai.com/banner/APlus-android.png", 0));
-		//		wheel.add(new BannerItem("http://app.longyinglicai.com/activity/jgxy1.html", "ACTIVITY",
-		//				"http://app.longyinglicai.com/banner/jgxy1-ios.png", 0));
+		// wheel.add(new
+		// BannerItem("http://app.longyinglicai.com/activity/jmh/jm.html",
+		// "ACTIVITY",
+		// "http://app.longyinglicai.com/activity/jmh/images/yyjm_banner_ios.png",
+		// 0));
+		// wheel.add(new
+		// BannerItem("http://www.yingyinglicai.com/front/xxnj.htm", "ACTIVITY",
+		// "http://app.longyinglicai.com/banner/8new-ios.jpg", 1));
+		// wheel.add(new
+		// BannerItem("http://app.longyinglicai.com/activity/ajia.html",
+		// "ACTIVITY",
+		// "http://app.longyinglicai.com/banner/APlus-android.png", 0));
+		// wheel.add(new
+		// BannerItem("http://app.longyinglicai.com/activity/jgxy1.html",
+		// "ACTIVITY",
+		// "http://app.longyinglicai.com/banner/jgxy1-ios.png", 0));
 		if (wheel == null) {
 			return;
 		}
@@ -282,7 +307,8 @@ public class Home extends BaseFragment implements OnClickListener {
 		addPageViews(pageViews);
 		addPointView(pageViews.size() - 2);
 
-		viewPager.setAdapter(new WheelPagerAdapter(getActivity(), pageViews, wheel));
+		viewPager.setAdapter(new WheelPagerAdapter(getActivity(), pageViews,
+				wheel));
 		viewPager.setOnPageChangeListener(new OnPageChangeListener() {
 
 			@Override
@@ -312,7 +338,8 @@ public class Home extends BaseFragment implements OnClickListener {
 
 	private void initViewPagerBound() {
 		// 先算出图片长在屏幕中占多少英寸
-		float xInch = (ScreenProperties.getScreenWidth() / ScreenProperties.getXdpi());
+		float xInch = (ScreenProperties.getScreenWidth() / ScreenProperties
+				.getXdpi());
 		// Log.e("xInch", xInch + "Inch");
 		// 根据图片宽长比例算出高应该占多少英寸
 		double yInch = xInch * (15 / 32.0);
@@ -323,8 +350,8 @@ public class Home extends BaseFragment implements OnClickListener {
 		// Log.e("viewPagerHeight", viewPagerHeight + "");
 		RelativeLayout viewPagerBound = (RelativeLayout) getView()
 				.findViewById(R.id.rlyt_viewpager);
-		viewPagerBound.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,
-				viewPagerHeight));
+		viewPagerBound.setLayoutParams(new LinearLayout.LayoutParams(
+				LayoutParams.MATCH_PARENT, viewPagerHeight));
 	}
 
 	private void addPageViews(LinkedList<View> pageViews) {
@@ -363,8 +390,8 @@ public class Home extends BaseFragment implements OnClickListener {
 				RadioButton radBtn = new RadioButton(getActivity());
 				radBtn.setClickable(false);
 				int width = (int) ScreenProperties.getScreenDensity() * 25;
-				RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(width,
-						LayoutParams.WRAP_CONTENT);
+				RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(
+						width, LayoutParams.WRAP_CONTENT);
 				radBtn.setButtonDrawable(R.drawable.page_control_sel);
 				groupPoint.addView(radBtn, params);
 			}
@@ -410,17 +437,19 @@ public class Home extends BaseFragment implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.title_btn_right:
-			if (!SharePreferenceUtil.getUserPref(getActivity()).getToken().equals("")) {
-
-			} else {
-				jump2Activity(new Register());
-			}
-
+			// if (!SharePreferenceUtil.getUserPref(getActivity()).getToken()
+			// .equals("")) {
+			//
+			// } else {
+			// jump2Activity(new Register());
+			// }
+			homePRSV.setRefreshing();
 			break;
 		case R.id.title_btn_left:
 			getActivity().startActivity(
-					new Intent().setClass(getActivity(), WebBrowser.class).putExtra(
-							WebBrowser.URL_STRING, "http://www.baidu.com"));
+					new Intent().setClass(getActivity(), WebBrowser.class)
+							.putExtra(WebBrowser.URL_STRING,
+									"http://www.baidu.com"));
 			break;
 
 		case R.id.enterBtn:

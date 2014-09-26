@@ -42,7 +42,7 @@
                 android:id="@+id/amountEarnBtn"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:background="#fff"
+                android:background="@drawable/bg_normal_btn"
                 android:orientation="vertical"
                 android:paddingLeft="30dp"
                 android:paddingTop="10dp" >
@@ -69,7 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="15dp"
-                android:background="#fff"
+                android:background="@drawable/bg_normal_btn"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="30dp" >
@@ -101,6 +101,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@drawable/bg_normal_btn"
                     android:orientation="vertical"
                     android:paddingLeft="30dp"
                     android:paddingTop="10dp" >
@@ -140,6 +141,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@drawable/bg_normal_btn"
                     android:orientation="vertical"
                     android:paddingLeft="30dp"
                     android:paddingTop="10dp" >
@@ -171,7 +173,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="15dp"
-                android:background="#fff"
+                android:background="@drawable/bg_normal_btn"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="30dp" >
@@ -194,7 +196,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="15dp"
-                android:background="#fff"
+                android:background="@drawable/bg_normal_btn"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="30dp" >
