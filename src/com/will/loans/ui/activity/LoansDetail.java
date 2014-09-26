@@ -1,11 +1,5 @@
 package com.will.loans.ui.activity;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,15 +7,25 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
+import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.will.loans.R;
 import com.will.loans.constant.ServerInfo;
 import com.will.loans.pay.EditPayActivity;
 import com.will.loans.utils.SharePreferenceUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoansDetail extends BaseActivity {
 
@@ -29,6 +33,8 @@ public class LoansDetail extends BaseActivity {
 	private AQuery aq;
 
 	private String title;
+
+	private PullToRefreshScrollView detailPRSV;
 
 	public static String TITLETXT = "com.will.loansdetail.title";
 
@@ -40,9 +46,19 @@ public class LoansDetail extends BaseActivity {
 		setContentView(R.layout.loans_detail);
 		findViewById(R.id.title_back).setVisibility(View.VISIBLE);
 		findViewById(R.id.title_back).setOnClickListener(this);
+		findViewById(R.id.title_btn_right).setOnClickListener(this);
 		findViewById(R.id.buy_llyt).setOnClickListener(this);
 		((Button) findViewById(R.id.title_btn_right)).setText(R.string.refresh);
-		((TextView)findViewById(R.id.title_tv)).setText(pro.optString("proName"));
+		((TextView) findViewById(R.id.title_tv)).setText(pro
+				.optString("proName"));
+		detailPRSV = (PullToRefreshScrollView) findViewById(R.id.detailPRSV);
+		detailPRSV.setOnRefreshListener(new OnRefreshListener<ScrollView>() {
+
+			@Override
+			public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
+				getData();
+			}
+		});
 		if (pro != null) {
 			getData();
 		}
@@ -58,19 +74,20 @@ public class LoansDetail extends BaseActivity {
 		}
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("jsonData", jo.toString());
-		aq.ajax(ServerInfo.PRODETAIL, params,
-				JSONObject.class, new AjaxCallback<JSONObject>() {
-			@Override
-			public void callback(String url, JSONObject json,
-					AjaxStatus status) {
-				Log.e("11", json.toString());
-				// updateView();
-				if (!json.optString("resultflag").equals("0")) {
-					return;
-				}
-				updateView(json.optJSONObject("detail"));
-			}
-		});
+		aq.ajax(ServerInfo.PRODETAIL, params, JSONObject.class,
+				new AjaxCallback<JSONObject>() {
+					@Override
+					public void callback(String url, JSONObject json,
+							AjaxStatus status) {
+						detailPRSV.onRefreshComplete();
+						Log.e("11", json.toString());
+						// updateView();
+						if (!json.optString("resultflag").equals("0")) {
+							return;
+						}
+						updateView(json.optJSONObject("detail"));
+					}
+				});
 
 	}
 
@@ -105,7 +122,7 @@ public class LoansDetail extends BaseActivity {
 	 * 通过id设置text
 	 * <p>
 	 * 若text为null或"",则使用or
-	 *
+	 * 
 	 * @param resId
 	 * @param text
 	 * @param or
@@ -132,8 +149,12 @@ public class LoansDetail extends BaseActivity {
 		case R.id.title_back:
 			finish();
 			break;
+		case R.id.title_btn_right:
+			detailPRSV.setRefreshing();
+			break;
 		case R.id.buy_llyt:
-			startActivity(new Intent(LoansDetail.this,BuyList.class).putExtra(BuyList.MPROSTR, pro.optInt("id")));
+			startActivity(new Intent(LoansDetail.this, BuyList.class).putExtra(
+					BuyList.MPROSTR, pro.optInt("id")));
 			break;
 		default:
 			break;
@@ -145,7 +166,7 @@ public class LoansDetail extends BaseActivity {
 		EditPayActivity.product = pro;
 		if (!SharePreferenceUtil.getUserPref(getParent()).getToken().equals("")) {
 			startActivity(new Intent(LoansDetail.this, EditPayActivity.class));
-		}else{
+		} else {
 			startActivity(new Intent(LoansDetail.this, Register.class));
 		}
 	}
