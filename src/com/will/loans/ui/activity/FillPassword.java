@@ -108,7 +108,9 @@ public class FillPassword extends BaseTextActivity {
     private void initTop() {
         findViewById(R.id.title_back).setVisibility(View.VISIBLE);
         findViewById(R.id.title_back).setOnClickListener(this);
+        findViewById(R.id.title_btn_right).setOnClickListener(this);
         ((TextView) findViewById(R.id.title_tv)).setText(R.string.fill_password);
+        ((TextView) findViewById(R.id.title_btn_right)).setText(R.string.swicth_account);
 
     }
 
@@ -141,6 +143,9 @@ public class FillPassword extends BaseTextActivity {
                 break;
             case R.id.btn_login:
                 buildParams();
+                break;
+            case R.id.title_btn_right:
+                startActivity(new Intent(FillPassword.this, Register.class));
                 break;
             default:
                 break;

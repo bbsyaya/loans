@@ -108,4 +108,13 @@
     <string name="account_change_psw">修改登录密码</string>
     <string name="account_change_trade">修改交易密码</string>
     <string name="account_open_gesture">开启手势</string>
+    <string name="swicth_account">切换账户</string>
+    <!-- 修改密码 -->
+    <string name="reset_realname">真实姓名</string>
+    <string name="user_idnum">身份证号码</string>
+    <string name="message_vilate">短信验证码</string>
+    <string name="get_imedil">立即获取</string>
+    <string name="reset_login_psw">修改登录密码</string>
+    <string name="reset_trade_psw">修改交易密码</string>
+    <string name="next_step">下一步</string>
 </resources>
