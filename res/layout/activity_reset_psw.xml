@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <include layout="@layout/common_title" />
+    <EditText
+        android:id="@+id/realname"
+        style="@style/Width_match_height_wrap"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edittext_bg"
+        android:gravity="center_vertical"
+        android:hint="@string/realname_auth"
+        android:paddingLeft="10dp" />
+    <EditText
+        android:id="@+id/idcard"
+        style="@style/Width_match_height_wrap"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edittext_bg"
+        android:gravity="center_vertical"
+        android:hint="@string/realname_auth"
+        android:paddingLeft="10dp" />
+    <EditText
+        android:id="@+id/username"
+        style="@style/Width_match_height_wrap"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edittext_bg"
+        android:gravity="center_vertical"
+        android:hint="@string/realname_auth"
+        android:paddingLeft="10dp" />
+    <LinearLayout
+        style="@style/Width_match_height_wrap"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp" >
+        <EditText
+            android:id="@+id/message_code"
+            style="@style/Width_0_height_wrap"
+            android:layout_weight="1"
+            android:background="@drawable/edittext_bg"
+            android:gravity="center_vertical"
+            android:hint="@string/message_vilate" />
+        <Button
+            android:id="@+id/get_code"
+            style="@style/Width_0_height_wrap"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:text="@string/get_imedil" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/next_btn"
+        style="@style/Width_match_height_wrap"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edittext_bg"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:text="@string/next_step" />
+</LinearLayout>
