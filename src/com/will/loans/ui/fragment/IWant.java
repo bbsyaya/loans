@@ -118,21 +118,18 @@ public class IWant extends BaseFragment implements OnClickListener {
     public void onDetach() {
         // TODO Auto-generated method stub
         super.onDetach();
-        Log.d("loans", "iwant onDetach");
     }
 
     @Override
     public void onAttach(Activity activity) {
         // TODO Auto-generated method stub
         super.onAttach(activity);
-        Log.d("loans", "iwant onAttach");
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         aq = new AQuery(getActivity(), view);
-        Log.d("loans", "iwant onViewCreated");
         ((TextView) view.findViewById(R.id.title_tv)).setText(R.string.tab_mine);
         ((TextView) view.findViewById(R.id.title_tv_phone)).setText(SharePreferenceUtil
                 .getUserPref(getActivity()).getUsername());
@@ -160,6 +157,11 @@ public class IWant extends BaseFragment implements OnClickListener {
      * 请求接口数据
      */
     private void getDate() {
+        //当登陆成功时，设置用户名账户
+        if (!SharePreferenceUtil.getUserPref(getActivity()).getUsername().equals("")) {
+            ((TextView) getView().findViewById(R.id.title_tv_phone)).setText(SharePreferenceUtil
+                    .getUserPref(getActivity()).getUsername());
+        }
         Long time = System.currentTimeMillis();
         JSONObject jo = new JSONObject();
         try {

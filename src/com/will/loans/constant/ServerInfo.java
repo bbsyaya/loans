@@ -130,10 +130,42 @@ public class ServerInfo {
      * 用户总资产界面接口
      */
     public static final String TOTALASSETS = IMAGE_PREFIX + "totalAssets";
-
     /**
-     * 获取banner
+     * 获取bannerget
      */
     public static final String GETBANNER = IMAGE_PREFIX + "getBanner";
+
+    /**
+     * 获取验证码
+     */
+    public static final String GETVERCODE = IMAGE_PREFIX + "getVerCode";
+    /**
+     * 修改密码验证码校验接口
+     */
+    public static final String CHANGEPSWCHECK = IMAGE_PREFIX + "changePswCheck";
+    /**
+     * 查询个人是否有未读消息
+     */
+    public static final String HASNOTREADMSG = IMAGE_PREFIX + "hasNotReadMsg";
+    /**
+     * 设置单条消息已读
+     */
+    public static final String SETMSGREAD = IMAGE_PREFIX + "setMsgRead";
+    /**
+     * 设置用户所有消息已读
+     */
+    public static final String SETALLMSGREAD = IMAGE_PREFIX + "setAllMsgRead";
+    /**
+     * 获取单条消息详情
+     */
+    public static final String MSGDETAIL = IMAGE_PREFIX + "msgDetail";
+    /**
+     * 获取服务器android最新版本号
+     */
+    public static final String GETANDROIDVERSION = IMAGE_PREFIX + "getAndroidVersion";
+    /**
+     * 获取服务器android最新版本信息
+     */
+    public static final String GETANDROIDVERSIONINFO = IMAGE_PREFIX + "getAndroidVersionInfo";
 
 }

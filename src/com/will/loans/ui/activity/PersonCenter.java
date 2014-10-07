@@ -73,12 +73,12 @@ public class PersonCenter extends BaseActivity implements OnCheckedChangeListene
 
                 break;
             case R.id.account_change_psw:
-                startActivity(new Intent(PersonCenter.this, SetPassword.class).putExtra(
-                        SetPassword.SETTYPE, 0));
+                startActivity(new Intent(PersonCenter.this, ResetPassword.class).putExtra(
+                        ResetPassword.TYPE_NAME, 0));
                 break;
             case R.id.account_change_trade_psw:
-                startActivity(new Intent(PersonCenter.this, SetPassword.class).putExtra(
-                        SetPassword.SETTYPE, 1));
+                startActivity(new Intent(PersonCenter.this, ResetPassword.class).putExtra(
+                        ResetPassword.TYPE_NAME, 1));
                 break;
             case R.id.account_open_toggle:
 

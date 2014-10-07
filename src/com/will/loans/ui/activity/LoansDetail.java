@@ -1,5 +1,11 @@
 package com.will.loans.ui.activity;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -21,26 +27,16 @@ import com.will.loans.constant.ServerInfo;
 import com.will.loans.pay.EditPayActivity;
 import com.will.loans.utils.SharePreferenceUtil;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
-
 public class LoansDetail extends BaseActivity {
 
 	public static JSONObject pro;
 	private AQuery aq;
-
 	private String title;
-
 	private PullToRefreshScrollView detailPRSV;
-
 	public static String TITLETXT = "com.will.loansdetail.title";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		aq = new AQuery(this);
 		setContentView(R.layout.loans_detail);
@@ -76,18 +72,17 @@ public class LoansDetail extends BaseActivity {
 		params.put("jsonData", jo.toString());
 		aq.ajax(ServerInfo.PRODETAIL, params, JSONObject.class,
 				new AjaxCallback<JSONObject>() {
-					@Override
-					public void callback(String url, JSONObject json,
-							AjaxStatus status) {
-						detailPRSV.onRefreshComplete();
-						Log.e("11", json.toString());
-						// updateView();
-						if (!json.optString("resultflag").equals("0")) {
-							return;
-						}
-						updateView(json.optJSONObject("detail"));
-					}
-				});
+			@Override
+			public void callback(String url, JSONObject json,
+					AjaxStatus status) {
+				detailPRSV.onRefreshComplete();
+				Log.e("11", json.toString());
+				if (!json.optString("resultflag").equals("0")) {
+					return;
+				}
+				updateView(json.optJSONObject("detail"));
+			}
+		});
 
 	}
 
@@ -122,7 +117,7 @@ public class LoansDetail extends BaseActivity {
 	 * 通过id设置text
 	 * <p>
 	 * 若text为null或"",则使用or
-	 * 
+	 *
 	 * @param resId
 	 * @param text
 	 * @param or
