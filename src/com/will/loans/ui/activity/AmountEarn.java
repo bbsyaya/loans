@@ -22,7 +22,6 @@ public class AmountEarn extends BaseMineActivity {
 	@Override
 	protected void initView() {
 		((TextView)findViewById(R.id.title_tv)).setText(R.string.amonut_earn);
-		todayAdapter = new TodayAdapter();
 	}
 
 	class TodayAdapter extends BaseAdapter{

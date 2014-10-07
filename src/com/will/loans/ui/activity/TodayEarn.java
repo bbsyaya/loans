@@ -39,7 +39,6 @@ public class TodayEarn extends BaseMineActivity {
     protected void initView() {
         date = smf.format(System.currentTimeMillis() - 60 * 60 * 24 * 1000) + "收益";
         ((TextView) findViewById(R.id.title_tv)).setText(date);
-        todayAdapter = new TodayAdapter();
         getDate();
     }
 
@@ -69,7 +68,7 @@ public class TodayEarn extends BaseMineActivity {
                 convertView = getLayoutInflater().inflate(R.layout.item_mine, null);
             }
             ((TextView) convertView.findViewById(R.id.mine_title)).setText(smf.format(income
-                    .get(position).profitDate) + "元");
+                    .get(position).profitDate) + "收益（元）");
             ((TextView) convertView.findViewById(R.id.mine_num))
                     .setText(income.get(position).profitMoney + "");
             return convertView;

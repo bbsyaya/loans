@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import android.os.CountDownTimer;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +17,7 @@ import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
 import com.will.loans.beans.json.PreIncomeJson;
 import com.will.loans.constant.ServerInfo;
+import com.will.loans.utils.GenerateMD5Password;
 import com.will.loans.utils.SharePreferenceUtil;
 import com.will.loans.utils.Toaster;
 import org.json.JSONException;
@@ -23,12 +26,13 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ResetPassword extends BaseActivity {
+public class ResetPassword extends BaseActivity implements TextWatcher{
     /**
      * 设置密码类型，0是修改密码，1是修改交易密码
      */
     private int mType = 0;
     public static String TYPE_NAME = "RESETPASSWORDTYPE";
+    private String token;
     private AQuery mAq;
     private CountDown mCountDownTimer;
     private EditText mRealName, mUserIdCard, mUsername, mVerifyCode;
@@ -63,6 +67,7 @@ public class ResetPassword extends BaseActivity {
         mUserIdCard = (EditText) findViewById(R.id.idcard);
         mUsername = (EditText) findViewById(R.id.username);
         mVerifyCode = (EditText) findViewById(R.id.message_code);
+        mVerifyCode.addTextChangedListener(this);
         findViewById(R.id.title_back).setVisibility(View.VISIBLE);
         findViewById(R.id.title_back).setOnClickListener(this);
         if (mType == 0) {
@@ -100,6 +105,7 @@ public class ResetPassword extends BaseActivity {
                     public void callback(String url, JSONObject object, AjaxStatus status) {
                         if (object!=null&&object.optString("resultflag").equals("0")){
                             Toaster.showShort(ResetPassword.this,"验证码获取成功！");
+                            token = object.optString("token");
                         }else{
                             Toaster.showShort(ResetPassword.this,object.optString("resultMsg"));
                         }
@@ -107,6 +113,25 @@ public class ResetPassword extends BaseActivity {
                     }
                 });
 
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+        if (mVerifyCode.getText().toString().equals("")){
+            mNextBtn.setEnabled(false);
+        }else{
+            mNextBtn.setEnabled(true);
+        }
     }
 
     class CountDown extends CountDownTimer {
@@ -137,8 +162,9 @@ public class ResetPassword extends BaseActivity {
         try {
             jo.put("timeStamp", time);
             jo.put("verCode", mVerifyCode.getText().toString());
-            jo.put("token", SharePreferenceUtil.getUserPref(this).getToken());
-            jo.put("sign", getMD5Code(time));
+            jo.put("token", token);
+            jo.put("sign", GenerateMD5Password.encodeByMD5(token
+                    + smf.format(time) + key));
         } catch (JSONException e) {
             e.printStackTrace();
         }

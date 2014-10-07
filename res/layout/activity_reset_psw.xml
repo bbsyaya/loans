@@ -52,7 +52,7 @@
         <Button
             android:id="@+id/get_code"
             style="@style/Width_0_height_wrap"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@android:color/white"

@@ -29,6 +29,6 @@
         android:layout_marginRight="30dp"
         android:textColor="@color/red"
         android:layout_alignParentRight="true"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textSize="35sp" />
 
 </RelativeLayout>
