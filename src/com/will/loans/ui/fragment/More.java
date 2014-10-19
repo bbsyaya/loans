@@ -1,6 +1,8 @@
 
 package com.will.loans.ui.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +61,22 @@ public class More extends BaseFragment implements OnClickListener {
         }
     }
 
+    private void showExitDlg(){
+        new AlertDialog.Builder(getActivity()).setTitle("退出").setMessage("是否退出？").setPositiveButton("退出",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(getActivity(), "成功退出登录", Toast.LENGTH_SHORT).show();
+                SharePreferenceUtil.getUserPref(getActivity()).clear();
+                updateView();
+            }
+        }).setNegativeButton("取消",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        }).show();
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -78,9 +96,7 @@ public class More extends BaseFragment implements OnClickListener {
 
                 break;
             case R.id.more_exit:
-                Toast.makeText(getActivity(), "成功退出登录", Toast.LENGTH_SHORT).show();
-                SharePreferenceUtil.getUserPref(getActivity()).clear();
-                updateView();
+                showExitDlg();
                 break;
             case R.id.more_rate:
 
