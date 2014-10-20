@@ -32,6 +32,7 @@ public class BaseActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         AppContext.getInstance().addActivity(this);
         mAquery = new AQuery(this);
+        time = System.currentTimeMillis();
     }
 
     @Override

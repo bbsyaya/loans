@@ -4,8 +4,11 @@ package com.will.loans.application;
 import android.app.Activity;
 import android.app.Application;
 
+import cn.sharesdk.framework.ShareSDK;
+
 import com.androidquery.callback.AbstractAjaxCallback;
 import com.androidquery.util.AQUtility;
+import com.will.loans.share.Laiwang;
 import com.will.loans.utils.GsonTransformer;
 
 import java.util.ArrayList;
@@ -48,5 +51,11 @@ public class AppContext extends Application {
         AQUtility.setDebug(true);
         AbstractAjaxCallback.setTimeout(SOCKET_TIMEOUT);
         AbstractAjaxCallback.setTransformer(new GsonTransformer());
+
+        ShareSDK.initSDK(this);
+        ShareSDK.registerPlatform(Laiwang.class);
+        ShareSDK.setConnTimeout(5000);
+        ShareSDK.setReadTimeout(10000);
+
     }
 }
