@@ -14,15 +14,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.*;
 import android.widget.ImageView.ScaleType;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
@@ -56,6 +49,8 @@ public class Home extends BaseFragment implements OnClickListener {
     private PullToRefreshScrollView homePRSV;
 
     private ProgressWheel pwTwo;
+
+    private SeekBar mSeekBar;
 
     private ViewPager viewPager;
 
@@ -124,7 +119,7 @@ public class Home extends BaseFragment implements OnClickListener {
         enterBtn.setOnClickListener(this);
         pwTwo = (ProgressWheel) view.findViewById(R.id.progress_bar_two);
         groupPoint = (RadioGroup) view.findViewById(R.id.rg_points);
-
+        mSeekBar = (SeekBar) view.findViewById(R.id.seekbar_id);
         homePRSV = (PullToRefreshScrollView) view.findViewById(R.id.homePRSV);
         viewPager = (ViewPager) view.findViewById(R.id.vp_ads);
 
@@ -210,21 +205,19 @@ public class Home extends BaseFragment implements OnClickListener {
     private void updateView() {
         JSONObject jo = products.get(0);
         ((TextView) view.findViewById(R.id.tv_title)).setText(jo.optString("proName") + "");
-        ((TextView) view.findViewById(R.id.home_year_num)).setText(jo.optInt("percent") + "%");
-        ((TextView) view.findViewById(R.id.home_tv_month)).setText(jo.optInt("timeLimit") + "");
+        ((TextView) view.findViewById(R.id.home_tv_month)).setText(jo.optInt("timeLimit") + "个月");
         ((TextView) view.findViewById(R.id.home_tv_limit)).setText(jo.optInt("startBuy") + "");
         ((TextView) view.findViewById(R.id.percentTV)).setText(jo.optInt("percent") + "");
-        ((TextView) view.findViewById(R.id.home_year_num)).setText(jo.optDouble("nhsy") + "");
-        // setTextView(R.id.nameTV, jo.optString("proName") + "", "");
-        // setTextView(R.id.home_year_num, jo.optInt("percent") + "", "");
-        // setTextView(R.id.home_tv_month, jo.optInt("timeLimit") + "", "");
-        // setTextView(R.id.home_tv_limit, jo.optInt("startBuy") + "", "");
-        // setTextView(R.id.percentTV, jo.optInt("percent") + "", "");
-        // setTextView(R.id.home_year_num, jo.optDouble("nhsy") + "", "");
-        // pwTwo.setProgress((int) (jo.optInt("percent") * 3.6));
-        wheelProgress = 0;
-        pwTwo.setProgress(0);
-        mProgress = (int) (jo.optInt("percent") * 3.6);
+//        double persent = jo.optDouble("nhsy");
+//        String strD = Math.abs(persent)+"";
+//        String[] strs = strD.split(".");
+        ((TextView) view.findViewById(R.id.home_year_num_int)).setText(jo.optInt("nhsy")+"");
+        ((TextView) view.findViewById(R.id.home_year_num)).setText(".0%");
+        mSeekBar.setProgress((int) (jo.optInt("percent")));
+//        pwTwo.setProgress((int) (jo.optInt("percent") * 3.6));
+//        wheelProgress = 0;
+//        pwTwo.setProgress(0);
+//        mProgress = (int) (jo.optInt("percent") * 3.6);
         new Thread(r).start();
     }
 
@@ -327,7 +320,7 @@ public class Home extends BaseFragment implements OnClickListener {
         float xInch = (ScreenProperties.getScreenWidth() / ScreenProperties.getXdpi());
         // Log.e("xInch", xInch + "Inch");
         // 根据图片宽长比例算出高应该占多少英寸
-        double yInch = xInch * (15 / 32.0);
+        double yInch = xInch * (15 / 45.0);
         // Log.e("yInch", yInch + "Inch");
         // 再根据Y轴方向上每英寸多少像素算出图片高应该有多少像素
         int viewPagerHeight = (int) (ScreenProperties.getXdpi() * yInch);

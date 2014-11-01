@@ -62,7 +62,7 @@
                     android:id="@+id/main_tab_product_list"
                     style="@style/MMTabButton"
                     android:drawableTop="@drawable/btn_tab_list"
-                    android:text="@string/tab_produce_list" />
+                    android:text="@string/tab_produce_list" android:checked="false"/>
                 <RadioButton
                     android:id="@+id/main_tab_mine"
                     style="@style/MMTabButton"
