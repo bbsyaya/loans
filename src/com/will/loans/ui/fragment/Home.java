@@ -101,7 +101,9 @@ public class Home extends BaseFragment implements OnClickListener {
     public void onResume() {
         super.onResume();
         if (!SharePreferenceUtil.getUserPref(getActivity()).getToken().equals("")) {
-            mLeftBtn.setText("刷新");
+            view.findViewById(R.id.title_btn_right).setVisibility(View.INVISIBLE);
+        }else{
+            view.findViewById(R.id.title_btn_right).setVisibility(View.VISIBLE);
         }
     }
 
@@ -110,9 +112,9 @@ public class Home extends BaseFragment implements OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         aq = new AQuery(getActivity(), view);
         this.view = view;
-        setTitleText(view, R.string.daidaitong, R.string.login, R.string.tab_home);
-        mLeftBtn = (TextView) view.findViewById(R.id.title_btn_right);
-        setTitleVisible(view, View.INVISIBLE, View.VISIBLE, View.VISIBLE);
+        setTitleText(view, R.string.refresh, R.string.login, R.string.tab_home);
+        mLeftBtn = (TextView) view.findViewById(R.id.title_btn_left);
+        setTitleVisible(view, View.VISIBLE, View.INVISIBLE, View.VISIBLE);
         ((Button) view.findViewById(R.id.title_btn_right)).setOnClickListener(this);
         ((Button) view.findViewById(R.id.title_btn_left)).setOnClickListener(this);
         enterBtn = ((Button) view.findViewById(R.id.enterBtn));
@@ -263,22 +265,6 @@ public class Home extends BaseFragment implements OnClickListener {
 
         initViewPagerBound();
 
-        // wheel.add(new
-        // BannerItem("http://app.longyinglicai.com/activity/jmh/jm.html",
-        // "ACTIVITY",
-        // "http://app.longyinglicai.com/activity/jmh/images/yyjm_banner_ios.png",
-        // 0));
-        // wheel.add(new
-        // BannerItem("http://www.yingyinglicai.com/front/xxnj.htm", "ACTIVITY",
-        // "http://app.longyinglicai.com/banner/8new-ios.jpg", 1));
-        // wheel.add(new
-        // BannerItem("http://app.longyinglicai.com/activity/ajia.html",
-        // "ACTIVITY",
-        // "http://app.longyinglicai.com/banner/APlus-android.png", 0));
-        // wheel.add(new
-        // BannerItem("http://app.longyinglicai.com/activity/jgxy1.html",
-        // "ACTIVITY",
-        // "http://app.longyinglicai.com/banner/jgxy1-ios.png", 0));
         if (wheel == null) {
             return;
         }
@@ -415,16 +401,13 @@ public class Home extends BaseFragment implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.title_btn_right:
-                if (SharePreferenceUtil.getUserPref(getActivity()).getToken().equals("")) {
-                    startActivity(new Intent(getActivity(), Register.class));
-                } else {
-                    homePRSV.setRefreshing();
-                }
+//                getActivity().startActivity(
+//                        new Intent().setClass(getActivity(), WebBrowser.class).putExtra(
+//                                WebBrowser.URL_STRING, "http://www.baidu.com"));
+                startActivity(new Intent(getActivity(), Register.class));
                 break;
             case R.id.title_btn_left:
-                getActivity().startActivity(
-                        new Intent().setClass(getActivity(), WebBrowser.class).putExtra(
-                                WebBrowser.URL_STRING, "http://www.baidu.com"));
+                homePRSV.setRefreshing();
                 break;
 
             case R.id.enterBtn:

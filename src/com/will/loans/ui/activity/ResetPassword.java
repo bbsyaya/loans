@@ -1,10 +1,14 @@
 
 package com.will.loans.ui.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 
 import android.os.CountDownTimer;
+import android.telephony.SmsMessage;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -38,6 +42,14 @@ public class ResetPassword extends BaseActivity implements TextWatcher{
     private EditText mRealName, mUserIdCard, mUsername, mVerifyCode;
     private Button mNextBtn, mGetVerifyCode;
     private final Long millisInFuture = 60 * 1000L, countDownInterval = 1000L;
+    public static final String SMS_RECEIVED_ACTION = "android.provider.Telephony.SMS_RECEIVED";
+
+    // 生成广播处理
+    private SmsBroadCastReceiver smsBroadCastReceiver;
+
+    private IntentFilter intentFilter;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +72,47 @@ public class ResetPassword extends BaseActivity implements TextWatcher{
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(smsBroadCastReceiver);
+    }
+
+
+    public class SmsBroadCastReceiver extends BroadcastReceiver {
+
+        private EditText editText;
+
+        public SmsBroadCastReceiver(EditText et) {
+            editText = et;
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            System.out.println("smsReceiver");
+            Bundle bundle = intent.getExtras();
+            Object[] object = (Object[]) bundle.get("pdus");
+            SmsMessage sms[] = new SmsMessage[object.length];
+            for (int i = 0; i < object.length; i++) {
+                sms[0] = SmsMessage.createFromPdu((byte[]) object[i]);
+                String smsContent = sms[i].getDisplayMessageBody();
+                System.out.println("smsContent = " + smsContent);
+                System.out.println("code = "
+                        + smsContent.substring(smsContent.length() - 6,
+                        smsContent.length()));
+                if (smsContent.contains("贷贷通")) {
+                    System.out.println("enter");
+                    editText.setText(smsContent.substring(
+                            smsContent.length() - 6, smsContent.length()));
+                }
+            }
+            // 终止广播，在这里我们可以稍微处理，根据用户输入的号码可以实现短信防火墙。
+            // abortBroadcast();
+        }
+
+    }
+
+
     private void init() {
         mAq = new AQuery(this);
         mCountDownTimer = new CountDown(millisInFuture, countDownInterval);
@@ -81,6 +134,11 @@ public class ResetPassword extends BaseActivity implements TextWatcher{
         mGetVerifyCode = (Button) findViewById(R.id.get_code);
         mNextBtn.setOnClickListener(this);
         mGetVerifyCode.setOnClickListener(this);
+
+        smsBroadCastReceiver = new SmsBroadCastReceiver(mVerifyCode);
+        intentFilter = new IntentFilter(SMS_RECEIVED_ACTION);
+
+        registerReceiver(smsBroadCastReceiver, intentFilter);
 
     }
 

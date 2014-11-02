@@ -1,6 +1,7 @@
 
 package com.will.loans.ui.activity;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ActionCenter extends BaseCenter {
+public class ActionCenter extends BaseCenter implements AdapterView.OnItemClickListener {
     private ActionAdapter mAdapter;
 
     private int mPageNum = 1;
@@ -32,12 +33,17 @@ public class ActionCenter extends BaseCenter {
 
     @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-        // TODO Auto-generated method stub
+        try {
+            startActivity(new Intent(ActionCenter.this,WebBrowser.class).putExtra(WebBrowser.URL_STRING,action.get(arg2).getString("activeUrl").equals("")?"http://www.baidu.com":action.get(arg2).getString("activeUrl")));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 
     @Override
     protected void init() {
+        mListView.setOnItemClickListener(this);
         ((TextView) findViewById(R.id.title_tv)).setText(R.string.more_action_center);
         findViewById(R.id.title_back).setVisibility(View.VISIBLE);
         findViewById(R.id.title_back).setOnClickListener(this);

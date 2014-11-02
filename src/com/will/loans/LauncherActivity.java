@@ -9,9 +9,11 @@ import android.os.Parcelable;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import com.will.loans.application.AppContext;
 import com.will.loans.beans.InternetReturnedHandler;
 import com.will.loans.beans.bean.UserInfo;
 import com.will.loans.beans.json.BaseJson;
+import com.will.loans.getsurepassword.pattern.UnlockGesturePasswordActivity;
 import com.will.loans.ui.activity.BaseActivity;
 import com.will.loans.ui.activity.FirstLoad;
 import com.will.loans.ui.activity.HomePage;
@@ -127,10 +129,14 @@ public class LauncherActivity extends BaseActivity {
      * 进入首页
      */
     public void goFirstActivity(Class activity) {
-        Intent intent = new Intent();
-        intent.setClass(this, activity);
-        startActivity(intent);
-        finish();
+        if (!AppContext.getInstance().getLockPatternUtils(this).savedPatternExists()) {
+            Intent intent = new Intent();
+            intent.setClass(this, activity);
+            startActivity(intent);
+            finish();
+        }else{
+            startActivity(new Intent(this, UnlockGesturePasswordActivity.class));
+        }
     }
 
     /**

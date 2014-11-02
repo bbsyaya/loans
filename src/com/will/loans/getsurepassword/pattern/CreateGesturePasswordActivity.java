@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.will.loans.R;
+import com.will.loans.application.AppContext;
 import com.will.loans.getsurepassword.view.LockPatternUtils;
 import com.will.loans.getsurepassword.view.LockPatternView;
 import com.will.loans.getsurepassword.view.LockPatternView.Cell;
@@ -407,9 +408,9 @@ public class CreateGesturePasswordActivity extends Activity implements OnClickLi
     }
 
     private void saveChosenPatternAndFinish() {
-        App.getInstance().getLockPatternUtils().saveLockPattern(mChosenPattern);
+        AppContext.getInstance().getLockPatternUtils(this).saveLockPattern(mChosenPattern);
         showToast("密码设置成功");
-        startActivity(new Intent(this, UnlockGesturePasswordActivity.class));
+//        startActivity(new Intent(this, UnlockGesturePasswordActivity.class));
         finish();
     }
 }

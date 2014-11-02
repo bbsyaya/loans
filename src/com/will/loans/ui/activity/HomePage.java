@@ -33,17 +33,14 @@ public class HomePage extends FragmentActivity implements OnCheckedChangeListene
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Log.d("loans", "homepage onCreate");
         initView();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("loans", "homepage onResume");
         if (mTabHost != null && mIsJump2Person
                 && !SharePreferenceUtil.getUserPref(getParent()).getToken().equals("")) {
-            Log.d("loans", "homepage setCurrentTabByTag  ");
             mTabHost.setCurrentTabByTag(MINE_TAB);
             mIsJump2Person = false;
         } else {
@@ -70,7 +67,6 @@ public class HomePage extends FragmentActivity implements OnCheckedChangeListene
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d("loans", "homepage onPause");
     }
 
     private void initView() {

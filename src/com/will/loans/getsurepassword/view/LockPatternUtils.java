@@ -17,8 +17,7 @@ import android.util.Log;
 
 /**
  * 图案解锁加密、解密工具类
- * 
- * @author way
+ *
  * 
  */
 public class LockPatternUtils {
@@ -67,19 +66,20 @@ public class LockPatternUtils {
 	}
 
 	public LockPatternUtils(Context context) {
-		if (sLockPatternFilename == null) {
-			String dataSystemDirectory = context.getFilesDir()
-					.getAbsolutePath();
-			sLockPatternFilename = new File(dataSystemDirectory
-					, LOCK_PATTERN_FILE);
-			sHaveNonZeroPatternFile.set(sLockPatternFilename.length() > 0);
-			int fileObserverMask = FileObserver.CLOSE_WRITE
-					| FileObserver.DELETE | FileObserver.MOVED_TO
-					| FileObserver.CREATE;
-			sPasswordObserver = new LockPatternFileObserver(
-					dataSystemDirectory, fileObserverMask);
-			sPasswordObserver.startWatching();
-		}
+        //TODO 获取不到地址
+            if (sLockPatternFilename == null) {
+                String dataSystemDirectory = context.getCacheDir().getAbsolutePath();
+                sLockPatternFilename = new File(dataSystemDirectory
+                        , LOCK_PATTERN_FILE);
+                sHaveNonZeroPatternFile.set(sLockPatternFilename.length() > 0);
+                int fileObserverMask = FileObserver.CLOSE_WRITE
+                        | FileObserver.DELETE | FileObserver.MOVED_TO
+                        | FileObserver.CREATE;
+                sPasswordObserver = new LockPatternFileObserver(
+                        dataSystemDirectory, fileObserverMask);
+                sPasswordObserver.startWatching();
+            }
+
 	}
 
 	/**

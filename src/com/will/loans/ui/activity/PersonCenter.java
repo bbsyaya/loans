@@ -11,7 +11,9 @@ import android.widget.TextView;
 
 import com.androidquery.AQuery;
 import com.will.loans.R;
+import com.will.loans.application.AppContext;
 import com.will.loans.beans.json.UserAccount;
+import com.will.loans.getsurepassword.pattern.CreateGesturePasswordActivity;
 import com.will.loans.ui.fragment.IWant;
 
 public class PersonCenter extends BaseActivity implements OnCheckedChangeListener {
@@ -35,6 +37,7 @@ public class PersonCenter extends BaseActivity implements OnCheckedChangeListene
 
     private void initView() {
         aq = new AQuery(this);
+        mIsGestureOpen = AppContext.getInstance().getLockPatternUtils(this).savedPatternExists();
         findViewById(R.id.title_back).setVisibility(View.VISIBLE);
         findViewById(R.id.title_back).setOnClickListener(this);
         ((TextView) findViewById(R.id.title_tv)).setText(R.string.account_center);
@@ -92,9 +95,10 @@ public class PersonCenter extends BaseActivity implements OnCheckedChangeListene
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
-            //			startActivity(new Intent(PersonCenter.this,GuideGesturePasswordActivity.class));
+            startActivity(new Intent(getApplicationContext(),
+                    CreateGesturePasswordActivity.class));
         } else {
-
+            AppContext.getInstance().getLockPatternUtils(PersonCenter.this).clearLock();
         }
 
     }

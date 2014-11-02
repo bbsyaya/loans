@@ -4,10 +4,12 @@ package com.will.loans.application;
 import android.app.Activity;
 import android.app.Application;
 
+import android.content.Context;
 import cn.sharesdk.framework.ShareSDK;
 
 import com.androidquery.callback.AbstractAjaxCallback;
 import com.androidquery.util.AQUtility;
+import com.will.loans.getsurepassword.view.LockPatternUtils;
 import com.will.loans.share.Laiwang;
 import com.will.loans.utils.GsonTransformer;
 
@@ -20,6 +22,8 @@ public class AppContext extends Application {
     private static int SOCKET_TIMEOUT = 20 * 1000;
 
     private List<Activity> list = new ArrayList<Activity>();
+
+    private LockPatternUtils mLockPatternUtils;
 
     private static AppContext appContext;
 
@@ -42,6 +46,13 @@ public class AppContext extends Application {
         }
 
         System.exit(0);
+    }
+
+    public LockPatternUtils getLockPatternUtils(Context context) {
+        if (mLockPatternUtils == null) {
+            mLockPatternUtils = new LockPatternUtils(context);
+        }
+        return mLockPatternUtils;
     }
 
     @Override

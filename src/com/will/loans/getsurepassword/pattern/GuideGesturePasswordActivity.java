@@ -18,11 +18,11 @@ public class GuideGesturePasswordActivity extends Activity {
         findViewById(R.id.gesturepwd_guide_btn).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                App.getInstance().getLockPatternUtils().clearLock();
-                Intent intent = new Intent(GuideGesturePasswordActivity.this,
-                        CreateGesturePasswordActivity.class);
-                // 打开新的Activity
-                startActivity(intent);
+//                App.getInstance().getLockPatternUtils().clearLock();
+//                Intent intent = new Intent(GuideGesturePasswordActivity.this,
+//                        CreateGesturePasswordActivity.class);
+//                // 打开新的Activity
+//                startActivity(intent);
                 finish();
             }
         });

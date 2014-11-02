@@ -14,9 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.will.loans.R;
+import com.will.loans.application.AppContext;
 import com.will.loans.getsurepassword.view.LockPatternUtils;
 import com.will.loans.getsurepassword.view.LockPatternView;
 import com.will.loans.getsurepassword.view.LockPatternView.Cell;
+import com.will.loans.ui.activity.HomePage;
 
 import java.util.List;
 
@@ -62,7 +64,7 @@ public class UnlockGesturePasswordActivity extends Activity {
     protected void onResume() {
         super.onResume();
 
-        if (!App.getInstance().getLockPatternUtils().savedPatternExists()) {
+        if (!AppContext.getInstance().getLockPatternUtils(this).savedPatternExists()) {
             startActivity(new Intent(this, GuideGesturePasswordActivity.class));
             finish();
         }
@@ -101,13 +103,13 @@ public class UnlockGesturePasswordActivity extends Activity {
             if (pattern == null) {
                 return;
             }
-            if (App.getInstance().getLockPatternUtils().checkPattern(pattern)) {
+            if (AppContext.getInstance().getLockPatternUtils(UnlockGesturePasswordActivity.this).checkPattern(pattern)) {
                 mLockPatternView.setDisplayMode(LockPatternView.DisplayMode.Correct);
-                Intent intent = new Intent(UnlockGesturePasswordActivity.this,
-                        GuideGesturePasswordActivity.class);
-                // 打开新的Activity
+                Intent intent = new Intent();
+                intent.setClass(UnlockGesturePasswordActivity.this, HomePage.class);
                 startActivity(intent);
-                showToast("解锁成功");
+                finish();
+//                showToast("解锁成功");
                 finish();
             } else {
                 mLockPatternView.setDisplayMode(LockPatternView.DisplayMode.Wrong);

@@ -32,7 +32,6 @@ import java.util.List;
  * across 9 regions of the screen. Is also capable of displaying a static
  * pattern in "in progress", "wrong" or "correct" states.
  * 
- * @author way
  */
 public class LockPatternView extends View {
     private static final String TAG = "LockPatternView";
