@@ -25,12 +25,16 @@ public class FirstLoad extends BaseActivity {
     private ViewPager pager;
 
     private LayoutInflater layoutInflater;
+    private boolean mIsJump2Home = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState); //To change body of overridden methods use File | Settings | File Templates.
         setContentView(R.layout.activity_firstload);
         layoutInflater = LayoutInflater.from(this);
+        if (getIntent().getExtras()!=null){
+            mIsJump2Home = getIntent().getExtras().getBoolean(About.FIRST_LOAD_NO_FINISH);
+        }
         init();
     }
 
@@ -49,8 +53,10 @@ public class FirstLoad extends BaseActivity {
                         .setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Intent intent = new Intent(FirstLoad.this, HomePage.class);
-                                FirstLoad.this.startActivity(intent);
+                                if(mIsJump2Home){
+                                    Intent intent = new Intent(FirstLoad.this, HomePage.class);
+                                    FirstLoad.this.startActivity(intent);
+                                }
                                 FirstLoad.this.finish();
                             }
                         });

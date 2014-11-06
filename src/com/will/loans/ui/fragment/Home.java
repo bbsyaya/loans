@@ -210,16 +210,17 @@ public class Home extends BaseFragment implements OnClickListener {
         ((TextView) view.findViewById(R.id.home_tv_month)).setText(jo.optInt("timeLimit") + "个月");
         ((TextView) view.findViewById(R.id.home_tv_limit)).setText(jo.optInt("startBuy") + "");
         ((TextView) view.findViewById(R.id.percentTV)).setText(jo.optInt("percent") + "");
-//        double persent = jo.optDouble("nhsy");
-//        String strD = Math.abs(persent)+"";
-//        String[] strs = strD.split(".");
+        if (jo.optString("tipColor").equals("RED")){
+            ((ImageView) view.findViewById(R.id.tv_flag)).setBackgroundResource(R.drawable.sale_red_icon);
+        }else if (jo.optString("tipColor").equals("BLUE")){
+            ((ImageView) view.findViewById(R.id.tv_flag)).setBackgroundResource(R.drawable.sale_blue_icon);
+        }else if (jo.optString("tipColor").equals("GRAY")){
+            ((ImageView) view.findViewById(R.id.tv_flag)).setBackgroundResource(R.drawable.sale_gray_icon);
+        }
+        ((TextView) view.findViewById(R.id.tv_flag_text)).setText(jo.optString("tip"));
         ((TextView) view.findViewById(R.id.home_year_num_int)).setText(jo.optInt("nhsy")+"");
         ((TextView) view.findViewById(R.id.home_year_num)).setText(".0%");
         mSeekBar.setProgress((int) (jo.optInt("percent")));
-//        pwTwo.setProgress((int) (jo.optInt("percent") * 3.6));
-//        wheelProgress = 0;
-//        pwTwo.setProgress(0);
-//        mProgress = (int) (jo.optInt("percent") * 3.6);
         new Thread(r).start();
     }
 

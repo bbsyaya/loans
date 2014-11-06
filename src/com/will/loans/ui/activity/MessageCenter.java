@@ -71,8 +71,10 @@ public class MessageCenter extends BaseCenter {
                 }
                 JSONArray ja = null;
                 ja = json.optJSONArray("activeList");
-                for (int i = 0; i < ja.length(); i++) {
+                if (ja!=null){
+                    for (int i = 0; i < ja.length(); i++) {
                     action.add(ja.optJSONObject(i));
+                    }
                 }
                 if (mMessageAdapter != null) {
                     mMessageAdapter.notifyDataSetChanged();
@@ -109,7 +111,7 @@ public class MessageCenter extends BaseCenter {
         @Override
         public int getCount() {
             // TODO Auto-generated method stub
-            return 10;
+            return action.size();
         }
 
         @Override

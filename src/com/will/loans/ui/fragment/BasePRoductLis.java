@@ -84,6 +84,7 @@ public abstract class BasePRoductLis extends BaseFragment implements OnLoadMoreL
         aq.ajax(ServerInfo.PROLIST, params, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject json, AjaxStatus status) {
+                Log.d("json",""+json.toString());
                 if (isRefresh) {
                     products.clear();
                     mListView.onRefreshComplete();

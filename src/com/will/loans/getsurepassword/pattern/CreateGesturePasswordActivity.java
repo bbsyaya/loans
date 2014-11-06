@@ -409,7 +409,7 @@ public class CreateGesturePasswordActivity extends Activity implements OnClickLi
 
     private void saveChosenPatternAndFinish() {
         AppContext.getInstance().getLockPatternUtils(this).saveLockPattern(mChosenPattern);
-        showToast("密码设置成功");
+        showToast("手势密码设置成功");
 //        startActivity(new Intent(this, UnlockGesturePasswordActivity.class));
         finish();
     }

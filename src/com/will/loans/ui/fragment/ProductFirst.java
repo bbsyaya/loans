@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.will.loans.R;
@@ -53,6 +54,8 @@ public class ProductFirst extends BasePRoductLis {
                 viewHolder.loans_number = (TextView) convertView.findViewById(R.id.loans_number);
                 viewHolder.loans_persent = (TextView) convertView.findViewById(R.id.loans_persent);
                 viewHolder.loans_low = (TextView) convertView.findViewById(R.id.loans_low);
+                viewHolder.flag = (ImageView) convertView.findViewById(R.id.tv_flag);
+                viewHolder.status = (TextView) convertView.findViewById(R.id.tv_flag_text);
                 viewHolder.progressWheel = (ProgressWheel) convertView
                         .findViewById(R.id.progress_bar_two);
                 viewHolder.progressWheel = (ProgressWheel) convertView
@@ -69,6 +72,14 @@ public class ProductFirst extends BasePRoductLis {
             viewHolder.loans_persent.setText(item.optInt("percent") + "%");
             viewHolder.loans_low.setText(Html.fromHtml("<strong>" + item.optInt("startBuy")
                     + "</strong>元起购"));
+            if (item.optString("tipColor").equals("RED")){
+                viewHolder.flag.setBackgroundResource(R.drawable.sale_red_icon);
+            }else if (item.optString("tipColor").equals("BLUE")){
+                viewHolder.flag.setBackgroundResource(R.drawable.sale_blue_icon);
+            }else if (item.optString("tipColor").equals("GRAY")){
+                viewHolder.flag.setBackgroundResource(R.drawable.sale_gray_icon);
+            }
+            viewHolder.status.setText(item.optString("tip"));
             viewHolder.progressWheel.setProgress((int) (item.optInt("percent") * 3.6));
             viewHolder.percentTV.setText("" + item.optInt("percent"));
             return convertView;
@@ -94,6 +105,8 @@ public class ProductFirst extends BasePRoductLis {
             TextView status;
 
             TextView percentTV;
+
+            ImageView flag;
 
             ProgressWheel progressWheel;
         }

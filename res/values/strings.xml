@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">贷贷通</string>
+    <string name="app_name">安疆理财</string>
     <string name="action_settings">Settings</string>
-    <string name="tab_home">首页</string>
+    <string name="tab_home">理财精选</string>
     <string name="tab_produce_list">产品列表</string>
     <string name="product_loans">稳盈贷</string>
     <string name="product_coins">货币基金</string>
     <string name="product_others">其他产品</string>
-    <string name="tab_mine">我的贷贷</string>
-    <string name="tab_more">更多</string>
+    <string name="tab_mine">我的资产</string>
+    <string name="tab_more">更多服务</string>
     <string name="more_action_center">活动中心</string>
     <string name="more_message_center">消息中心</string>
     <string name="more_help_center">帮助中心</string>
@@ -76,7 +76,7 @@
     <string name="about_desc">一款适合普通大众群体使用的掌上理财软件，免费提供给用户受益稳定及安全的理财产品，你可以随时、随地、随心
         婉转理财。基金销售系统由中国领先的第三方投资顾问公司上海好买财富旗下好买基金销售公司提供。贷贷通，指尖上的财富！我们提倡轻松、安全、文件、低门槛的理财方式！</string>
     <string name="about_welcome">欢迎页</string>
-    <string name="about_title">关于贷贷</string>
+    <string name="about_title">关于安疆理财</string>
     <string name="about_phone">客服热线：400-870-5800</string>
     <string name="about_qq">客服QQ群：888888</string>
     <string name="about_email">客服邮箱：kefu@daidaitong.com</string>

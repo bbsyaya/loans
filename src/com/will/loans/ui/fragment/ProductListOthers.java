@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.will.loans.R;
@@ -56,6 +57,8 @@ public class ProductListOthers extends BasePRoductLis {
                 viewholder.earn = (TextView) convertView.findViewById(R.id.loans_low);
                 viewholder.type = (TextView) convertView.findViewById(R.id.loans_buy_type);
                 viewholder.buyNum = (TextView) convertView.findViewById(R.id.loans_buy_num);
+                viewholder.flag = (ImageView) convertView.findViewById(R.id.tv_flag);
+                viewholder.status = (TextView) convertView.findViewById(R.id.tv_flag_text);
                 convertView.setTag(viewholder);
             }
             viewholder = (ViewHolder) convertView.getTag();
@@ -63,7 +66,14 @@ public class ProductListOthers extends BasePRoductLis {
             viewholder.title.setText(item.optString("proName"));
             viewholder.plam.setText(item.optString("syms"));
             viewholder.earn.setText(item.optString("wfsy") + " 元");
-
+            if (item.optString("tipColor").equals("RED")){
+                viewholder.flag.setBackgroundResource(R.drawable.sale_red_icon);
+            }else if (item.optString("tipColor").equals("BLUE")){
+                viewholder.flag.setBackgroundResource(R.drawable.sale_blue_icon);
+            }else if (item.optString("tipColor").equals("GRAY")){
+                viewholder.flag.setBackgroundResource(R.drawable.sale_gray_icon);
+            }
+            viewholder.status.setText(item.optString("tip"));
             viewholder.persent.setText(item.optInt("percent") + "%");
             viewholder.limit.setText(Html.fromHtml("<strong>" + item.optInt("startBuy")
                     + "</strong>元起购"));
@@ -82,6 +92,8 @@ public class ProductListOthers extends BasePRoductLis {
             TextView earn;
 
             TextView type;
+            ImageView flag;
+            TextView status;
 
             TextView buyNum;
         }
