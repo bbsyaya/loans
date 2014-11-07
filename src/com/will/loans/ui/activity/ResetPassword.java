@@ -39,7 +39,6 @@ public class ResetPassword extends BaseActivity implements TextWatcher{
      */
     private int mType = 0;
     public static String TYPE_NAME = "RESETPASSWORDTYPE";
-    private String token;
     private AQuery mAq;
     private CountDown mCountDownTimer;
     private EditText mRealName, mUserIdCard, mUsername, mVerifyCode;
@@ -168,7 +167,7 @@ public class ResetPassword extends BaseActivity implements TextWatcher{
                     public void callback(String url, JSONObject object, AjaxStatus status) {
                         if (object!=null&&object.optString("resultflag").equals("0")){
                             Toaster.showShort(ResetPassword.this,"验证码获取成功！");
-                            token = object.optString("token");
+                            SharePreferenceUtil.getUserPref(ResetPassword.this).setToken(object.optString("token"));
                         }else{
                             Toaster.showShort(ResetPassword.this,object.optString("resultMsg"));
                         }
@@ -225,9 +224,9 @@ public class ResetPassword extends BaseActivity implements TextWatcher{
         try {
             jo.put("timeStamp", time);
             jo.put("verCode", mVerifyCode.getText().toString());
-            jo.put("token", token);
-            jo.put("sign", GenerateMD5Password.encodeByMD5(token
-                    + smf.format(time) + key));
+            jo.put("token", SharePreferenceUtil.getUserPref(this).getToken());
+            jo.put("userid", SharePreferenceUtil.getUserPref(this).getUserId());
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
