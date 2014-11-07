@@ -29,6 +29,9 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 public class ResetPassword extends BaseActivity implements TextWatcher{
     /**
@@ -48,8 +51,6 @@ public class ResetPassword extends BaseActivity implements TextWatcher{
     private SmsBroadCastReceiver smsBroadCastReceiver;
 
     private IntentFilter intentFilter;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +79,6 @@ public class ResetPassword extends BaseActivity implements TextWatcher{
         unregisterReceiver(smsBroadCastReceiver);
     }
 
-
     public class SmsBroadCastReceiver extends BroadcastReceiver {
 
         private EditText editText;
@@ -98,18 +98,23 @@ public class ResetPassword extends BaseActivity implements TextWatcher{
                 String smsContent = sms[i].getDisplayMessageBody();
                 System.out.println("smsContent = " + smsContent);
                 System.out.println("code = "
-                        + smsContent.substring(smsContent.length() - 6,
-                        smsContent.length()));
-                if (smsContent.contains("贷贷通")) {
-                    System.out.println("enter");
-                    editText.setText(smsContent.substring(
-                            smsContent.length() - 6, smsContent.length()));
+                        + NumberFilter(smsContent));
+                if (smsContent.contains("安疆理财")) {
+                    editText.setText(NumberFilter(smsContent));
                 }
             }
             // 终止广播，在这里我们可以稍微处理，根据用户输入的号码可以实现短信防火墙。
             // abortBroadcast();
         }
 
+    }
+
+    public static String NumberFilter(String str) throws PatternSyntaxException {
+        String regEx = "[^0-9]";
+        Pattern p = Pattern.compile(regEx);
+        Matcher m = p.matcher(str);
+        String code = m.replaceAll("").trim().substring(1,m.replaceAll("").trim().length());
+        return code;
     }
 
 
