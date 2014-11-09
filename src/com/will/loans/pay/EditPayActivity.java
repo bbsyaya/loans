@@ -4,6 +4,7 @@ package com.will.loans.pay;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -11,6 +12,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,9 +24,7 @@ import com.unionpay.UPPayAssistEx;
 import com.unionpay.uppay.PayActivity;
 import com.will.loans.R;
 import com.will.loans.constant.ServerInfo;
-import com.will.loans.ui.activity.RealNameAuthentication;
-import com.will.loans.ui.activity.Register;
-import com.will.loans.ui.activity.SetPassword;
+import com.will.loans.ui.activity.*;
 import com.will.loans.utils.GenerateMD5Password;
 import com.will.loans.utils.SharePreferenceUtil;
 
@@ -35,69 +35,36 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EditPayActivity extends BasePayActivity implements OnClickListener {
+public class EditPayActivity extends BaseTextActivity implements OnClickListener {
 
     private EditText moneyET, mTradePsw;
 
     public static JSONObject product;
 
     private AQuery aq;
+    protected Button nextBtn;
 
     protected SimpleDateFormat smf = new SimpleDateFormat("yyyy-MMddHHmm:ss");
 
     protected String key = "qHdKC5yNgKwdi1BFa5EKOw29fwYeetV78EcSN04H93jBYvoLkP631rFcSa3OT3Np";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_pay);
+        afterSetContentView();
+    }
 
     protected String getMD5Code(Long time) {
         return GenerateMD5Password.encodeByMD5(SharePreferenceUtil.getUserPref(this).getToken()
                 + smf.format(time) + key);
     }
 
-    @Override
-    public void doStartUnionPayPlugin(Activity activity, String tn, String mode) {
-        UPPayAssistEx.startPayByJAR(activity, PayActivity.class, null, null, tn, mode);
-    }
-
-    private void checkHaveTradePsw() {
-        Long time = System.currentTimeMillis();
-        JSONObject jo = new JSONObject();
-        try {
-            jo.put("timeStamp", time);
-            jo.put("userid", SharePreferenceUtil.getUserPref(EditPayActivity.this).getUserId());
-            jo.put("token", SharePreferenceUtil.getUserPref(EditPayActivity.this).getToken());
-            jo.put("sign", getMD5Code(time));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("jsonData", jo.toString());
-        aq.ajax(ServerInfo.HASTRADEPSW, params, JSONObject.class, new AjaxCallback<JSONObject>() {
-            @Override
-            public void callback(String url, JSONObject json, AjaxStatus status) {
-                if (json != null) {
-                    String flag = json.optString("resultflag");
-                    if (!json.optString("tradePsw").equals("")) {
-                        mLoadingDialog = ProgressDialog.show(EditPayActivity.this, // context
-                                "", // title
-                                "正在努力的获取tn中,请稍候...", // message
-                                true); // 进度是否是不确定的，这只和创建进度条有关
-                        getDate();
-                        return;
-                    } else {
-                        //								Toaster.showShort(getParent(),
-                        //										json.optString("resultMsg"));
-                        startActivity(new Intent(EditPayActivity.this, SetPassword.class).putExtra(
-                                SetPassword.SETTYPE, 1));
-                    }
-                }
-            }
-        });
-
-    }
-
-    @Override
-    protected void afterSetContentView() {
+    private void afterSetContentView() {
 
         aq = new AQuery(this);
+        nextBtn = (Button) findViewById(R.id.nextBtn);
+
         findViewById(R.id.title_back).setVisibility(View.VISIBLE);
         findViewById(R.id.title_back).setOnClickListener(this);
         ((TextView) findViewById(R.id.title_tv)).setText("投标");
@@ -108,7 +75,8 @@ public class EditPayActivity extends BasePayActivity implements OnClickListener 
                 if (SharePreferenceUtil.getUserPref(EditPayActivity.this).getToken().equals("")) {
                     startActivity(new Intent(EditPayActivity.this, Register.class));
                 } else {
-                    checkHaveTradePsw();
+//                    checkHaveTradePsw();
+                startActivity(new Intent(EditPayActivity.this, AddBank.class));
                 }
             }
         });
@@ -116,7 +84,7 @@ public class EditPayActivity extends BasePayActivity implements OnClickListener 
 
         moneyET = (EditText) findViewById(R.id.moneyET);
         mTradePsw = (EditText) findViewById(R.id.trade_psw);
-        mTradePsw.addTextChangedListener(new TextWatcher() {
+        moneyET.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
@@ -130,8 +98,7 @@ public class EditPayActivity extends BasePayActivity implements OnClickListener 
 
             @Override
             public void afterTextChanged(Editable arg0) {
-                if (TextUtils.isEmpty(moneyET.getText().toString())
-                        || TextUtils.isEmpty(mTradePsw.getText().toString())) {
+                if (TextUtils.isEmpty(moneyET.getText().toString())) {
                     return;
                 }
                 int money = Integer.parseInt(moneyET.getText().toString());
@@ -144,47 +111,6 @@ public class EditPayActivity extends BasePayActivity implements OnClickListener 
         });
 
         updateView();
-        checkHaveTradePsw();
-    }
-
-    private void getDate() {
-        // TODO EditPay完善参数
-        Long time = System.currentTimeMillis();
-        JSONObject jo = new JSONObject();
-        try {
-            jo.put("timeStamp", time);
-            jo.put("userid", SharePreferenceUtil.getUserPref(EditPayActivity.this).getUserId());
-            jo.put("token", SharePreferenceUtil.getUserPref(EditPayActivity.this).getToken());
-            jo.put("amount", moneyET.getText().toString());
-            jo.put("proId", product.optString("id"));
-            jo.put("tradePsw", mTradePsw.getText().toString());
-            jo.put("sign", getMD5Code(time));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("jsonData", jo.toString());
-        aq.ajax(ServerInfo.BUYPRODUCT, params, JSONObject.class, new AjaxCallback<JSONObject>() {
-            @Override
-            public void callback(String url, JSONObject json, AjaxStatus status) {
-                mLoadingDialog.cancel();
-                String result = json.optString("resultflag");
-                if (result.equals("0")) {
-                    String tn = json.optString("tn");
-                    Message msg = mHandler.obtainMessage();
-                    msg.obj = tn;
-                    mHandler.sendMessage(msg);
-                } else if (result.equals("1")) {
-                    //                    Log.d("", json.optString("resultMsg"));
-                    //                    Toast.makeText(getApplication(), json.optString("resultMsg"), 1 * 1000).show();
-                } else {
-                    Toast.makeText(getApplication(), json.optString("resultMsg"), 1 * 1000).show();
-                    startActivity(new Intent(EditPayActivity.this, RealNameAuthentication.class));
-                    Log.d("", json.optString("resultMsg"));
-                }
-            }
-        });
-
     }
 
     private void updateView() {

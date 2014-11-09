@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.will.loans"
-    android:versionCode="1006"
-    android:versionName="1.006" >
+    android:versionCode="1007"
+    android:versionName="1.007" >
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
@@ -120,6 +120,8 @@
         </activity>
         <activity android:name=".ui.activity.BuyList" >
         </activity>
+        <activity android:name=".ui.activity.AddBank" />
+        <activity android:name=".pay.ConfirmPayActivity" />
         <activity android:name=".getsurepassword.pattern.GuideGesturePasswordActivity" >
         </activity>
         <activity android:name=".getsurepassword.pattern.CreateGesturePasswordActivity" >

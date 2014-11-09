@@ -69,7 +69,7 @@ public abstract class BasePayActivity extends Activity implements Callback, Runn
         mContext = this;
         mHandler = new Handler(this);
 
-        setContentView(R.layout.activity_pay);
+        setContentView(R.layout.activity_confirm_pay);
 
         nextBtn = (Button) findViewById(R.id.nextBtn);
 
