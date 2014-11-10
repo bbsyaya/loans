@@ -1,17 +1,23 @@
+
 package com.will.loans.ui.activity;
 
-import android.graphics.Paint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.util.Log;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
 import com.will.loans.constant.ServerInfo;
+import com.will.loans.pay.ConfirmPayActivity;
 import com.will.loans.utils.SharePreferenceUtil;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,8 +30,11 @@ import java.util.Map;
  */
 public class AddBank extends BaseTextActivity {
     private TextView mBigPhoneNum;
+
     private Button mNextBtn;
+
     private EditText mBankNum;
+
     private AQuery mAQuery;
 
     @Override
@@ -40,15 +49,16 @@ public class AddBank extends BaseTextActivity {
 
         findViewById(R.id.title_back).setVisibility(View.VISIBLE);
         findViewById(R.id.title_back).setOnClickListener(this);
-        ((TextView)findViewById(R.id.title_tv)).setText(R.string.add_bank);
-        mBankNum = (EditText) findViewById(R.id.phone_num);
+        ((TextView) findViewById(R.id.title_tv)).setText(R.string.add_bank);
+        mBankNum = (EditText) findViewById(R.id.bank_card_id);
+        mBankNum.addTextChangedListener(this);
         mBigPhoneNum = (TextView) findViewById(R.id.phone_num_big);
         mNextBtn = (Button) findViewById(R.id.btn_next);
         mNextBtn.setOnClickListener(this);
         getBindBankList();
     }
 
-    public void getBindBankList(){
+    public void getBindBankList() {
         JSONObject jo = new JSONObject();
         try {
             jo.put("timeStamp", time);
@@ -58,31 +68,66 @@ public class AddBank extends BaseTextActivity {
         }
         Map<String, String> params = new HashMap<String, String>();
         params.put("jsonData", jo.toString());
-        mAQuery.ajax(ServerInfo.GETBINDBANKLIST, params, JSONObject.class, new AjaxCallback<JSONObject>() {
-            @Override
-            public void callback(String url, JSONObject json, AjaxStatus status) {
-                Log.d("loans", "" + json.toString());
-                if (json == null) {
-                    return;
-                }
-                JSONArray ja = null;
-                ja = json.optJSONArray("bankList");
+        mAQuery.ajax(ServerInfo.GETBINDBANKLIST, params, JSONObject.class,
+                new AjaxCallback<JSONObject>() {
+                    @Override
+                    public void callback(String url, JSONObject json, AjaxStatus status) {
+                        Log.d("loans", "" + json.toString());
+                        if (json == null) {
+                            return;
+                        }
+                        JSONArray ja = null;
+                        ja = json.optJSONArray("bankList");
 
-            }
-        });
+                    }
+                });
+
+    }
+
+    private void checkBankcard() {
+        // TODO EditPay完善参数
+        Long time = System.currentTimeMillis();
+        JSONObject jo = new JSONObject();
+        try {
+            jo.put("timeStamp", time);
+            jo.put("userid", SharePreferenceUtil.getUserPref(this).getUserId());
+            jo.put("cardNo", mBankNum.getText().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("jsonData", jo.toString());
+        mAQuery.ajax(ServerInfo.BANKCARDCHECK, params, JSONObject.class,
+                new AjaxCallback<JSONObject>() {
+                    @Override
+                    public void callback(String url, JSONObject json, AjaxStatus status) {
+                        String result = json.optString("resultflag");
+                        Log.d("loans", "" + json.toString());
+                        if (result.equals("0") || result.equals("2")) {
+                            ConfirmPayActivity.bankInfo = json;
+                            startActivity(new Intent(AddBank.this, ConfirmPayActivity.class)
+                                    .putExtra(ConfirmPayActivity.CARDNOSTRING, mBankNum.getText()
+                                            .toString()));
+                            finish();
+                        } else if (result.equals("1")) {
+                            Toast.makeText(getBaseContext(), "" + json.optString("resultMsg"),
+                                    1 * 1000).show();
+                        }
+                    }
+                });
 
     }
 
     @Override
     protected void onViewClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btn_next:
-
+                checkBankcard();
                 break;
         }
     }
 
-    public void checkBankCard(){
+    public void checkBankCard() {
 
     }
 

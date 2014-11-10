@@ -13,7 +13,6 @@ import android.os.Handler.Callback;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
 import com.will.loans.R;
 
@@ -44,22 +43,27 @@ public abstract class BasePayActivity extends Activity implements Callback, Runn
 
     private static final String TN_URL_01 = "http://202.101.25.178:8080/sim/gettn";
 
-    protected Button nextBtn;
+    //    protected Button nextBtn;
 
     private final View.OnClickListener mClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            mLoadingDialog = ProgressDialog.show(mContext, // context
-                    "", // title
-                    "正在努力的获取tn中,请稍候...", // message
-                    true); // 进度是否是不确定的，这只和创建进度条有关
-
-            /*************************************************
-             * 步骤1：从网络开始,获取交易流水号即TN
-             ************************************************/
-            new Thread(BasePayActivity.this).start();
+            //            mLoadingDialog = ProgressDialog.show(mContext, // context
+            //                    "", // title
+            //                    "正在努力的获取tn中,请稍候...", // message
+            //                    true); // 进度是否是不确定的，这只和创建进度条有关
+            //
+            //            /*************************************************
+            //             * 步骤1：从网络开始,获取交易流水号即TN
+            //             ************************************************/
+            //            new Thread(BasePayActivity.this).start();
+            getData();
         }
     };
+
+    protected void getData() {
+
+    }
 
     public abstract void doStartUnionPayPlugin(Activity activity, String tn, String mode);
 
@@ -71,8 +75,8 @@ public abstract class BasePayActivity extends Activity implements Callback, Runn
 
         setContentView(R.layout.activity_confirm_pay);
 
-        nextBtn = (Button) findViewById(R.id.nextBtn);
-
+        //        nextBtn = (Button) findViewById(R.id.nextBtn);
+        //        nextBtn.setOnClickListener(mClickListener);
         afterSetContentView();
 
     }

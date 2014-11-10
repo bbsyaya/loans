@@ -2,7 +2,6 @@
 package com.will.loans.pay;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Message;
 import android.text.Editable;
@@ -11,7 +10,9 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,9 +38,21 @@ import java.util.Map;
 
 public class ConfirmPayActivity extends BasePayActivity implements OnClickListener {
 
-    private EditText moneyET, mTradePsw;
+    private EditText mTradePsw, bankID, bankName, BankPhone;
+
+    private LinearLayout llytBankId, llytBankName, llytBankPhone;
+
+    private TextView moneyET;
+
+    private Button nextBtn;
 
     public static JSONObject product;
+
+    public static JSONObject bankInfo;
+
+    private String cardNo = "";
+
+    public static String CARDNOSTRING = "com.will.activity.cardno";
 
     private AQuery aq;
 
@@ -76,17 +89,17 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
                 if (json != null) {
                     String flag = json.optString("resultflag");
                     if (!json.optString("tradePsw").equals("")) {
-                        mLoadingDialog = ProgressDialog.show(ConfirmPayActivity.this, // context
-                                "", // title
-                                "正在努力的获取tn中,请稍候...", // message
-                                true); // 进度是否是不确定的，这只和创建进度条有关
-                        getDate();
+                        //                        mLoadingDialog = ProgressDialog.show(ConfirmPayActivity.this, // context
+                        //                                "", // title
+                        //                                "正在努力的获取tn中,请稍候...", // message
+                        //                                true); // 进度是否是不确定的，这只和创建进度条有关
+                        //                        getData();
                         return;
                     } else {
                         //								Toaster.showShort(getParent(),
                         //										json.optString("resultMsg"));
-                        startActivity(new Intent(ConfirmPayActivity.this, SetPassword.class).putExtra(
-                                SetPassword.SETTYPE, 1));
+                        startActivity(new Intent(ConfirmPayActivity.this, SetPassword.class)
+                                .putExtra(SetPassword.SETTYPE, 1));
                     }
                 }
             }
@@ -96,11 +109,20 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
 
     @Override
     protected void afterSetContentView() {
-
+        cardNo = getIntent().getExtras().getString(CARDNOSTRING);
         aq = new AQuery(this);
         findViewById(R.id.title_back).setVisibility(View.VISIBLE);
         findViewById(R.id.title_back).setOnClickListener(this);
+        bankID = (EditText) findViewById(R.id.bank_id_card);
+        bankName = (EditText) findViewById(R.id.bank_name);
+        BankPhone = (EditText) findViewById(R.id.bank_phone_num);
+
+        llytBankId = (LinearLayout) findViewById(R.id.llyt_bank_id_card);
+        llytBankName = (LinearLayout) findViewById(R.id.llyt_bank_name);
+        llytBankPhone = (LinearLayout) findViewById(R.id.llyt_bank_phone);
+        checkCardNum();
         ((TextView) findViewById(R.id.title_tv)).setText("投标");
+        nextBtn = (Button) findViewById(R.id.nextBtn);
         nextBtn.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -108,13 +130,14 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
                 if (SharePreferenceUtil.getUserPref(ConfirmPayActivity.this).getToken().equals("")) {
                     startActivity(new Intent(ConfirmPayActivity.this, Register.class));
                 } else {
-                    checkHaveTradePsw();
+                    //                    checkHaveTradePsw();
+                    getData();
                 }
             }
         });
         nextBtn.setEnabled(false);
 
-        moneyET = (EditText) findViewById(R.id.moneyET);
+        moneyET = (TextView) findViewById(R.id.moneyET);
         mTradePsw = (EditText) findViewById(R.id.trade_psw);
         mTradePsw.addTextChangedListener(new TextWatcher() {
 
@@ -142,12 +165,29 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
                 }
             }
         });
-
         updateView();
         checkHaveTradePsw();
     }
 
-    private void getDate() {
+    private void checkCardNum() {
+        String result = bankInfo.optString("cardtype");
+        if (result.equals("1")) {
+            bankID.setHint("请输入银行卡身份证号码");
+            bankName.setHint("请输入姓名");
+            BankPhone.setHint("请输入预留的电话号码");
+        } else if (result.equals("2")) {
+            bankID.setHint("请输入信用卡有效期");
+            bankName.setHint("请信用卡背面3位数");
+            BankPhone.setHint("请输入预留的电话号码");
+        } else {
+            llytBankId.setVisibility(View.GONE);
+            llytBankName.setVisibility(View.GONE);
+            llytBankPhone.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    protected void getData() {
         // TODO EditPay完善参数
         Long time = System.currentTimeMillis();
         JSONObject jo = new JSONObject();
@@ -158,16 +198,34 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
             jo.put("amount", moneyET.getText().toString());
             jo.put("proId", product.optString("id"));
             jo.put("tradePsw", mTradePsw.getText().toString());
+            String result = bankInfo.optString("cardtype");
+            if (result.equals("1")) {
+                jo.put("idcard", bankID.getText().toString());
+                jo.put("name", bankName.getText().toString());
+                jo.put("phone", BankPhone.getText().toString());
+            } else if (result.equals("2")) {
+                jo.put("validthru", bankID.getText().toString());
+                jo.put("cvv2", bankName.getText().toString());
+                jo.put("phone", BankPhone.getText().toString());
+            } else {
+                jo.put("bindid", bankInfo.optString("bindid"));
+            }
             jo.put("sign", getMD5Code(time));
+            jo.put("cardNo", cardNo);
+            jo.put("bankName", "工商银行");
+            jo.put("userip", "192.168.1.112");
+            jo.put("terminaltype", "3");
+            jo.put("terminalid", "android");
         } catch (JSONException e) {
             e.printStackTrace();
         }
         Map<String, String> params = new HashMap<String, String>();
         params.put("jsonData", jo.toString());
-        aq.ajax(ServerInfo.BUYPRODUCT, params, JSONObject.class, new AjaxCallback<JSONObject>() {
+        aq.ajax(ServerInfo.BUYPRODUCTYB, params, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject json, AjaxStatus status) {
-                mLoadingDialog.cancel();
+                //                mLoadingDialog.cancel();
+                Log.d("loans", json.toString());
                 String result = json.optString("resultflag");
                 if (result.equals("0")) {
                     String tn = json.optString("tn");
@@ -175,10 +233,11 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
                     msg.obj = tn;
                     mHandler.sendMessage(msg);
                 } else if (result.equals("1")) {
-                    //                    Log.d("", json.optString("resultMsg"));
-                    //                    Toast.makeText(getApplication(), json.optString("resultMsg"), 1 * 1000).show();
+                    Log.d("", json.optString("resultMsg"));
+                    Toast.makeText(getApplication(), json.optString("resultMsg"), 1 * 1000).show();
                 } else {
-                    Toast.makeText(getApplication(), json.optString("resultMsg"), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(), json.optString("resultMsg"),
+                            Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(ConfirmPayActivity.this, RealNameAuthentication.class));
                     Log.d("", json.optString("resultMsg"));
                 }
@@ -188,18 +247,18 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
     }
 
     private void updateView() {
-        moneyET.setHint("投资金需≥" + product.optInt("startBuy"));
+        moneyET.setText("" + product.optInt("startBuy"));
         setTextView(R.id.nameTV, product.optString("proName"), "");
-        setTextView(R.id.moneyTV, "起投金额：" + product.optInt("startBuy") + "元" + "    手续费:无", "");
-        setTextView(R.id.timeTV, "理财年限：限" + product.optString("timeLimit") + "个月", "");
-        setTextView(R.id.multipleTV, "投资倍数为：" + product.optInt("startBuy") + "的整数倍", "");
+        //        setTextView(R.id.moneyTV, "起投金额：" + product.optInt("startBuy") + "元" + "    手续费:无", "");
+        //        setTextView(R.id.timeTV, "理财年限：限" + product.optString("timeLimit") + "个月", "");
+        //        setTextView(R.id.multipleTV, "投资倍数为：" + product.optInt("startBuy") + "的整数倍", "");
     }
 
     /**
      * 通过id设置text
      * <p>
      * 若text为null或"",则使用or
-     *
+     * 
      * @param resId
      * @param text
      * @param or
