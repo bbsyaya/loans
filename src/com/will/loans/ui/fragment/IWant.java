@@ -256,6 +256,7 @@ public class IWant extends BaseFragment implements OnClickListener {
                 jump2Activity(new AmountMoney());
                 break;
             case R.id.hasMoneyBtn:
+                HasMoney.havmoney = useraccount==null?0:useraccount.holdAssets;
                 jump2Activity(new HasMoney());
                 break;
             case R.id.remainMoneyBtn:

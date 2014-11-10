@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.will.loans.R;
+import com.will.loans.constant.ServerInfo;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -42,7 +43,7 @@ public abstract class UnionBasePay extends Activity implements Callback, Runnabl
      *****************************************************************/
     private final String mMode = "00";
 
-    private static final String TN_URL_01 = "http://202.101.25.178:8080/sim/gettn";
+    private static final String TN_URL_01 = "http://daidaitong.imwanmei.com:8080/mobile/buyProduct";
 
     protected Button nextBtn;
 
@@ -107,6 +108,7 @@ public abstract class UnionBasePay extends Activity implements Callback, Runnabl
         } else {
 
             tn = (String) msg.obj;
+            Log.e(LOG_TAG, " " + "" + tn);
             /*************************************************
              * 步骤2：通过银联工具类启动支付插件
              ************************************************/

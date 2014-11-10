@@ -75,11 +75,11 @@ public class UnionPayActivity extends UnionBasePay implements OnClickListener {
                 if (json != null) {
                     String flag = json.optString("resultflag");
                     if (!json.optString("tradePsw").equals("")) {
-                        mLoadingDialog = ProgressDialog.show(UnionPayActivity.this, // context
-                                "", // title
-                                "任务正在执行,请稍候...", // message
-                                true); // 进度是否是不确定的，这只和创建进度条有关
-                        getDate();
+//                        mLoadingDialog = ProgressDialog.show(UnionPayActivity.this, // context
+//                                "", // title
+//                                "任务正在执行,请稍候...", // message
+//                                true); // 进度是否是不确定的，这只和创建进度条有关
+//                        getDate();
                         return;
                     } else {
                         //                              Toaster.showShort(getParent(),
@@ -169,6 +169,7 @@ public class UnionPayActivity extends UnionBasePay implements OnClickListener {
             public void callback(String url, JSONObject json, AjaxStatus status) {
                 mLoadingDialog.cancel();
                 String result = json.optString("resultflag");
+                Log.d("result", "" + json.toString());
                 if (result.equals("0")) {
                     String tn = json.optString("tn");
                     Message msg = mHandler.obtainMessage();
@@ -176,9 +177,9 @@ public class UnionPayActivity extends UnionBasePay implements OnClickListener {
                     mHandler.sendMessage(msg);
                 } else if (result.equals("1")) {
                     //                    Log.d("", json.optString("resultMsg"));
-                    //                    Toast.makeText(getApplication(), json.optString("resultMsg"), 1 * 1000).show();
+                    Toast.makeText(getApplication(), json.optString("resultMsg"), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getApplication(), json.optString("resultMsg"), 1 * 1000).show();
+                    Toast.makeText(getApplication(), json.optString("resultMsg"), Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(UnionPayActivity.this, RealNameAuthentication.class));
                     Log.d("", json.optString("resultMsg"));
                 }
@@ -197,9 +198,9 @@ public class UnionPayActivity extends UnionBasePay implements OnClickListener {
 
     /**
      * 通过id设置text
-     * <p>
+     * <p/>
      * 若text为null或"",则使用or
-     * 
+     *
      * @param resId
      * @param text
      * @param or

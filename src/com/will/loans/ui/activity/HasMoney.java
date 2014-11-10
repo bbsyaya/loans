@@ -19,6 +19,7 @@ import com.will.loans.constant.ServerInfo;
 public class HasMoney extends BaseMineActivity {
 
 	private TodayAdapter todayAdapter;
+    public static double havmoney ;
 	@Override
 	protected void initView() {
 		((TextView)findViewById(R.id.title_tv)).setText(R.string.has_money);
@@ -52,7 +53,7 @@ public class HasMoney extends BaseMineActivity {
 
 			}
 			((TextView)convertView.findViewById(R.id.mine_title)).setText(R.string.has_money);
-			((TextView)convertView.findViewById(R.id.mine_num)).setText(10000.00+"");
+			((TextView)convertView.findViewById(R.id.mine_num)).setText(havmoney+"");
 			return convertView;
 		}
 
