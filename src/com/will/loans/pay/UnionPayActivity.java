@@ -77,7 +77,7 @@ public class UnionPayActivity extends UnionBasePay implements OnClickListener {
                     if (!json.optString("tradePsw").equals("")) {
                         mLoadingDialog = ProgressDialog.show(UnionPayActivity.this, // context
                                 "", // title
-                                "正在努力的获取tn中,请稍候...", // message
+                                "任务正在执行,请稍候...", // message
                                 true); // 进度是否是不确定的，这只和创建进度条有关
                         getDate();
                         return;

@@ -51,7 +51,7 @@ public abstract class UnionBasePay extends Activity implements Callback, Runnabl
         public void onClick(View v) {
             mLoadingDialog = ProgressDialog.show(mContext, // context
                     "", // title
-                    "正在努力的获取tn中,请稍候...", // message
+                    "任务正在执行,请稍候...", // message
                     true); // 进度是否是不确定的，这只和创建进度条有关
             getDate();
             /*************************************************

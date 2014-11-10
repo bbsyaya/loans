@@ -1,39 +1,28 @@
 
 package com.will.loans.pay;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.androidquery.AQuery;
-import com.androidquery.callback.AjaxCallback;
-import com.androidquery.callback.AjaxStatus;
-import com.unionpay.UPPayAssistEx;
-import com.unionpay.uppay.PayActivity;
 import com.will.loans.R;
-import com.will.loans.constant.ServerInfo;
-import com.will.loans.ui.activity.*;
+import com.will.loans.ui.activity.AddBank;
+import com.will.loans.ui.activity.BaseTextActivity;
+import com.will.loans.ui.activity.Register;
 import com.will.loans.utils.GenerateMD5Password;
 import com.will.loans.utils.SharePreferenceUtil;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Map;
 
 public class EditPayActivity extends BaseTextActivity implements OnClickListener {
 
@@ -42,6 +31,7 @@ public class EditPayActivity extends BaseTextActivity implements OnClickListener
     public static JSONObject product;
 
     private AQuery aq;
+
     protected Button nextBtn;
 
     protected SimpleDateFormat smf = new SimpleDateFormat("yyyy-MMddHHmm:ss");
@@ -55,6 +45,7 @@ public class EditPayActivity extends BaseTextActivity implements OnClickListener
         afterSetContentView();
     }
 
+    @Override
     protected String getMD5Code(Long time) {
         return GenerateMD5Password.encodeByMD5(SharePreferenceUtil.getUserPref(this).getToken()
                 + smf.format(time) + key);
@@ -75,8 +66,8 @@ public class EditPayActivity extends BaseTextActivity implements OnClickListener
                 if (SharePreferenceUtil.getUserPref(EditPayActivity.this).getToken().equals("")) {
                     startActivity(new Intent(EditPayActivity.this, Register.class));
                 } else {
-//                    checkHaveTradePsw();
-                startActivity(new Intent(EditPayActivity.this, AddBank.class));
+                    //                    checkHaveTradePsw();
+                    startActivity(new Intent(EditPayActivity.this, AddBank.class));
                 }
             }
         });
