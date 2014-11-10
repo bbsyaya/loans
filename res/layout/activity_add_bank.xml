@@ -23,8 +23,9 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:paddingLeft="20dp"
-            android:text="银行卡名字"
-            android:visibility="invisible" />
+            android:text="招商银行"
+            android:visibility="invisible"
+             />
         <EditText
             android:id="@+id/bank_card_id"
             android:layout_width="match_parent"

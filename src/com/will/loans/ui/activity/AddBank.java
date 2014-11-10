@@ -14,6 +14,7 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
+import com.will.loans.beans.json.BankInfoJson;
 import com.will.loans.constant.ServerInfo;
 import com.will.loans.pay.ConfirmPayActivity;
 import com.will.loans.utils.SharePreferenceUtil;
@@ -29,7 +30,7 @@ import java.util.Map;
  * Created by will on 11/10/14.
  */
 public class AddBank extends BaseTextActivity {
-    private TextView mBigPhoneNum;
+    private TextView mBigPhoneNum,mBankName;
 
     private Button mNextBtn;
 
@@ -50,6 +51,7 @@ public class AddBank extends BaseTextActivity {
         findViewById(R.id.title_back).setVisibility(View.VISIBLE);
         findViewById(R.id.title_back).setOnClickListener(this);
         ((TextView) findViewById(R.id.title_tv)).setText(R.string.add_bank);
+        mBankName = (TextView) findViewById(R.id.bank_name);
         mBankNum = (EditText) findViewById(R.id.bank_card_id);
         mBankNum.addTextChangedListener(this);
         mBigPhoneNum = (TextView) findViewById(R.id.phone_num_big);
@@ -68,17 +70,20 @@ public class AddBank extends BaseTextActivity {
         }
         Map<String, String> params = new HashMap<String, String>();
         params.put("jsonData", jo.toString());
-        mAQuery.ajax(ServerInfo.GETBINDBANKLIST, params, JSONObject.class,
-                new AjaxCallback<JSONObject>() {
+        mAQuery.ajax(ServerInfo.GETBINDBANKLIST, params, BankInfoJson.class,
+                new AjaxCallback<BankInfoJson>() {
                     @Override
-                    public void callback(String url, JSONObject json, AjaxStatus status) {
+                    public void callback(String url, BankInfoJson json, AjaxStatus status) {
                         Log.d("loans", "" + json.toString());
                         if (json == null) {
                             return;
                         }
-                        JSONArray ja = null;
-                        ja = json.optJSONArray("bankList");
-
+                        if (json.bankList!=null&&json.bankList.get(0)!=null){
+                            mBankNum.setText(json.bankList.get(0).cardNo);
+                            mBankName.setVisibility(View.VISIBLE);
+                            mBankName.setText(json.bankList.get(0).bankName);
+                            ConfirmPayActivity.cardNoName = json.bankList.get(0).bankName;
+                        }
                     }
                 });
 
