@@ -122,6 +122,8 @@
         </activity>
         <activity android:name=".ui.activity.AddBank" />
         <activity android:name=".ui.activity.FillPayCode" />
+        <activity android:name=".ui.activity.PaySelectionActivity" />
+        <activity android:name=".pay.UnionPayActivity" />
         <activity android:name=".pay.ConfirmPayActivity" />
         <activity android:name=".getsurepassword.pattern.GuideGesturePasswordActivity" >
         </activity>

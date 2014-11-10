@@ -21,6 +21,7 @@ import com.will.loans.R;
 import com.will.loans.constant.ServerInfo;
 import com.will.loans.pay.ConfirmPayActivity;
 import com.will.loans.pay.EditPayActivity;
+import com.will.loans.pay.UnionPayActivity;
 import com.will.loans.utils.SharePreferenceUtil;
 
 import org.json.JSONException;
@@ -161,8 +162,9 @@ public class LoansDetail extends BaseActivity {
     public void enterBtn(View view) {
         EditPayActivity.product = pro;
         ConfirmPayActivity.product = pro;
+        UnionPayActivity.product = pro;
         if (!SharePreferenceUtil.getUserPref(getParent()).getToken().equals("")) {
-            startActivity(new Intent(LoansDetail.this, EditPayActivity.class));
+            startActivity(new Intent(LoansDetail.this, PaySelectionActivity.class));
         } else {
             startActivity(new Intent(LoansDetail.this, Register.class));
         }
