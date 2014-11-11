@@ -234,6 +234,7 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
                     //                    Message msg = mHandler.obtainMessage();
                     //                    msg.obj = tn;
                     //                    mHandler.sendMessage(msg);
+
                     Toast.makeText(getApplication(), "购买成功", Toast.LENGTH_SHORT).show();
                     finish();
                 } else if (result.equals("1")) {
@@ -259,6 +260,7 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
     private void updateView() {
         moneyET.setText("" + product.optInt("startBuy"));
         setTextView(R.id.bank_card_num, "银行卡：" + product.optInt("startBuy") + ".00元", "");
+        setTextView(R.id.moneyET, product.optInt("startBuy") + ".00元", "");
         setTextView(R.id.nameTV, product.optString("proName"), "");
         //        setTextView(R.id.moneyTV, "起投金额：" + product.optInt("startBuy") + "元" + "    手续费:无", "");
         //        setTextView(R.id.timeTV, "理财年限：限" + product.optString("timeLimit") + "个月", "");

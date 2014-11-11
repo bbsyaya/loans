@@ -43,7 +43,7 @@ public abstract class UnionBasePay extends Activity implements Callback, Runnabl
      *****************************************************************/
     private final String mMode = "00";
 
-    private static final String TN_URL_01 = "http://daidaitong.imwanmei.com:8080/mobile/buyProduct";
+    private static final String TN_URL_01 = ServerInfo.BUYPRODUCT;
 
     protected Button nextBtn;
 
