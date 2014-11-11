@@ -2,7 +2,6 @@
 package com.will.loans.pay;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Message;
 import android.text.Editable;
@@ -75,11 +74,11 @@ public class UnionPayActivity extends UnionBasePay implements OnClickListener {
                 if (json != null) {
                     String flag = json.optString("resultflag");
                     if (!json.optString("tradePsw").equals("")) {
-//                        mLoadingDialog = ProgressDialog.show(UnionPayActivity.this, // context
-//                                "", // title
-//                                "任务正在执行,请稍候...", // message
-//                                true); // 进度是否是不确定的，这只和创建进度条有关
-//                        getDate();
+                        //                        mLoadingDialog = ProgressDialog.show(UnionPayActivity.this, // context
+                        //                                "", // title
+                        //                                "任务正在执行,请稍候...", // message
+                        //                                true); // 进度是否是不确定的，这只和创建进度条有关
+                        //                        getDate();
                         return;
                     } else {
                         //                              Toaster.showShort(getParent(),
@@ -157,7 +156,7 @@ public class UnionPayActivity extends UnionBasePay implements OnClickListener {
             jo.put("token", SharePreferenceUtil.getUserPref(UnionPayActivity.this).getToken());
             jo.put("amount", moneyET.getText().toString());
             jo.put("proId", product.optString("id"));
-            jo.put("tradePsw", mTradePsw.getText().toString());
+            jo.put("tradePsw", GenerateMD5Password.getMD5Password(mTradePsw.getText().toString()));
             jo.put("sign", getMD5Code(time));
         } catch (JSONException e) {
             e.printStackTrace();
@@ -177,9 +176,11 @@ public class UnionPayActivity extends UnionBasePay implements OnClickListener {
                     mHandler.sendMessage(msg);
                 } else if (result.equals("1")) {
                     //                    Log.d("", json.optString("resultMsg"));
-                    Toast.makeText(getApplication(), json.optString("resultMsg"), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(), json.optString("resultMsg"),
+                            Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getApplication(), json.optString("resultMsg"), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(), json.optString("resultMsg"),
+                            Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(UnionPayActivity.this, RealNameAuthentication.class));
                     Log.d("", json.optString("resultMsg"));
                 }
@@ -200,7 +201,7 @@ public class UnionPayActivity extends UnionBasePay implements OnClickListener {
      * 通过id设置text
      * <p/>
      * 若text为null或"",则使用or
-     *
+     * 
      * @param resId
      * @param text
      * @param or

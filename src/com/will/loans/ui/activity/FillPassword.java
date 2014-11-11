@@ -68,7 +68,7 @@ public class FillPassword extends BaseTextActivity {
         try {
             jo.put("timeStamp", new Date().getTime());
             jo.put("phoneNum", mNum);
-            jo.put("loginPsw", GenerateMD5Password.encodeByMD5(mPsw.getText().toString()));
+            jo.put("loginPsw", GenerateMD5Password.getMD5Password(mPsw.getText().toString()));
             jo.put("sign", getMD5Code(time));
         } catch (JSONException e) {
             e.printStackTrace();

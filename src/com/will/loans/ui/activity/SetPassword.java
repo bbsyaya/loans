@@ -164,9 +164,9 @@ public class SetPassword extends BaseTextActivity implements OnCheckedChangeList
         try {
             jo.put("timeStamp", time);
             if (type == 0) {
-                jo.put("loginPsw", GenerateMD5Password.encodeByMD5(epwET.getText().toString()));
+                jo.put("loginPsw", GenerateMD5Password.getMD5Password(epwET.getText().toString()));
             } else {
-                jo.put("tradePsw", epwET.getText().toString());
+                jo.put("tradePsw", GenerateMD5Password.getMD5Password(epwET.getText().toString()));
             }
             jo.put("userid", SharePreferenceUtil.getUserPref(SetPassword.this).getUserId());
             jo.put("token", SharePreferenceUtil.getUserPref(SetPassword.this).getToken());

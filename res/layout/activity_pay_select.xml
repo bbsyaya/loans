@@ -4,28 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     <include layout="@layout/common_title" />
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/edittext_bg"
-        android:gravity="center_vertical"
-        android:paddingLeft="15dp" >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="有限推荐绑定银行卡" />
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:background="@null"
-            android:inputType="numberDecimal"
-            android:textSize="14sp" />
-    </RelativeLayout>
+    <ListView
+        android:id="@+id/bank_lv"
+        style="@style/Width_match_height_wrap"
+        android:layout_margin="10dp" >
+    </ListView>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
         android:text="默认使用该卡支付" />
     <RelativeLayout
@@ -37,13 +24,14 @@
         android:gravity="center_vertical"
         android:paddingLeft="15dp"
         android:paddingRight="20dp" >
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="易宝支付" />
+            android:src="@drawable/img_yeepay" />
         <ImageView
             style="@style/Width_wrap_height_wrap"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:src="@drawable/btn_right_arrow" />
     </RelativeLayout>
     <RelativeLayout
@@ -55,13 +43,14 @@
         android:gravity="center_vertical"
         android:paddingLeft="15dp"
         android:paddingRight="20dp" >
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="银联在线" />
+            android:src="@drawable/img_union_pay" />
         <ImageView
             style="@style/Width_wrap_height_wrap"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:src="@drawable/btn_right_arrow" />
     </RelativeLayout>
 </LinearLayout>

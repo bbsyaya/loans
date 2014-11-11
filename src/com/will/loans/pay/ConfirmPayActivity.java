@@ -3,7 +3,6 @@ package com.will.loans.pay;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -51,6 +50,7 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
     public static JSONObject bankInfo;
 
     private String cardNo = "";
+
     public static String cardNoName = "";
 
     public static String CARDNOSTRING = "com.will.activity.cardno";
@@ -198,7 +198,7 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
             jo.put("token", SharePreferenceUtil.getUserPref(ConfirmPayActivity.this).getToken());
             jo.put("amount", moneyET.getText().toString());
             jo.put("proId", product.optString("id"));
-            jo.put("tradePsw", mTradePsw.getText().toString());
+            jo.put("tradePsw", GenerateMD5Password.getMD5Password(mTradePsw.getText().toString()));
             String result = bankInfo.optString("cardtype");
             if (result.equals("1")) {
                 jo.put("idcard", bankID.getText().toString());
@@ -230,15 +230,16 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
                 Log.d("loans", json.toString());
                 String result = json.optString("resultflag");
                 if (result.equals("0")) {
-//                    String tn = json.optString("tn");
-//                    Message msg = mHandler.obtainMessage();
-//                    msg.obj = tn;
-//                    mHandler.sendMessage(msg);
+                    //                    String tn = json.optString("tn");
+                    //                    Message msg = mHandler.obtainMessage();
+                    //                    msg.obj = tn;
+                    //                    mHandler.sendMessage(msg);
                     Toast.makeText(getApplication(), "购买成功", Toast.LENGTH_SHORT).show();
                     finish();
                 } else if (result.equals("1")) {
                     Log.d("", json.optString("resultMsg"));
-                    Toast.makeText(getApplication(), json.optString("resultMsg"), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(), json.optString("resultMsg"),
+                            Toast.LENGTH_SHORT).show();
                 } else if (result.equals("2")) {
                     Toast.makeText(getApplication(), json.optString("resultMsg"),
                             Toast.LENGTH_SHORT).show();
@@ -257,7 +258,7 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
 
     private void updateView() {
         moneyET.setText("" + product.optInt("startBuy"));
-        setTextView(R.id.bank_card_num,"银行卡：" + product.optInt("startBuy")+".00元","");
+        setTextView(R.id.bank_card_num, "银行卡：" + product.optInt("startBuy") + ".00元", "");
         setTextView(R.id.nameTV, product.optString("proName"), "");
         //        setTextView(R.id.moneyTV, "起投金额：" + product.optInt("startBuy") + "元" + "    手续费:无", "");
         //        setTextView(R.id.timeTV, "理财年限：限" + product.optString("timeLimit") + "个月", "");
