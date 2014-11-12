@@ -69,14 +69,14 @@ public class ProductFirst extends BasePRoductLis {
             viewHolder.loans_plan.setText(item.optString("syms"));
             viewHolder.loans_number.setText(Html.fromHtml("<font color=#7CC0D9>限</font>"
                     + item.optInt("timeLimit") + "个月"));
-            viewHolder.loans_persent.setText(item.optInt("percent") + "%");
+            viewHolder.loans_persent.setText(item.optInt("nhsy") + "%");
             viewHolder.loans_low.setText(Html.fromHtml("<strong>" + item.optInt("startBuy")
                     + "</strong>元起购"));
-            if (item.optString("tipColor").equals("RED")){
+            if (item.optString("tipColor").equals("RED")) {
                 viewHolder.flag.setBackgroundResource(R.drawable.sale_red_icon);
-            }else if (item.optString("tipColor").equals("BLUE")){
+            } else if (item.optString("tipColor").equals("BLUE")) {
                 viewHolder.flag.setBackgroundResource(R.drawable.sale_blue_icon);
-            }else if (item.optString("tipColor").equals("GRAY")){
+            } else if (item.optString("tipColor").equals("GRAY")) {
                 viewHolder.flag.setBackgroundResource(R.drawable.sale_gray_icon);
             }
             viewHolder.status.setText(item.optString("tip"));

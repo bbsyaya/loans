@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">安疆理财</string>
+    <string name="app_name">安于心理财</string>
     <string name="action_settings">Settings</string>
     <string name="tab_home">理财精选</string>
     <string name="tab_produce_list">产品列表</string>
@@ -73,14 +73,13 @@
     <string name="point_title">积分</string>
     <string name="has_money">持有资产（元）</string>
     <!-- about -->
-    <string name="about_desc">一款适合普通大众群体使用的掌上理财软件，免费提供给用户受益稳定及安全的理财产品，你可以随时、随地、随心
-        婉转理财。基金销售系统由中国领先的第三方投资顾问公司上海好买财富旗下好买基金销售公司提供。贷贷通，指尖上的财富！我们提倡轻松、安全、文件、低门槛的理财方式！</string>
+    <string name="about_desc">安于心理财，一款适合广大投资者使用的掌上理财软件，免费提供低门槛、操作简便、安全高效、收益稳定的理财产品及投资渠道、是国内领先的基于严格风险管理体系及互联网技术的金融信息服务平台，您可以随时、随地、轻松、安全地享受指尖上的财富增值体验！</string>
     <string name="about_welcome">欢迎页</string>
-    <string name="about_title">关于安疆理财</string>
-    <string name="about_phone">客服热线：400-870-5800</string>
-    <string name="about_qq">客服QQ群：888888</string>
-    <string name="about_email">客服邮箱：kefu@daidaitong.com</string>
-    <string name="about_web">网站：www.baidu.com</string>
+    <string name="about_title">关于安于心理财</string>
+    <string name="about_phone">咨询热线：400-877-4188</string>
+    <string name="about_qq">传真：0592-5525759</string>
+    <string name="about_email">联系邮箱：fjajzc888@fjajzc.com</string>
+    <string name="about_web">官方网站：www.fjajzc.com</string>
     <!-- 屏幕手势锁 -->
     <string name="lockscreen_access_pattern_start">"开始绘制图案"</string>
     <string name="lockscreen_access_pattern_cleared">"图案已清除"</string>
@@ -192,6 +191,6 @@
     <string name="qq_share_way">请选择分享方式</string>
     <string name="qq_share_from_qqlogin">QQ/QZone登录发微博</string>
     <string name="qq_share_from_tlogin">腾讯微博登录发微博</string>
-    <!-- 添加银行卡-->
+    <!-- 添加银行卡 -->
     <string name="add_bank">添加银行卡</string>
 </resources>

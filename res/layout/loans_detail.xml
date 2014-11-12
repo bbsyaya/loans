@@ -147,7 +147,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
-                android:text="起息日：募集成功次日开始计算收益\n还款提示：到期五个工作日处理"
+                android:text="起息日：成功投资的次日开始计算收益\n还款提示：到期五个工作日处理"
                 android:textColor="@color/gray_dark" />
             <TextView
                 android:id="@+id/notifyTV4"

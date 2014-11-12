@@ -38,6 +38,8 @@ public class EditPayActivity extends BaseTextActivity implements OnClickListener
 
     protected String key = "qHdKC5yNgKwdi1BFa5EKOw29fwYeetV78EcSN04H93jBYvoLkP631rFcSa3OT3Np";
 
+    public static String money = "0";
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +65,7 @@ public class EditPayActivity extends BaseTextActivity implements OnClickListener
 
             @Override
             public void onClick(View v) {
+            	money = moneyET.getText().toString();
                 if (SharePreferenceUtil.getUserPref(EditPayActivity.this).getToken().equals("")) {
                     startActivity(new Intent(EditPayActivity.this, Register.class));
                 } else {

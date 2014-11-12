@@ -30,66 +30,69 @@
                 android:layout_height="40dp"
                 android:paddingTop="8dp"
                 android:text="新手标"
-                android:textColor="@android:color/white"
                 android:textAppearance="?android:attr/textAppearanceSmallInverse"
+                android:textColor="@android:color/white"
                 android:textSize="10sp"
                 android:textStyle="bold" />
         </RelativeLayout>
     </RelativeLayout>
-    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
         <TextView
-                android:id="@+id/home_year_num_int"
-                style="@style/Width_wrap_height_wrap"
-                android:text="6"
-                android:textStyle="bold"
-                android:textSize="60sp"
-                android:textColor="@color/red" />
-    <TextView
+            android:id="@+id/home_year_num_int"
+            style="@style/Width_wrap_height_wrap"
+            android:text="6"
+            android:textColor="@color/red"
+            android:textSize="60sp"
+            android:textStyle="bold" />
+        <TextView
             android:id="@+id/home_year_num"
             style="@style/Width_wrap_height_wrap"
             android:text=".68%"
-            android:textStyle="bold"
+            android:textColor="@color/red"
             android:textSize="30sp"
-            android:textColor="@color/red" />
+            android:textStyle="bold" />
     </LinearLayout>
     <RelativeLayout
-            android:paddingLeft="80dp"
-            android:paddingRight="80dp"
-            android:gravity="center_vertical"
-            android:paddingBottom="3dp"
-            android:layout_width="match_parent" android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingBottom="3dp"
+        android:paddingLeft="80dp"
+        android:paddingRight="80dp" >
         <SeekBar
-                android:id="@+id/seekbar_id"
-                android:progressDrawable="@drawable/seek_bar"
-                android:thumb="@null"
-                android:progress="50"
-                android:layout_width="match_parent"
-                android:layout_height="10dp"/>
-            <TextView
-                    android:id="@+id/percentTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="24dp"
-                    android:text="17"
-                    android:layout_marginBottom="2dp"
-                    android:textColor="@color/red"
-                    android:textSize="10sp" />
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginBottom="2dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="17dp"
-                    android:text="%"
-                    android:textColor="@color/gray_dark"
-                    android:textSize="10sp" />
+            android:id="@+id/seekbar_id"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:progress="50"
+            android:progressDrawable="@drawable/seek_bar"
+            android:thumb="@null" />
+        <TextView
+            android:id="@+id/percentTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="24dp"
+            android:text="17"
+            android:textColor="@color/red"
+            android:textSize="10sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="17dp"
+            android:text="%"
+            android:textColor="@color/gray_dark"
+            android:textSize="10sp" />
     </RelativeLayout>
     <RelativeLayout
-            android:visibility="gone"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:visibility="gone" >
         <com.will.loans.weight.ProgressWheel
             xmlns:ProgressWheel="http://schemas.android.com/apk/res-auto"
             android:id="@+id/progress_bar_two"
@@ -111,10 +114,8 @@
         <TextView
             style="@style/Width_wrap_height_wrap"
             android:text="期限年化"
-            android:visibility="gone"
-            android:textColor="@color/gray_dark" />
-
-
+            android:textColor="@color/gray_dark"
+            android:visibility="gone" />
         <TextView
             style="@style/Width_wrap_height_wrap"
             android:text="投资期限"
@@ -125,12 +126,12 @@
             android:text="12个月"
             android:textColor="@color/red" />
         <TextView
-                android:layout_width="1dp"
-                android:layout_height="13dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:background="#d9d9d9" />
+            android:layout_width="1dp"
+            android:layout_height="13dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#d9d9d9" />
         <TextView
             android:id="@+id/home_tv_limit"
             style="@style/Width_wrap_height_wrap"
@@ -141,20 +142,22 @@
             android:text="元起购"
             android:textColor="@color/gray_dark" />
     </LinearLayout>
-    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
         <TextView
-                style="@style/Width_wrap_height_wrap"
-                android:layout_margin="3dp"
-                android:text="新用户额外赠送"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/gray_dark" />
-    <TextView
-        android:id="@+id/home_extra"
-        style="@style/Width_wrap_height_wrap"
-        android:layout_margin="3dp"
-        android:text="20元试用金"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/red" />
+            style="@style/Width_wrap_height_wrap"
+            android:layout_margin="3dp"
+            android:text="新用户额外赠送"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/gray_dark" />
+        <TextView
+            android:id="@+id/home_extra"
+            style="@style/Width_wrap_height_wrap"
+            android:layout_margin="3dp"
+            android:text="10元试用金"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/red" />
     </LinearLayout>
     <TextView
         android:id="@+id/home_construction"
@@ -175,7 +178,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/speak_hint_dialog_btn"
         android:text="立刻购买"
-        android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#fff" />
+        android:textColor="#fff"
+        android:textStyle="bold" />
 </LinearLayout>

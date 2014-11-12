@@ -4,29 +4,34 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical" >
+
     <include layout="@layout/common_title" />
+
     <RelativeLayout
         style="@style/RegisterEt"
         android:layout_gravity="center"
         android:layout_marginTop="10dp" >
+
         <EditText
             android:id="@+id/phone_num"
             style="@style/Width_match_height_wrap"
             android:background="@drawable/register_number_bg"
             android:drawableLeft="@drawable/user_phone_icon"
             android:focusable="true"
+            android:hint="请输入手机号码"
             android:inputType="phone"
             android:maxEms="11"
-            android:textColor="@color/title_gray"
-            android:hint="请输入手机号码" />
+            android:textColor="@color/title_gray" />
+
         <ImageView
             android:id="@+id/del_img"
             style="@style/Width_wrap_height_wrap"
             android:layout_alignParentRight="true"
-            android:visibility="invisible"
             android:layout_centerVertical="true"
-            android:src="@drawable/clear_text" />
+            android:src="@drawable/clear_text"
+            android:visibility="invisible" />
     </RelativeLayout>
+
     <TextView
         android:id="@+id/phone_num_big"
         style="@style/RegisterEt"
@@ -34,16 +39,19 @@
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:visibility="gone" />
+
     <TextView
         android:id="@+id/warning"
         style="@style/Width_match_height_wrap"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:text="盈盈不会再任何地方泄露您的号码"
-        android:textColor="@color/title_gray"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:text="安于心理财不会再任何地方泄露您的号码"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/title_gray" />
+
     <RelativeLayout style="@style/Width_match_height_wrap" >
+
         <CheckBox
             android:id="@+id/cb_agree"
             style="@style/Width_wrap_height_wrap"
@@ -52,15 +60,16 @@
             android:text="已阅读并同意"
             android:textColor="@color/title_gray"
             android:textSize="12sp" />
+
         <LinearLayout
             style="@style/Width_wrap_height_wrap"
-            android:layout_marginTop="5dp"
             android:layout_alignParentRight="true"
+            android:layout_marginTop="5dp"
             android:orientation="vertical" >
             <TextView
                 android:id="@+id/user_use"
                 style="@style/Width_wrap_height_wrap"
-                android:text="《盈盈理财用户使用协议》"
+                android:text="《安于心理财用户使用协议》"
                 android:textColor="@color/title_gray"
                 android:textSize="12sp" />
             <TextView
@@ -71,6 +80,7 @@
                 android:textSize="12sp" />
         </LinearLayout>
     </RelativeLayout>
+
     <Button
         android:id="@+id/btn_next"
         style="@style/Width_match_height_wrap"
@@ -80,4 +90,5 @@
         android:gravity="center"
         android:text="下一步"
         android:textColor="@android:color/white" />
+
 </LinearLayout>

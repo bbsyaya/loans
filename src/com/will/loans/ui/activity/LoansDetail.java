@@ -77,17 +77,18 @@ public class LoansDetail extends BaseActivity {
         }
         Map<String, String> params = new HashMap<String, String>();
         params.put("jsonData", jo.toString());
-        aq.ajax(ServerInfo.PRODETAIL, params, LoansDetailJson.class, new AjaxCallback<LoansDetailJson>() {
-            @Override
-            public void callback(String url, LoansDetailJson json, AjaxStatus status) {
-                detailPRSV.onRefreshComplete();
-                Log.e("11", json.toString());
-                if (!json.resultflag.equals("0")) {
-                    return;
-                }
-                updateView(json);
-            }
-        });
+        aq.ajax(ServerInfo.PRODETAIL, params, LoansDetailJson.class,
+                new AjaxCallback<LoansDetailJson>() {
+                    @Override
+                    public void callback(String url, LoansDetailJson json, AjaxStatus status) {
+                        detailPRSV.onRefreshComplete();
+                        Log.e("11", json.toString());
+                        if (!json.resultflag.equals("0")) {
+                            return;
+                        }
+                        updateView(json);
+                    }
+                });
 
     }
 
@@ -98,23 +99,22 @@ public class LoansDetail extends BaseActivity {
         // 融资金额
         setTextView(R.id.amountMoneyTV, pro.optInt("totalAmount") + "", "");
         // 已融资
-        setTextView(R.id.amountPercentTV, "已融资：" + jo.detail.buyNum + "%", "");
+        setTextView(R.id.amountPercentTV, "已融资：" + pro.optInt("percent") + "%", "");
         // 剩余
-        setTextView(R.id.remainMoneyTV, "剩余：" + (pro.optInt("totalAmount") - jo.detail.buyNum),
-                "");
+        setTextView(R.id.remainMoneyTV, "剩余：" + (pro.optInt("totalAmount") - jo.detail.buyNum), "");
         // 高收益、第三方、限几个月、保障
         // setTextView(R.id.notifyTV1, jo.optString("benxiDesc"), "");
         setTextView(R.id.notifyTV2, jo.detail.benxiDesc, "");
         setTextView(R.id.notifyTV3, "限" + pro.optString("timeLimit") + "个月", "");
         setTextView(R.id.notifyTV4, jo.detail.securityTip, "");
         // 预期年化
-        setTextView(R.id.forwardEarnTV, pro.optInt("percent") + "%", "");
+        setTextView(R.id.forwardEarnTV, pro.optInt("nhsy") + "%", "");
         // 起投金额
         setTextView(R.id.startMoneyTV, pro.optInt("startBuy") + "", "");
         // 起投人数
         setTextView(R.id.payNumTV, pro.optInt("buyPerNum") + "人", "");
         //申购奖励
-        if (jo.items!=null && jo.items.size()>0) {
+        if (jo.items != null && jo.items.size() > 0) {
             setTextView(R.id.rewardTV, jo.items.get(0).itemDesc, "");
             //项目描述
             setTextView(R.id.describeTV, jo.items.get(1).itemDesc, "");
@@ -159,8 +159,8 @@ public class LoansDetail extends BaseActivity {
                 detailPRSV.setRefreshing();
                 break;
             case R.id.buy_llyt:
-                startActivity(new Intent(LoansDetail.this, BuyList.class).putExtra(BuyList.MPROSTR,
-                        pro.optInt("id")));
+                //                startActivity(new Intent(LoansDetail.this, BuyList.class).putExtra(BuyList.MPROSTR,
+                //                        pro.optInt("id")));
                 break;
             default:
                 break;

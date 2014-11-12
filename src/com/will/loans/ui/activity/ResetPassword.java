@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-
 import android.os.CountDownTimer;
 import android.telephony.SmsMessage;
 import android.text.Editable;
@@ -15,15 +14,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
-import com.will.loans.beans.json.PreIncomeJson;
 import com.will.loans.constant.ServerInfo;
-import com.will.loans.utils.GenerateMD5Password;
 import com.will.loans.utils.SharePreferenceUtil;
 import com.will.loans.utils.Toaster;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,17 +32,24 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-public class ResetPassword extends BaseActivity implements TextWatcher{
+public class ResetPassword extends BaseActivity implements TextWatcher {
     /**
      * 设置密码类型，0是修改密码，1是修改交易密码
      */
     private int mType = 0;
+
     public static String TYPE_NAME = "RESETPASSWORDTYPE";
+
     private AQuery mAq;
+
     private CountDown mCountDownTimer;
+
     private EditText mRealName, mUserIdCard, mUsername, mVerifyCode;
+
     private Button mNextBtn, mGetVerifyCode;
+
     private final Long millisInFuture = 60 * 1000L, countDownInterval = 1000L;
+
     public static final String SMS_RECEIVED_ACTION = "android.provider.Telephony.SMS_RECEIVED";
 
     // 生成广播处理
@@ -96,9 +102,8 @@ public class ResetPassword extends BaseActivity implements TextWatcher{
                 sms[0] = SmsMessage.createFromPdu((byte[]) object[i]);
                 String smsContent = sms[i].getDisplayMessageBody();
                 System.out.println("smsContent = " + smsContent);
-                System.out.println("code = "
-                        + NumberFilter(smsContent));
-                if (smsContent.contains("安疆理财")) {
+                System.out.println("code = " + NumberFilter(smsContent));
+                if (smsContent.contains("安于心理财")) {
                     editText.setText(NumberFilter(smsContent));
                 }
             }
@@ -112,10 +117,9 @@ public class ResetPassword extends BaseActivity implements TextWatcher{
         String regEx = "[^0-9]";
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(str);
-        String code = m.replaceAll("").trim().substring(1,m.replaceAll("").trim().length());
+        String code = m.replaceAll("").trim().substring(1, m.replaceAll("").trim().length());
         return code;
     }
-
 
     private void init() {
         mAq = new AQuery(this);
@@ -161,19 +165,19 @@ public class ResetPassword extends BaseActivity implements TextWatcher{
         }
         Map<String, String> params = new HashMap<String, String>();
         params.put("jsonData", jo.toString());
-        mAq.ajax(ServerInfo.GETVERCODE, params, JSONObject.class,
-                new AjaxCallback<JSONObject>() {
-                    @Override
-                    public void callback(String url, JSONObject object, AjaxStatus status) {
-                        if (object!=null&&object.optString("resultflag").equals("0")){
-                            Toaster.showShort(ResetPassword.this,"验证码获取成功！");
-                            SharePreferenceUtil.getUserPref(ResetPassword.this).setToken(object.optString("token"));
-                        }else{
-                            Toaster.showShort(ResetPassword.this,object.optString("resultMsg"));
-                        }
+        mAq.ajax(ServerInfo.GETVERCODE, params, JSONObject.class, new AjaxCallback<JSONObject>() {
+            @Override
+            public void callback(String url, JSONObject object, AjaxStatus status) {
+                if (object != null && object.optString("resultflag").equals("0")) {
+                    Toaster.showShort(ResetPassword.this, "验证码获取成功！");
+                    SharePreferenceUtil.getUserPref(ResetPassword.this).setToken(
+                            object.optString("token"));
+                } else {
+                    Toaster.showShort(ResetPassword.this, object.optString("resultMsg"));
+                }
 
-                    }
-                });
+            }
+        });
 
     }
 
@@ -189,9 +193,9 @@ public class ResetPassword extends BaseActivity implements TextWatcher{
 
     @Override
     public void afterTextChanged(Editable editable) {
-        if (mVerifyCode.getText().toString().equals("")){
+        if (mVerifyCode.getText().toString().equals("")) {
             mNextBtn.setEnabled(false);
-        }else{
+        } else {
             mNextBtn.setEnabled(true);
         }
     }
@@ -217,7 +221,6 @@ public class ResetPassword extends BaseActivity implements TextWatcher{
 
     }
 
-
     public void checkUserId() {
         JSONObject jo = new JSONObject();
         time = System.currentTimeMillis();
@@ -236,16 +239,16 @@ public class ResetPassword extends BaseActivity implements TextWatcher{
                 new AjaxCallback<JSONObject>() {
                     @Override
                     public void callback(String url, JSONObject object, AjaxStatus status) {
-                        if (object!=null&&object.optString("resultflag").equals("0")){
-                            if (mType==0){
-                                startActivity(new Intent(ResetPassword.this, SetPassword.class).putExtra(
-                                        SetPassword.SETTYPE, 0));
-                            }else{
-                                startActivity(new Intent(ResetPassword.this, SetPassword.class).putExtra(
-                                        SetPassword.SETTYPE, 1));
+                        if (object != null && object.optString("resultflag").equals("0")) {
+                            if (mType == 0) {
+                                startActivity(new Intent(ResetPassword.this, SetPassword.class)
+                                        .putExtra(SetPassword.SETTYPE, 0));
+                            } else {
+                                startActivity(new Intent(ResetPassword.this, SetPassword.class)
+                                        .putExtra(SetPassword.SETTYPE, 1));
                             }
-                        }else{
-                            Toaster.showShort(ResetPassword.this,object.optString("resultMsg"));
+                        } else {
+                            Toaster.showShort(ResetPassword.this, object.optString("resultMsg"));
                         }
 
                     }
