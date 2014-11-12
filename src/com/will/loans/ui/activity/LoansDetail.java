@@ -112,7 +112,7 @@ public class LoansDetail extends BaseActivity {
         // 起投金额
         setTextView(R.id.startMoneyTV, pro.optInt("startBuy") + "", "");
         // 起投人数
-        setTextView(R.id.payNumTV, pro.optInt("buyPerNum") + "人", "");
+        setTextView(R.id.payNumTV, jo.detail.buyPerNum.toString() + "人", "");
         //申购奖励
         if (jo.items != null && jo.items.size() > 0) {
             setTextView(R.id.rewardTV, jo.items.get(0).itemDesc, "");

@@ -2632,7 +2632,7 @@ containing a value of this type.
         public static final int account_open_gesture=0x7f0700bb;
         public static final int account_realname=0x7f0700b6;
         public static final int action_settings=0x7f07005a;
-        /**  添加银行卡
+        /**  添加银行卡 
          */
         public static final int add_bank=0x7f07010e;
         public static final int amonut_earn=0x7f070098;

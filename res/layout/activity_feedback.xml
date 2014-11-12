@@ -23,7 +23,7 @@
         <TextView
             android:id="@+id/feedback_phone"
             style="@style/Width_wrap_height_wrap"
-            android:text="400-870-5800" />
+            android:text="400-877-4188" />
     </LinearLayout>
     <Button
         android:id="@+id/feedback_send"
