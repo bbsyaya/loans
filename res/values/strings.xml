@@ -192,4 +192,6 @@
     <string name="qq_share_way">请选择分享方式</string>
     <string name="qq_share_from_qqlogin">QQ/QZone登录发微博</string>
     <string name="qq_share_from_tlogin">腾讯微博登录发微博</string>
+    <!-- 添加银行卡-->
+    <string name="add_bank">添加银行卡</string>
 </resources>

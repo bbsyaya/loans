@@ -167,5 +167,21 @@ public class ServerInfo {
      * 获取服务器android最新版本信息
      */
     public static final String GETANDROIDVERSIONINFO = IMAGE_PREFIX + "getAndroidVersionInfo";
+    /**
+     * 	获取用户已绑定银行卡列表
+     */
+    public static final String GETBINDBANKLIST = IMAGE_PREFIX + "getBindBankList";
+    /**
+     * 		易宝支付—遇到短信验证时，短信确认支付接口
+     */
+    public static final String YBCONFIRMPAY = IMAGE_PREFIX + "ybConfirmPay";
+    /**
+     * 		易宝支付—检查支付的银行卡是否有效，且是否为有效绑卡
+     */
+    public static final String BANKCARDCHECK = IMAGE_PREFIX + "bankCardCheck";
+    /**
+     * 		易宝支付—产品购买接口
+     */
+    public static final String BUYPRODUCTYB = IMAGE_PREFIX + "buyProductYb";
 
 }

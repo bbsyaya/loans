@@ -128,8 +128,14 @@ public class TradeHistory extends BaseMineActivity {
             JSONObject item = getItem(position);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             viewHolder.time.setText(sdf.format(item.optLong("tradeTime")));
-            viewHolder.product_status.setText(item.optString("tradeStatus"));
-            viewHolder.status.setText(item.optString("tradeType"));
+            if (item.optString("tradeStatus").equals("0")) {
+                viewHolder.status.setText("交易中");
+            } else if (item.optString("tradeStatus").equals("1")) {
+                viewHolder.status.setText("成功");
+            } else {
+                viewHolder.status.setText("失败");
+            }
+            viewHolder.product_status.setText(item.optString("tradeType"));
             viewHolder.title.setText(item.optString("proName"));
             viewHolder.money.setText(Html.fromHtml("<font color=#ff0000>"
                     + item.optString("tradeMoney") + "</font>" + "元"));

@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import android.widget.Toast;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
@@ -23,7 +22,17 @@ import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.will.loans.R;
 import com.will.loans.beans.json.UserAccount;
 import com.will.loans.constant.ServerInfo;
-import com.will.loans.ui.activity.*;
+import com.will.loans.ui.activity.AmountEarn;
+import com.will.loans.ui.activity.AmountMoney;
+import com.will.loans.ui.activity.AmountPoint;
+import com.will.loans.ui.activity.AppHelp;
+import com.will.loans.ui.activity.HasMoney;
+import com.will.loans.ui.activity.MessageCenter;
+import com.will.loans.ui.activity.PersonCenter;
+import com.will.loans.ui.activity.Register;
+import com.will.loans.ui.activity.RemainMoney;
+import com.will.loans.ui.activity.TodayEarn;
+import com.will.loans.ui.activity.TradeHistory;
 import com.will.loans.utils.GenerateMD5Password;
 import com.will.loans.utils.SharePreferenceUtil;
 
@@ -97,7 +106,7 @@ public class IWant extends BaseFragment implements OnClickListener {
 
     private boolean mIsShowReLogin = false;
 
-  @Override
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         Log.d("loans", "iwant onCreateView");
@@ -181,9 +190,9 @@ public class IWant extends BaseFragment implements OnClickListener {
                     if (!object.resultflag.equals("1")) {
                         useraccount = object;
                         updateView(object);
-                    }else if (!mIsShowReLogin){
-//                        mIsShowReLogin = true;
-//                        showReLogin();
+                    } else if (!mIsShowReLogin) {
+                        //                        mIsShowReLogin = true;
+                        //                        showReLogin();
                     }
                 }
             }
@@ -191,7 +200,8 @@ public class IWant extends BaseFragment implements OnClickListener {
     }
 
     private void showReLogin() {
-        new AlertDialog.Builder(getActivity()).setTitle("贷贷通提示").setMessage("该账号已在其他设备上登录，为保证安全请重新登录！")
+        new AlertDialog.Builder(getActivity()).setTitle("贷贷通提示")
+                .setMessage("该账号已在其他设备上登录，为保证安全请重新登录！")
                 .setPositiveButton("重新登录", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -201,7 +211,6 @@ public class IWant extends BaseFragment implements OnClickListener {
                     }
                 }).show();
     }
-
 
     private void updateView(UserAccount object) {
         // TODO 请求结束后调用刷新视图
@@ -256,6 +265,7 @@ public class IWant extends BaseFragment implements OnClickListener {
                 jump2Activity(new AmountMoney());
                 break;
             case R.id.hasMoneyBtn:
+                HasMoney.havmoney = useraccount == null ? 0 : useraccount.holdAssets;
                 jump2Activity(new HasMoney());
                 break;
             case R.id.remainMoneyBtn:
@@ -265,6 +275,7 @@ public class IWant extends BaseFragment implements OnClickListener {
                 jump2Activity(new TradeHistory());
                 break;
             case R.id.amountPointBtn:
+                AmountPoint.point = useraccount == null ? 0 : useraccount.totalIntegral;
                 jump2Activity(new AmountPoint());
                 break;
             case R.id.title_btn_right_msg_center:

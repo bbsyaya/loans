@@ -13,15 +13,17 @@ import android.os.Handler.Callback;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import com.will.loans.R;
+import com.will.loans.constant.ServerInfo;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-public abstract class BasePayActivity extends Activity implements Callback, Runnable {
+public abstract class UnionBasePay extends Activity implements Callback, Runnable {
     public static final String LOG_TAG = "PayDemo";
 
     private Context mContext = null;
@@ -39,29 +41,28 @@ public abstract class BasePayActivity extends Activity implements Callback, Runn
     /*****************************************************************
      * mMode参数解释： "00" - 启动银联正式环境 "01" - 连接银联测试环境
      *****************************************************************/
-    private final String mMode = "01";
+    private final String mMode = "00";
 
-    private static final String TN_URL_01 = "http://202.101.25.178:8080/sim/gettn";
+    private static final String TN_URL_01 = ServerInfo.BUYPRODUCT;
 
-    //    protected Button nextBtn;
+    protected Button nextBtn;
 
     private final View.OnClickListener mClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //            mLoadingDialog = ProgressDialog.show(mContext, // context
-            //                    "", // title
-            //                    "正在努力的获取tn中,请稍候...", // message
-            //                    true); // 进度是否是不确定的，这只和创建进度条有关
-            //
-            //            /*************************************************
-            //             * 步骤1：从网络开始,获取交易流水号即TN
-            //             ************************************************/
-            //            new Thread(BasePayActivity.this).start();
-            getData();
+            mLoadingDialog = ProgressDialog.show(mContext, // context
+                    "", // title
+                    "任务正在执行,请稍候...", // message
+                    true); // 进度是否是不确定的，这只和创建进度条有关
+            getDate();
+            /*************************************************
+             * 步骤1：从网络开始,获取交易流水号即TN
+             ************************************************/
+            new Thread(UnionBasePay.this).start();
         }
     };
 
-    protected void getData() {
+    protected void getDate() {
 
     }
 
@@ -73,10 +74,10 @@ public abstract class BasePayActivity extends Activity implements Callback, Runn
         mContext = this;
         mHandler = new Handler(this);
 
-        setContentView(R.layout.activity_confirm_pay);
+        setContentView(R.layout.activity_union_pay);
 
-        //        nextBtn = (Button) findViewById(R.id.nextBtn);
-        //        nextBtn.setOnClickListener(mClickListener);
+        nextBtn = (Button) findViewById(R.id.nextBtn);
+        nextBtn.setOnClickListener(mClickListener);
         afterSetContentView();
 
     }
@@ -107,6 +108,7 @@ public abstract class BasePayActivity extends Activity implements Callback, Runn
         } else {
 
             tn = (String) msg.obj;
+            Log.e(LOG_TAG, " " + "" + tn);
             /*************************************************
              * 步骤2：通过银联工具类启动支付插件
              ************************************************/
@@ -147,7 +149,7 @@ public abstract class BasePayActivity extends Activity implements Callback, Runn
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                BasePayActivity.this.finish();
+                UnionBasePay.this.finish();
             }
         });
         builder.create().show();

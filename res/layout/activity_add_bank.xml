@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <include layout="@layout/common_title" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="确认银行卡信息，如需修改请直接编辑" />
+    <LinearLayout
+        style="@style/RegisterEt"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical" >
+        <TextView
+            android:id="@+id/bank_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="20dp"
+            android:text="招商银行"
+            android:visibility="invisible"
+             />
+        <EditText
+            android:id="@+id/bank_card_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:hint="请输入您的银行卡号"
+            android:inputType="number" />
+        <TextView
+            android:id="@+id/phone_num_big"
+            style="@style/RegisterEt"
+            android:background="@drawable/big_text_hint_bg"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:visibility="gone" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_next"
+        style="@style/Width_match_height_wrap"
+        android:layout_margin="10dp"
+        android:background="@drawable/speak_hint_dialog_btn"
+        android:enabled="false"
+        android:gravity="center"
+        android:text="下一步"
+        android:textColor="@android:color/white" />
+</LinearLayout>

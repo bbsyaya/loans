@@ -2,6 +2,7 @@
 package com.will.loans.beans.bean;
 
 public class ProDetail extends BaseBeans {
+
     public int proId;//":4,"
 
     public int id;//":3,"

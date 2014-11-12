@@ -29,6 +29,9 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 public class FillVerifyCode extends BaseTextActivity {
 	private EditText mVerifyCode;
@@ -98,21 +101,16 @@ public class FillVerifyCode extends BaseTextActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            System.out.println("smsReceiver");
             Bundle bundle = intent.getExtras();
             Object[] object = (Object[]) bundle.get("pdus");
             SmsMessage sms[] = new SmsMessage[object.length];
             for (int i = 0; i < object.length; i++) {
                 sms[0] = SmsMessage.createFromPdu((byte[]) object[i]);
                 String smsContent = sms[i].getDisplayMessageBody();
-                System.out.println("smsContent = " + smsContent);
                 System.out.println("code = "
-                        + smsContent.substring(smsContent.length() - 6,
-                        smsContent.length()));
-                if (smsContent.contains("贷贷通")) {
-                    System.out.println("enter");
-                    editText.setText(smsContent.substring(
-                            smsContent.length() - 6, smsContent.length()));
+                        + NumberFilter(smsContent));
+                if (smsContent.contains("安疆理财")) {
+                    editText.setText(NumberFilter(smsContent));
                 }
             }
             // 终止广播，在这里我们可以稍微处理，根据用户输入的号码可以实现短信防火墙。
@@ -120,6 +118,15 @@ public class FillVerifyCode extends BaseTextActivity {
         }
 
     }
+
+    public static String NumberFilter(String str) throws PatternSyntaxException {
+        String regEx = "[^0-9]";
+        Pattern p = Pattern.compile(regEx);
+        Matcher m = p.matcher(str);
+        String code = m.replaceAll("").trim().substring(1,m.replaceAll("").trim().length());
+        return code;
+    }
+
 
 
     AjaxCallback<JSONObject> mRegisterCallback = new AjaxCallback<JSONObject>() {
