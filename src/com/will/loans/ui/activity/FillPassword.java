@@ -139,7 +139,8 @@ public class FillPassword extends BaseTextActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.forget_psw:
-                startActivity(new Intent(FillPassword.this, ForgetPassword.class));
+                startActivity(new Intent(FillPassword.this, ResetPassword.class).putExtra(
+                        ResetPassword.TYPE_NAME, 0));
                 break;
             case R.id.btn_login:
                 buildParams();

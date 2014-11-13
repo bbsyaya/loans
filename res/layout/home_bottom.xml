@@ -165,7 +165,7 @@
         android:layout_margin="3dp"
         android:drawableLeft="@drawable/icon_security"
         android:drawablePadding="5dp"
-        android:text="账户资金安全由中心银行监管"
+        android:text="账户资金安全由银行监管"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/gray_dark" />
     <!-- 投标按钮 -->

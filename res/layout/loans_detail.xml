@@ -147,7 +147,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
-                android:text="起息日：成功投资的次日开始计算收益\n还款提示：到期五个工作日处理"
+                android:text="起息日：募集成功的次日开始计算收益\n还款提示：到期五个工作日处理"
                 android:textColor="@color/gray_dark" />
             <TextView
                 android:id="@+id/notifyTV4"
@@ -156,7 +156,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
-                android:text="账户资金安全由中信银行监管" />
+                android:text="账户资金安全由银行监管" />
             <!-- 投标情况 -->
             <LinearLayout
                 android:id="@+id/buy_llyt"

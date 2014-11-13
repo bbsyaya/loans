@@ -3,7 +3,10 @@ package com.will.loans.pay;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -26,6 +29,7 @@ import com.will.loans.R;
 import com.will.loans.constant.ServerInfo;
 import com.will.loans.ui.activity.RealNameAuthentication;
 import com.will.loans.ui.activity.Register;
+import com.will.loans.ui.activity.ResetPassword;
 import com.will.loans.ui.activity.SetPassword;
 import com.will.loans.utils.GenerateMD5Password;
 import com.will.loans.utils.SharePreferenceUtil;
@@ -33,7 +37,11 @@ import com.will.loans.utils.SharePreferenceUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.text.SimpleDateFormat;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -129,6 +137,7 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
         bankID = (EditText) findViewById(R.id.bank_id_card);
         bankName = (EditText) findViewById(R.id.bank_name);
         BankPhone = (EditText) findViewById(R.id.bank_phone_num);
+        findViewById(R.id.forget_psw).setOnClickListener(this);
 
         llytBankId = (LinearLayout) findViewById(R.id.llyt_bank_id_card);
         llytBankName = (LinearLayout) findViewById(R.id.llyt_bank_name);
@@ -149,6 +158,8 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
             }
         });
         nextBtn.setEnabled(false);
+
+        getIpAddress();
 
         moneyET = (TextView) findViewById(R.id.moneyET);
         mTradePsw = (EditText) findViewById(R.id.trade_psw);
@@ -198,6 +209,45 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
         }
     }
 
+    public String getIpAddress() {
+        //获取wifi服务  
+        WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        //判断wifi是否开启  
+        if (wifiManager.isWifiEnabled()) {
+            //            wifiManager.setWifiEnabled(true);
+            WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+            int ipAddress = wifiInfo.getIpAddress();
+
+            return intToIp(ipAddress);
+        } else {
+            return getLocalIpAddress();
+        }
+    }
+
+    public String getLocalIpAddress() {
+        try {
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en
+                    .hasMoreElements();) {
+                NetworkInterface intf = en.nextElement();
+                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr
+                        .hasMoreElements();) {
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+                    if (!inetAddress.isLoopbackAddress()) {
+                        return inetAddress.getHostAddress().toString();
+                    }
+                }
+            }
+        } catch (SocketException ex) {
+            Log.e("WifiPreference IpAddress", ex.toString());
+        }
+        return null;
+    }
+
+    private String intToIp(int i) {
+        return (i & 0xFF) + "." + ((i >> 8) & 0xFF) + "." + ((i >> 16) & 0xFF) + "."
+                + (i >> 24 & 0xFF);
+    }
+
     @Override
     protected void getData() {
         // TODO EditPay完善参数
@@ -207,7 +257,7 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
             jo.put("timeStamp", time);
             jo.put("userid", SharePreferenceUtil.getUserPref(ConfirmPayActivity.this).getUserId());
             jo.put("token", SharePreferenceUtil.getUserPref(ConfirmPayActivity.this).getToken());
-            jo.put("amount", product.optInt("startBuy"));
+            jo.put("amount", buyMoney);
             jo.put("proId", product.optString("id"));
             jo.put("tradePsw", GenerateMD5Password.getMD5Password(mTradePsw.getText().toString()));
             String result = bankInfo.optString("cardtype");
@@ -226,7 +276,7 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
             jo.put("cardNo", cardNo);
             jo.put("bankName", cardNoName);
             jo.put("payType", bankInfo.optString("payType"));
-            jo.put("userip", "192.168.1.112");
+            jo.put("userip", getIpAddress());
             jo.put("terminaltype", "3");
             jo.put("terminalid", "android");
         } catch (JSONException e) {
@@ -327,7 +377,7 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
         moneyET.setText("" + product.optInt("startBuy"));
         setTextView(R.id.bank_card_num, "银行卡：" + product.optInt("startBuy") + ".00元", "");
         setTextView(R.id.moneyET, buyMoney + ".00元", "");
-        setTextView(R.id.moneyTV, product.optInt("startBuy") + ".00元", "");
+        setTextView(R.id.moneyTV, buyMoney + ".00元", "");
         setTextView(R.id.nameTV, product.optString("proName"), "");
         // setTextView(R.id.moneyTV, "起投金额：" + product.optInt("startBuy") + "元"
         // + "    手续费:无", "");
@@ -367,6 +417,10 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
         switch (v.getId()) {
             case R.id.title_back:
                 finish();
+                break;
+            case R.id.forget_psw:
+                startActivity(new Intent(ConfirmPayActivity.this, ResetPassword.class).putExtra(
+                        ResetPassword.TYPE_NAME, 0));
                 break;
             default:
                 break;
