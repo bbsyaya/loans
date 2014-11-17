@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -299,22 +298,23 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
                     //							Toast.makeText(getApplication(), "购买成功",
                     //									Toast.LENGTH_SHORT).show();
                     //							finish();
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mLoadingDialo = ProgressDialog.show(ConfirmPayActivity.this, // context
-                                    "", // title
-                                    "任务正在执行,请稍候...", // message
-                                    true); // 进度是否是不确定的，这只和创建进度条有关
-                        }
-                    });
-                    new Handler().postDelayed(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            queryIsPaySuccess();
-                        }
-                    }, 5000);
+                    Toast.makeText(getApplication(), "支付申请成功", Toast.LENGTH_SHORT).show();
+                    //                    runOnUiThread(new Runnable() {
+                    //                        @Override
+                    //                        public void run() {
+                    //                            mLoadingDialo = ProgressDialog.show(ConfirmPayActivity.this, // context
+                    //                                    "", // title
+                    //                                    "任务正在执行,请稍候...", // message
+                    //                                    true); // 进度是否是不确定的，这只和创建进度条有关
+                    //                        }
+                    //                    });
+                    //                    new Handler().postDelayed(new Runnable() {
+                    //
+                    //                        @Override
+                    //                        public void run() {
+                    //                            queryIsPaySuccess();
+                    //                        }
+                    //                    }, 5000);
                 } else if (result.equals("1")) {
                     Log.d("", json.optString("resultMsg"));
                     Toast.makeText(getApplication(), json.optString("resultMsg"),
