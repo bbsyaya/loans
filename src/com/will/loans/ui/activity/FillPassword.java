@@ -57,6 +57,7 @@ public class FillPassword extends BaseTextActivity {
         mLogin = (Button) findViewById(R.id.btn_login);
         mLogin.setOnClickListener(this);
         findViewById(R.id.forget_psw).setOnClickListener(this);
+        findViewById(R.id.title_btn_left).setOnClickListener(this);
         mPsw.addTextChangedListener(this);
         // 设置下划线
         ((TextView) findViewById(R.id.forget_psw)).getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
@@ -136,8 +137,8 @@ public class FillPassword extends BaseTextActivity {
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    protected void onViewClick(View view) {
+        switch (view.getId()) {
             case R.id.forget_psw:
                 startActivity(new Intent(FillPassword.this, ResetPassword.class).putExtra(
                         ResetPassword.TYPE_NAME, 0));

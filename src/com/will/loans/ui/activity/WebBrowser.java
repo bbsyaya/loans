@@ -3,9 +3,11 @@ package com.will.loans.ui.activity;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 
 import com.will.loans.R;
 
@@ -22,6 +24,9 @@ public class WebBrowser extends BaseActivity {
         super.onCreate(savedInstanceState);
         mUrl = getIntent().getExtras().getString(URL_STRING);
         setContentView(R.layout.web_browser);
+        ((TextView) findViewById(R.id.title_tv)).setText("信息详情");
+        findViewById(R.id.title_back).setVisibility(View.VISIBLE);
+        findViewById(R.id.title_back).setOnClickListener(this);
         mWeb = (WebView) findViewById(R.id.web_view);
         mWeb.setWebChromeClient(new MyWebChrome());
         mWeb.setWebViewClient(new MyWebViewClient());

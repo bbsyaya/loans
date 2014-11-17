@@ -190,5 +190,7 @@
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name=".ui.activity.MessageDetailActivity" >
+        </activity>
     </application>
 </manifest>

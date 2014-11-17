@@ -1,6 +1,7 @@
 
 package com.will.loans.ui.activity;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +15,12 @@ import com.will.loans.R;
 import com.will.loans.constant.ServerInfo;
 import com.will.loans.utils.SharePreferenceUtil;
 import com.will.loans.utils.Toaster;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,8 +35,11 @@ public class MessageCenter extends BaseCenter {
 
     @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-        // TODO Auto-generated method stub
-
+        setSingleMsgRead(action.get(arg2 - 1).optInt("msgId"));
+        startActivity(new Intent(MessageCenter.this, MessageDetailActivity.class)
+                .putExtra(MessageDetailActivity.TIME, action.get(arg2 - 1).optLong("msgTime"))
+                .putExtra(MessageDetailActivity.TITLE, action.get(arg2 - 1).optString("msgTitle"))
+                .putExtra(MessageDetailActivity.CONTENT, action.get(arg2 - 1).optString("msgCont")));
     }
 
     @Override
@@ -71,9 +77,9 @@ public class MessageCenter extends BaseCenter {
                 }
                 JSONArray ja = null;
                 ja = json.optJSONArray("activeList");
-                if (ja!=null){
+                if (ja != null) {
                     for (int i = 0; i < ja.length(); i++) {
-                    action.add(ja.optJSONObject(i));
+                        action.add(ja.optJSONObject(i));
                     }
                 }
                 if (mMessageAdapter != null) {
@@ -84,13 +90,63 @@ public class MessageCenter extends BaseCenter {
 
     }
 
+    private void setAllMsgRead() {
+        JSONObject jo = new JSONObject();
+        time = System.currentTimeMillis();
+        try {
+            jo.put("timeStamp", time);
+            jo.put("userid", SharePreferenceUtil.getUserPref(this).getUserId());
+            jo.put("token", SharePreferenceUtil.getUserPref(this).getToken());
+            jo.put("sign", getMD5Code(time));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("jsonData", jo.toString());
+        aq.ajax(ServerInfo.SETALLMSGREAD, params, JSONObject.class, new AjaxCallback<JSONObject>() {
+            @Override
+            public void callback(String url, JSONObject json, AjaxStatus status) {
+                Log.d("loans", "" + json.toString());
+                if (json.optString("resultflag").equals("0")) {
+                    Toaster.showShort(MessageCenter.this, "已标记为已读");
+                }
+            }
+        });
+
+    }
+
+    private void setSingleMsgRead(int msgId) {
+        JSONObject jo = new JSONObject();
+        time = System.currentTimeMillis();
+        try {
+            jo.put("timeStamp", time);
+            jo.put("userid", SharePreferenceUtil.getUserPref(this).getUserId());
+            jo.put("token", SharePreferenceUtil.getUserPref(this).getToken());
+            jo.put("msgId", msgId);
+            jo.put("sign", getMD5Code(time));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("jsonData", jo.toString());
+        aq.ajax(ServerInfo.SETMSGREAD, params, JSONObject.class, new AjaxCallback<JSONObject>() {
+            @Override
+            public void callback(String url, JSONObject json, AjaxStatus status) {
+                Log.d("loans", "" + json.toString());
+                if (json.optString("resultflag").equals("0")) {
+                    Toaster.showShort(MessageCenter.this, "已标记为已读");
+                }
+            }
+        });
+
+    }
 
     @Override
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.more_message_center:
-                Toaster.showShort(this, "已标记为已读");
+                setAllMsgRead();
                 break;
 
             default:
@@ -105,6 +161,8 @@ public class MessageCenter extends BaseCenter {
         }
         return mMessageAdapter;
     }
+
+    private SimpleDateFormat smf = new SimpleDateFormat("yy-MM-dd hh:mm:ss");
 
     class MessageAdapter extends BaseAdapter {
 
@@ -138,7 +196,12 @@ public class MessageCenter extends BaseCenter {
                 convertView.setTag(holder);
             }
             holder = (ViewHolder) convertView.getTag();
-
+            holder.desc.setText(action.get(position).optString("msgCont"));
+            holder.time.setText(smf.format(action.get(position).optLong("msgTime")));
+            holder.title.setText(action.get(position).optString("msgTitle"));
+            //            holder.desc.setText("测试");
+            //            holder.time.setText(smf.format(1411800790000L));
+            //            holder.title.setText("测试内容");
             return convertView;
         }
 

@@ -34,7 +34,10 @@ public class ActionCenter extends BaseCenter implements AdapterView.OnItemClickL
     @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
         try {
-            startActivity(new Intent(ActionCenter.this,WebBrowser.class).putExtra(WebBrowser.URL_STRING,action.get(arg2).getString("activeUrl").equals("")?"http://www.baidu.com":action.get(arg2).getString("activeUrl")));
+            startActivity(new Intent(ActionCenter.this, WebBrowser.class).putExtra(
+                    WebBrowser.URL_STRING,
+                    action.get(arg2 - 1).getString("activeUrl").equals("") ? "http://www.baidu.com"
+                            : action.get(arg2).getString("activeUrl")));
         } catch (JSONException e) {
             e.printStackTrace();
         }

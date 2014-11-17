@@ -109,15 +109,15 @@ public class IWant extends BaseFragment implements OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
-        Log.d("loans", "iwant onCreateView");
         return inflater.inflate(R.layout.fragment_mine, null);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("loans", "iwant onresume");
-        getDate();
+        if (!SharePreferenceUtil.getUserPref(getActivity()).getToken().equals("")) {
+            getDate();
+        }
     }
 
     @Override
