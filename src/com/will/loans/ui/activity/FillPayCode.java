@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
@@ -127,6 +128,12 @@ public class FillPayCode extends BaseTextActivity {
             }
             try {
                 String state = object.optString("resultflag");
+                if (state.equals("0")) {
+                    Toast.makeText(getApplication(), "支付申请成功", Toast.LENGTH_SHORT).show();
+                    FillPayCode.this.finish();
+                } else {
+                    Toast.makeText(getApplication(), "支付申请失败", Toast.LENGTH_SHORT).show();
+                }
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

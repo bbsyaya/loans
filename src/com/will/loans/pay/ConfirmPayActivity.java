@@ -26,6 +26,7 @@ import com.unionpay.UPPayAssistEx;
 import com.unionpay.uppay.PayActivity;
 import com.will.loans.R;
 import com.will.loans.constant.ServerInfo;
+import com.will.loans.ui.activity.FillPayCode;
 import com.will.loans.ui.activity.RealNameAuthentication;
 import com.will.loans.ui.activity.Register;
 import com.will.loans.ui.activity.ResetPassword;
@@ -289,6 +290,7 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
                 // mLoadingDialog.cancel();
                 Log.d("loans", json.toString());
                 String result = json.optString("resultflag");
+                result = "3";
                 if (result.equals("0")) {
                     // String tn = json.optString("tn");
                     // Message msg = mHandler.obtainMessage();
@@ -327,7 +329,7 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
                 } else if (result.equals("3")) {
                     Toast.makeText(getApplication(), json.optString("resultMsg"),
                             Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(ConfirmPayActivity.this, RealNameAuthentication.class));
+                    startActivity(new Intent(ConfirmPayActivity.this, FillPayCode.class));
                     Log.d("", json.optString("resultMsg"));
                 }
             }
