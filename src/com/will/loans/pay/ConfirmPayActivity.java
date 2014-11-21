@@ -300,7 +300,8 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
                     //							Toast.makeText(getApplication(), "购买成功",
                     //									Toast.LENGTH_SHORT).show();
                     //							finish();
-                    Toast.makeText(getApplication(), "支付申请成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(), "我们已收到您的投标申请，\n申请结果请到交易记录查看",
+                            Toast.LENGTH_SHORT).show();
                     //                    runOnUiThread(new Runnable() {
                     //                        @Override
                     //                        public void run() {
