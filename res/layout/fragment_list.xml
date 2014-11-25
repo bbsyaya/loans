@@ -16,12 +16,13 @@
         <RadioButton
             android:id="@+id/btn_radio_center"
             style="@style/ProductListRbtn"
+            android:visibility="gone"
             android:text="@string/product_coins" />
         <RadioButton
             android:id="@+id/btn_radio_right"
             style="@style/ProductListRbtn"
             android:text="@string/product_others"
-            android:visibility="gone" />
+             />
     </RadioGroup>
     <LinearLayout
         style="@style/Width_match_height_wrap"

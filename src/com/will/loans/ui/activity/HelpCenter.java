@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -58,7 +59,8 @@ public class HelpCenter extends BaseCenter {
 		aq.ajax(ServerInfo.HELPLIST, params, JSONObject.class, new AjaxCallback<JSONObject>() {
 			@Override
 			public void callback(String url, JSONObject json, AjaxStatus status) {
-				if (json == null) {
+                Log.d("",""+json.toString());
+                if (json == null) {
 					return;
 				}
 				JSONArray ja = null;

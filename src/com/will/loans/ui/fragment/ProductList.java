@@ -61,8 +61,8 @@ public class ProductList extends BaseFragment implements OnPageChangeListener,
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
         glideBar = (ImageView) view.findViewById(R.id.iv_blue_glide);
         list.add(new ProductFirst());
-        list.add(new ProductListCoins());
-        //		list.add(new ProductListOthers());
+//        list.add(new ProductListCoins());
+        		list.add(new ProductListOthers());
         mListPagerAdapter = new ListPagerAdapter(getFragmentManager());
         mViewPager.setOnPageChangeListener(this);
         mViewPager.setAdapter(mListPagerAdapter);

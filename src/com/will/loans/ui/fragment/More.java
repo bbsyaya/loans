@@ -44,6 +44,7 @@ public class More extends BaseFragment implements OnClickListener, PlatformActio
         ((TextView) view.findViewById(R.id.title_tv)).setText(R.string.tab_more);
 
         view.findViewById(R.id.more_user_center).setOnClickListener(this);
+        view.findViewById(R.id.more_appeal_center).setOnClickListener(this);
         view.findViewById(R.id.more_about).setOnClickListener(this);
         view.findViewById(R.id.more_message_center).setOnClickListener(this);
         view.findViewById(R.id.more_help_center).setOnClickListener(this);

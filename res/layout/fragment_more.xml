@@ -63,6 +63,31 @@
                         android:src="@drawable/btn_right_arrow" />
                 </LinearLayout>
                 <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#d9d9d9" />
+                <LinearLayout
+                        android:id="@+id/more_appeal_center"
+                        style="@style/MoreListItem" >
+                    <ImageView
+                            style="@style/Width_wrap_height_wrap"
+                            android:layout_marginLeft="15dp"
+                            android:src="@drawable/more_message_center_icon" />
+                    <LinearLayout
+                            style="@style/Width_wrap_height_wrap"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical" >
+                        <TextView
+                                style="@style/Width_wrap_height_wrap"
+                                android:layout_marginLeft="20dp"
+                                android:text="@string/more_appeal_center"
+                                android:textAppearance="?android:attr/textAppearanceSmall" />
+                    </LinearLayout>
+                    <ImageView
+                            style="@style/Width_wrap_height_wrap"
+                            android:src="@drawable/btn_right_arrow" />
+                </LinearLayout>
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#d9d9d9" />
