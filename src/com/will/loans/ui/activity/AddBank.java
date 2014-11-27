@@ -3,7 +3,6 @@ package com.will.loans.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -74,7 +73,6 @@ public class AddBank extends BaseTextActivity {
                 new AjaxCallback<BankInfoJson>() {
                     @Override
                     public void callback(String url, BankInfoJson json, AjaxStatus status) {
-                        Log.d("loans", "" + json.toString());
                         if (json == null) {
                             return;
                         }
@@ -107,7 +105,6 @@ public class AddBank extends BaseTextActivity {
                     @Override
                     public void callback(String url, JSONObject json, AjaxStatus status) {
                         String result = json.optString("resultflag");
-                        Log.d("loans", "" + json.toString());
                         if (result.equals("0") || result.equals("2")) {
                             ConfirmPayActivity.bankInfo = json;
                             startActivity(new Intent(AddBank.this, ConfirmPayActivity.class)
@@ -116,7 +113,7 @@ public class AddBank extends BaseTextActivity {
                             finish();
                         } else if (result.equals("1")) {
                             Toast.makeText(getBaseContext(), "" + json.optString("resultMsg"),
-                                    1 * 1000).show();
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

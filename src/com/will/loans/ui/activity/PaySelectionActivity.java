@@ -3,7 +3,6 @@ package com.will.loans.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -104,7 +103,6 @@ public class PaySelectionActivity extends BaseActivity {
                 new AjaxCallback<BankInfoJson>() {
                     @Override
                     public void callback(String url, BankInfoJson json, AjaxStatus status) {
-                        Log.d("loans", "" + json.toString());
                         if (json == null) {
                             return;
                         }

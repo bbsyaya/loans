@@ -2,7 +2,6 @@
 package com.will.loans.ui.activity;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -68,7 +67,6 @@ public class ActionCenter extends BaseCenter implements AdapterView.OnItemClickL
         aq.ajax(ServerInfo.ACTIVELIST, params, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject json, AjaxStatus status) {
-                Log.d("loans", "" + json.toString());
                 if (json == null) {
                     return;
                 }

@@ -19,11 +19,7 @@ import cn.sharesdk.framework.utils.UIHandler;
 
 import com.will.loans.R;
 import com.will.loans.share.onekeyshare.OnekeyShare;
-import com.will.loans.ui.activity.About;
-import com.will.loans.ui.activity.ActionCenter;
-import com.will.loans.ui.activity.Feedback;
-import com.will.loans.ui.activity.HelpCenter;
-import com.will.loans.ui.activity.MessageCenter;
+import com.will.loans.ui.activity.*;
 import com.will.loans.utils.SharePreferenceUtil;
 
 import java.util.HashMap;
@@ -120,6 +116,9 @@ public class More extends BaseFragment implements OnClickListener, PlatformActio
                 break;
             case R.id.check_update_llyt:
 
+                break;
+            case R.id.more_appeal_center:
+                jump2Activity(new AppealActivity());
                 break;
             default:
                 break;

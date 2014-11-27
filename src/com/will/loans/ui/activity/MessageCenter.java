@@ -2,7 +2,6 @@
 package com.will.loans.ui.activity;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -71,7 +70,6 @@ public class MessageCenter extends BaseCenter {
         aq.ajax(ServerInfo.MSGLIST, params, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject json, AjaxStatus status) {
-                Log.d("loans", "" + json.toString());
                 if (json == null) {
                     return;
                 }
@@ -106,7 +104,6 @@ public class MessageCenter extends BaseCenter {
         aq.ajax(ServerInfo.SETALLMSGREAD, params, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject json, AjaxStatus status) {
-                Log.d("loans", "" + json.toString());
                 if (json.optString("resultflag").equals("0")) {
                     Toaster.showShort(MessageCenter.this, "已标记为已读");
                 }
@@ -132,7 +129,6 @@ public class MessageCenter extends BaseCenter {
         aq.ajax(ServerInfo.SETMSGREAD, params, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject json, AjaxStatus status) {
-                Log.d("loans", "" + json.toString());
                 if (json.optString("resultflag").equals("0")) {
                     Toaster.showShort(MessageCenter.this, "已标记为已读");
                 }

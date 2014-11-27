@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.content.Intent;
 import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +32,8 @@ public class HelpCenter extends BaseCenter {
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		// TODO Auto-generated method stub
+		startActivity(new Intent(HelpCenter.this,HelpDetail.class).putExtra(HelpDetail.TITLE,helpaction.get(arg2).optString("helpTitle"))
+                .putExtra(HelpDetail.CONTENT,helpaction.get(arg2).optString("helpDesc")));
 
 	}
 

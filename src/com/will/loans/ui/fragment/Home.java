@@ -8,7 +8,6 @@ import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -190,7 +189,6 @@ public class Home extends BaseFragment implements OnClickListener {
                     return;
                 }
                 homePRSV.onRefreshComplete();
-                Log.e("11", json.toString());
                 enterBtn.setEnabled(true);
                 JSONArray ja = null;
                 ja = json.optJSONArray("proList");

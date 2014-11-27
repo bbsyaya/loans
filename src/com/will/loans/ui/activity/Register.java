@@ -105,10 +105,10 @@ public class Register extends BaseTextActivity implements OnCheckedChangeListene
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.user_use:
-			startActivity(new Intent(Register.this,WebBrowser.class).putExtra(WebBrowser.URL_STRING, "http://www.baidu.com"));
+			startActivity(new Intent(Register.this,WebBrowser.class).putExtra(WebBrowser.URL_STRING, "file:///android_asset/about_html.html").putExtra(WebBrowser.URL_ITLE,"安于心理财用户使用协议"));
 			break;
 		case R.id.user_use_self:
-			startActivity(new Intent(Register.this,WebBrowser.class).putExtra(WebBrowser.URL_STRING, "http://www.baidu.com"));
+			startActivity(new Intent(Register.this,WebBrowser.class).putExtra(WebBrowser.URL_STRING, "file:///android_asset/use_html.html").putExtra(WebBrowser.URL_ITLE,"使用条款和隐私政策协议"));
 			break;
 		case R.id.btn_next:
 			buildParams();

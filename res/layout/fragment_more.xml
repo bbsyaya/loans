@@ -109,6 +109,7 @@
                             android:text="@string/more_help_center"
                             android:textAppearance="?android:attr/textAppearanceSmall" />
                         <TextView
+                            android:visibility="gone"
                             style="@style/Width_wrap_height_wrap"
                             android:layout_marginLeft="20dp"
                             android:text="基金的申购赎回流程？"
