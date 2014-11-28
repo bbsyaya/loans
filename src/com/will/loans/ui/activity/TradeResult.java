@@ -4,7 +4,6 @@ package com.will.loans.ui.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -77,7 +76,6 @@ public class TradeResult extends BaseActivity {
         aq.ajax(ServerInfo.TRADERECLIST, params, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject json, AjaxStatus status) {
-                Log.e("11", "iwant ------ " + json.toString());
             }
         });
     }

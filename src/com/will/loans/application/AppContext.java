@@ -59,7 +59,7 @@ public class AppContext extends Application {
     public void onCreate() {
         // TODO Auto-generated method stub
         super.onCreate();
-        AQUtility.setDebug(true);
+        AQUtility.setDebug(false);
         AbstractAjaxCallback.setTimeout(SOCKET_TIMEOUT);
         AbstractAjaxCallback.setTransformer(new GsonTransformer());
 

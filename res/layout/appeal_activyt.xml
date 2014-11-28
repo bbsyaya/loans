@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <include layout="@layout/common_title"/>
+    <LinearLayout
+            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+                android:layout_weight="1"
+                android:text="用户名"
+                android:gravity="center"
+                android:layout_width="0dp" android:layout_height="wrap_content"/>
+        <EditText
+                android:id="@+id/usename"
+                android:layout_marginLeft="10dp"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+    <LinearLayout
+            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_gravity="center_horizontal">
+        <TextView
+                android:layout_weight="1"
+                android:text="申诉内容"
+                android:gravity="center"
+                android:layout_width="0dp" android:layout_height="wrap_content"/>
+        <EditText
+                android:id="@+id/represCont"
+                android:layout_marginLeft="10dp"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+    <LinearLayout
+            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+                android:layout_weight="1"
+                android:text="申诉图片"
+                android:gravity="center"
+                android:layout_width="0dp" android:layout_height="wrap_content"/>
+        <Button
+                android:id="@+id/getphoto"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:text="获取照片"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/cpay_btn_enter"
+                android:textColor="@android:color/white"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <ImageView
+            android:id="@+id/image"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="120dp"/>
+    <Button
+            android:id="@+id/submit"
+            android:layout_margin="20dp"
+            android:background="@drawable/cpay_btn_enter"
+            android:textColor="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="提交申诉"/>
+
+</LinearLayout>

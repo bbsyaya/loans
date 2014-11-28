@@ -15,16 +15,19 @@ public class WebBrowser extends BaseActivity {
     private WebView mWeb;
 
     public static final String URL_STRING = "url_string";
+    public static final String URL_ITLE = "url_title";
 
     private String mUrl;
+    private String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         mUrl = getIntent().getExtras().getString(URL_STRING);
+        title = getIntent().getExtras().getString(URL_ITLE)!=null?getIntent().getExtras().getString(URL_ITLE):"信息详情";
         setContentView(R.layout.web_browser);
-        ((TextView) findViewById(R.id.title_tv)).setText("信息详情");
+        ((TextView) findViewById(R.id.title_tv)).setText(title);
         findViewById(R.id.title_back).setVisibility(View.VISIBLE);
         findViewById(R.id.title_back).setOnClickListener(this);
         mWeb = (WebView) findViewById(R.id.web_view);

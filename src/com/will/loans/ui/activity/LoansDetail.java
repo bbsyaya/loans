@@ -4,7 +4,6 @@ package com.will.loans.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -82,7 +81,6 @@ public class LoansDetail extends BaseActivity {
                     @Override
                     public void callback(String url, LoansDetailJson json, AjaxStatus status) {
                         detailPRSV.onRefreshComplete();
-                        Log.e("11", json.toString());
                         if (!json.resultflag.equals("0")) {
                             return;
                         }
@@ -107,6 +105,10 @@ public class LoansDetail extends BaseActivity {
         setTextView(R.id.notifyTV2, jo.detail.benxiDesc, "");
         setTextView(R.id.notifyTV3, "限" + pro.optString("timeLimit") + "个月", "");
         setTextView(R.id.notifyTV4, jo.detail.securityTip, "");
+        //还款提醒
+        if (!jo.start_day.equals("")) {
+            setTextView(R.id.qixiri, "起息日：" + jo.start_day + "\n还款日：" + jo.pay_day + "\n还款提醒：" + jo.pay_attention, "");
+        }
         // 预期年化
         setTextView(R.id.forwardEarnTV, pro.optInt("nhsy") + "%", "");
         // 起投金额

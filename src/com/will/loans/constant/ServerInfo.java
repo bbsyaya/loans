@@ -183,5 +183,6 @@ public class ServerInfo {
      * 		易宝支付—产品购买接口
      */
     public static final String BUYPRODUCTYB = IMAGE_PREFIX + "buyProductYb";
+    public static final String REPRESENTATION = IMAGE_PREFIX + "representation";
 
 }
