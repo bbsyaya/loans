@@ -32,7 +32,7 @@ public class HelpCenter extends BaseCenter {
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		startActivity(new Intent(HelpCenter.this,HelpDetail.class).putExtra(HelpDetail.TITLE,helpaction.get(arg2).optString("helpTitle"))
+		startActivity(new Intent(HelpCenter.this,HelpDetail.class).putExtra(HelpDetail.TITLE,helpaction.get(arg2-1).optString("helpTitle"))
                 .putExtra(HelpDetail.CONTENT,helpaction.get(arg2).optString("helpDesc")));
 
 	}

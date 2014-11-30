@@ -105,10 +105,7 @@ public class LoansDetail extends BaseActivity {
         setTextView(R.id.notifyTV2, jo.detail.benxiDesc, "");
         setTextView(R.id.notifyTV3, "限" + pro.optString("timeLimit") + "个月", "");
         setTextView(R.id.notifyTV4, jo.detail.securityTip, "");
-        //还款提醒
-        if (!jo.start_day.equals("")) {
-            setTextView(R.id.qixiri, "起息日：" + jo.start_day + "\n还款日：" + jo.pay_day + "\n还款提醒：" + jo.pay_attention, "");
-        }
+
         // 预期年化
         setTextView(R.id.forwardEarnTV, pro.optInt("nhsy") + "%", "");
         // 起投金额
@@ -123,6 +120,10 @@ public class LoansDetail extends BaseActivity {
             //资金保障
             setTextView(R.id.safeguardTV, jo.items.get(2).itemDesc, "");
             //
+        }
+        //还款提醒
+        if (jo.start_day!=null&&!jo.start_day.equals("")) {
+            setTextView(R.id.qixiri, "起息日：" + jo.start_day + "\n还款日：" + jo.pay_day + "\n还款提醒：" + jo.pay_attention, "");
         }
     }
 
