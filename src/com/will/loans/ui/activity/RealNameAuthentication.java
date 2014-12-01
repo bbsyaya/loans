@@ -63,20 +63,15 @@ public class RealNameAuthentication extends BaseTextActivity {
                 new AjaxCallback<JSONObject>() {
                     @Override
                     public void callback(String url, JSONObject object, AjaxStatus status) {
-                        System.out.println(" " + object.toString());
-                        if (object != null) {
-                            try {
-                                String result = object.getString("resultflag");
-                                if (result.equals("0")) {
-                                    Toaster.showShort(getParent(), "认证成功");
-                                    finish();
-                                } else {
-                                    Toaster.showShort(getParent(), "认证失败，请重新验证");
-                                }
-                            } catch (JSONException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                            }
+                        String result = object.optString("resultflag");
+                        if (result.equals("0")) {
+                            Toaster.showShort(RealNameAuthentication.this, "认证成功");
+                            finish();
+                        } else {
+                            Toaster.showShort(
+                                    RealNameAuthentication.this,
+                                    object.optString("value") + " \n"
+                                            + object.optString("resultMsg"));
                         }
                     }
                 });
