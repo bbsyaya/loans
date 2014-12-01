@@ -21,7 +21,6 @@ public class GsonTransformer implements Transformer {
     public <T> T transform(String url, Class<T> type, String encoding, byte[] data,
             AjaxStatus status) {
         try {
-            Log.e("loans", new String(data, encoding));
             return gson.fromJson(new String(data, encoding), type);
         } catch (Exception e) {
             throw new RuntimeException(e);

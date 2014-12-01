@@ -20,7 +20,7 @@
             <TextView
                     style="@style/Width_wrap_height_wrap"
                     android:layout_margin="10dp"
-                    android:text="客服热线：400-8705800" />
+                    android:text="客服热线：400-877-4188" />
             <TextView
                     style="@style/Width_wrap_height_wrap"
                     android:layout_margin="10dp"
@@ -57,11 +57,13 @@
                 <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
+                        android:visibility="gone"
                         android:background="#d9d9d9" />
                 <RelativeLayout
                         android:id="@+id/help_jijin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:layout_marginBottom="5dp"
                         android:layout_marginTop="5dp" >
                     <TextView
@@ -82,12 +84,14 @@
                 <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
+                        android:visibility="gone"
                         android:background="#d9d9d9" />
                 <RelativeLayout
                         android:id="@+id/help_calcul"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
+                        android:visibility="gone"
                         android:layout_marginTop="5dp" >
                     <TextView
                             android:layout_width="wrap_content"
@@ -237,7 +241,7 @@
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="30dp"
-                            android:text="客服qq群:8888888" />
+                            android:text="客服QQ:407375388"/>
                     <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
