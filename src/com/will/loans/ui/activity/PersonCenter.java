@@ -65,6 +65,7 @@ public class PersonCenter extends BaseActivity implements OnCheckedChangeListene
         mChangeLoginPsw.setOnClickListener(this);
         mChangeTradePsw.setOnClickListener(this);
         findViewById(R.id.account_bankcard).setOnClickListener(this);
+        findViewById(R.id.account_realname_rt).setOnClickListener(this);
         mButton.setOnCheckedChangeListener(this);
     }
 
@@ -74,6 +75,9 @@ public class PersonCenter extends BaseActivity implements OnCheckedChangeListene
         switch (view.getId()) {
             case R.id.account_bankcard:
 
+                break;
+            case R.id.account_realname_rt:
+                startActivity(new Intent(PersonCenter.this, RealNameAuthentication.class));
                 break;
             case R.id.account_change_psw:
                 startActivity(new Intent(PersonCenter.this, ResetPassword.class).putExtra(
@@ -95,8 +99,7 @@ public class PersonCenter extends BaseActivity implements OnCheckedChangeListene
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
-            startActivity(new Intent(getApplicationContext(),
-                    CreateGesturePasswordActivity.class));
+            startActivity(new Intent(getApplicationContext(), CreateGesturePasswordActivity.class));
         } else {
             AppContext.getInstance().getLockPatternUtils(PersonCenter.this).clearLock();
         }
