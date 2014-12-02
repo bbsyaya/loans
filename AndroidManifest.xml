@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.will.loans"
-    android:versionCode="1101"
-    android:versionName="1.101" >
+    android:versionCode="1102"
+    android:versionName="1.102" >
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
@@ -124,6 +124,8 @@
         <activity android:name=".ui.activity.FundCompany" >
         </activity>
         <activity android:name=".ui.activity.BuyList" >
+        </activity>
+        <activity android:name=".ui.activity.SelectBank" >
         </activity>
         <activity android:name=".ui.activity.AddBank" />
         <activity android:name=".ui.activity.HelpDetail" />

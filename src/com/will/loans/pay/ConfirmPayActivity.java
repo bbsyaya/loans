@@ -108,17 +108,8 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
                 if (json != null) {
                     String flag = json.optString("resultflag");
                     if (!json.optString("tradePsw").equals("")) {
-                        // mLoadingDialog =
-                        // ProgressDialog.show(ConfirmPayActivity.this,
-                        // // context
-                        // "", // title
-                        // "正在努力的获取tn中,请稍候...", // message
-                        // true); // 进度是否是不确定的，这只和创建进度条有关
-                        // getData();
                         return;
                     } else {
-                        // Toaster.showShort(getParent(),
-                        // json.optString("resultMsg"));
                         startActivity(new Intent(ConfirmPayActivity.this, SetPassword.class)
                                 .putExtra(SetPassword.SETTYPE, 1));
                     }

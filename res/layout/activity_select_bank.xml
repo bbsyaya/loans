@@ -4,14 +4,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     <include layout="@layout/common_title" />
-    <TextView
-        android:id="@+id/text_phone_num"
-        style="@style/Width_match_height_wrap" />
+
     <EditText
-        android:id="@+id/et_login_psw"
+        android:id="@+id/et_quick_search"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:drawableLeft="@drawable/search_icon"
+        android:hint="请输入关键字"
+        android:paddingRight="10dp"
         style="@style/Width_match_height_wrap" />
     <ListView
         android:id="@+id/select_bank_lv"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginTop="15dp"
         style="@style/Width_match_height_wrap" >
     </ListView>
 </LinearLayout>

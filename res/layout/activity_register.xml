@@ -48,7 +48,7 @@
         android:layout_marginTop="5dp"
         android:text="安于心理财不会再任何地方泄露您的号码"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/title_gray" />
+         />
 
     <RelativeLayout style="@style/Width_match_height_wrap" >
 
@@ -70,13 +70,11 @@
                 android:id="@+id/user_use"
                 style="@style/Width_wrap_height_wrap"
                 android:text="《安于心理财用户使用协议》"
-                android:textColor="@color/title_gray"
                 android:textSize="12sp" />
             <TextView
                 android:id="@+id/user_use_self"
                 style="@style/Width_wrap_height_wrap"
                 android:text="《使用条款和隐私政策协议》"
-                android:textColor="@color/title_gray"
                 android:textSize="12sp" />
         </LinearLayout>
     </RelativeLayout>

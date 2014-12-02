@@ -56,6 +56,7 @@ public class AddBank extends BaseTextActivity {
         mBigPhoneNum = (TextView) findViewById(R.id.phone_num_big);
         mNextBtn = (Button) findViewById(R.id.btn_next);
         mNextBtn.setOnClickListener(this);
+        mBankName.setOnClickListener(this);
         getBindBankList();
     }
 
@@ -126,11 +127,18 @@ public class AddBank extends BaseTextActivity {
             case R.id.btn_next:
                 checkBankcard();
                 break;
+            case R.id.bank_name:
+                startActivityForResult(new Intent(AddBank.this,SelectBank.class),SelectBank.REQUEST_CODE_BANK_ID);
+                break;
         }
     }
 
-    public void checkBankCard() {
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==SelectBank.REQUEST_CODE_BANK_ID){
+            mBankName.setText(data.getExtras().getString(SelectBank.BANK_TITLE));
+        }
     }
 
     @Override
