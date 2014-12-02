@@ -130,6 +130,7 @@ public class ServerInfo {
      * 用户总资产界面接口
      */
     public static final String TOTALASSETS = IMAGE_PREFIX + "totalAssets";
+
     /**
      * 获取bannerget
      */
@@ -139,50 +140,67 @@ public class ServerInfo {
      * 获取验证码
      */
     public static final String GETVERCODE = IMAGE_PREFIX + "getVerCode";
+
     /**
      * 修改密码验证码校验接口
      */
     public static final String CHANGEPSWCHECK = IMAGE_PREFIX + "changePswCheck";
+
     /**
      * 查询个人是否有未读消息
      */
     public static final String HASNOTREADMSG = IMAGE_PREFIX + "hasNotReadMsg";
+
     /**
      * 设置单条消息已读
      */
     public static final String SETMSGREAD = IMAGE_PREFIX + "setMsgRead";
+
     /**
      * 设置用户所有消息已读
      */
     public static final String SETALLMSGREAD = IMAGE_PREFIX + "setAllMsgRead";
+
     /**
      * 获取单条消息详情
      */
     public static final String MSGDETAIL = IMAGE_PREFIX + "msgDetail";
+
     /**
      * 获取服务器android最新版本号
      */
     public static final String GETANDROIDVERSION = IMAGE_PREFIX + "getAndroidVersion";
+
     /**
      * 获取服务器android最新版本信息
      */
     public static final String GETANDROIDVERSIONINFO = IMAGE_PREFIX + "getAndroidVersionInfo";
+
     /**
-     * 	获取用户已绑定银行卡列表
+     *  获取用户已绑定银行卡列表
      */
     public static final String GETBINDBANKLIST = IMAGE_PREFIX + "getBindBankList";
+
     /**
-     * 		易宝支付—遇到短信验证时，短信确认支付接口
+     *   易宝支付—遇到短信验证时，短信确认支付接口
      */
     public static final String YBCONFIRMPAY = IMAGE_PREFIX + "ybConfirmPay";
+
     /**
-     * 		易宝支付—检查支付的银行卡是否有效，且是否为有效绑卡
+     *   易宝支付—检查支付的银行卡是否有效，且是否为有效绑卡
      */
     public static final String BANKCARDCHECK = IMAGE_PREFIX + "bankCardCheck";
+
     /**
-     * 		易宝支付—产品购买接口
+     *   易宝支付—产品购买接口
      */
     public static final String BUYPRODUCTYB = IMAGE_PREFIX + "buyProductYb";
+
+    /**
+     *   是否实名验证
+     */
+    public static final String REALNAMECHECK = IMAGE_PREFIX + "realNameCheck";
+
     public static final String REPRESENTATION = IMAGE_PREFIX + "representation";
 
 }

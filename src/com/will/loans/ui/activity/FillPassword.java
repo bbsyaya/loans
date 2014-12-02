@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.will.loans.R;
 import com.will.loans.constant.ServerInfo;
+import com.will.loans.pay.ConfirmPayActivity;
 import com.will.loans.utils.GenerateMD5Password;
 import com.will.loans.utils.SharePreferenceUtil;
 
@@ -80,7 +82,6 @@ public class FillPassword extends BaseTextActivity {
                 new AjaxCallback<JSONObject>() {
                     @Override
                     public void callback(String url, JSONObject object, AjaxStatus status) {
-                        System.out.println(" " + object.toString());
                         if (object != null) {
                             try {
                                 String result = object.optString("resultflag");
@@ -92,7 +93,13 @@ public class FillPassword extends BaseTextActivity {
                                         .setUsername(mNum);
                                 if (result.equals("0")) {
                                     Toast.makeText(getApplication(), "登陆成功", 1 * 1000).show();
-                                    FillPassword.this.finish();
+                                    checkRealName();
+                                    if (ConfirmPayActivity.product != null) {
+                                        startActivity(new Intent(FillPassword.this,
+                                                PaySelectionActivity.class));
+                                    } else {
+                                        FillPassword.this.finish();
+                                    }
                                 } else {
                                     Toast.makeText(getApplication(), object.optString("resultMsg"),
                                             1 * 1000).show();
@@ -104,6 +111,40 @@ public class FillPassword extends BaseTextActivity {
                         }
                     }
                 });
+    }
+
+    private void checkRealName() {
+        time = System.currentTimeMillis();
+        JSONObject jo = new JSONObject();
+        try {
+            jo.put("timeStamp", new Date().getTime());
+            jo.put("phoneNum", mNum);
+            //            jo.put("loginPsw", GenerateMD5Password.getMD5Password(mPsw.getText().toString()));
+            //            jo.put("sign", getMD5Code(time));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("jsonData", jo.toString());
+        mAQuery.ajax(ServerInfo.REALNAMECHECK, params, JSONObject.class,
+                new AjaxCallback<JSONObject>() {
+                    @Override
+                    public void callback(String url, JSONObject object, AjaxStatus status) {
+                        String flag = object.optString("resultflag");
+                        if (flag.equals("0")) {
+
+                        } else if (flag.equals("1")) {
+                            Log.e("autonavi", "" + object.toString() + "，请先进行实名认证！");
+                            startActivity(new Intent(FillPassword.this,
+                                    RealNameAuthentication.class));
+                            FillPassword.this.finish();
+                            return;
+                        } else if (flag.equals("2")) {
+
+                        }
+                    }
+                });
+
     }
 
     private void initTop() {
