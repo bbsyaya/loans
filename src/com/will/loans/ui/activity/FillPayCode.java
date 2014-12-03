@@ -36,7 +36,7 @@ import java.util.regex.PatternSyntaxException;
 public class FillPayCode extends BaseTextActivity {
     private EditText mVerifyCode;
 
-    private Button mCountDown, mLogin;
+    private Button mLogin;
 
     public static final String SMS_RECEIVED_ACTION = "android.provider.Telephony.SMS_RECEIVED";
 
@@ -46,8 +46,6 @@ public class FillPayCode extends BaseTextActivity {
     private IntentFilter intentFilter;
 
     private AQuery mAQuery;
-
-    private CountDown mCountDownTimer;
 
     private final Long millisInFuture = 60 * 1000L, countDownInterval = 1000L;
 
@@ -104,8 +102,6 @@ public class FillPayCode extends BaseTextActivity {
                     editText.setText(NumberFilter(smsContent));
                 }
             }
-            // 终止广播，在这里我们可以稍微处理，根据用户输入的号码可以实现短信防火墙。
-            // abortBroadcast();
         }
 
     }
@@ -143,20 +139,14 @@ public class FillPayCode extends BaseTextActivity {
 
     private void init() {
         initTop();
-        mCountDownTimer = new CountDown(millisInFuture, countDownInterval);
         mAQuery = new AQuery(this);
         findViewById(R.id.title_back).setVisibility(View.VISIBLE);
         findViewById(R.id.title_back).setOnClickListener(this);
         ((TextView) findViewById(R.id.title_tv)).setText(R.string.fill_verify_num);
         mVerifyCode = (EditText) findViewById(R.id.et_veri_code);
-        //		mCountDown = (Button) findViewById(R.id.btn_count_down);
-        //		((TextView) findViewById(R.id.tv_send_msg)).setText("已向" + mNum
-        //				+ "发送短信，请再输入框中填写验证码完成注册");
-        //		;
 
         mLogin = (Button) findViewById(R.id.btn_confirm);
         mLogin.setOnClickListener(this);
-        mCountDown.setOnClickListener(this);
         mVerifyCode.addTextChangedListener(this);
 
         smsBroadCastReceiver = new SmsBroadCastReceiver(mVerifyCode);
@@ -177,36 +167,11 @@ public class FillPayCode extends BaseTextActivity {
             case R.id.btn_confirm:
                 buildParams();
                 break;
-            case R.id.btn_count_down:
-                //			mCountDownTimer.start();
-                //			mCountDown.setEnabled(false);
-                break;
             case R.id.title_back:
                 finish();
                 break;
             default:
                 break;
-        }
-
-    }
-
-    class CountDown extends CountDownTimer {
-
-        public CountDown(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);
-        }
-
-        @Override
-        public void onTick(long millisUntilFinished) {
-            mCountDown.setText(millisUntilFinished / 1000
-                    + getResources().getString(R.string.countdown_code));
-
-        }
-
-        @Override
-        public void onFinish() {
-            mCountDown.setEnabled(true);
-            mCountDown.setText(R.string.reget_verifycode);
         }
 
     }
