@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 import com.androidquery.AQuery;
 import com.will.loans.R;
-import com.will.loans.ui.activity.AddBank;
 import com.will.loans.ui.activity.BaseTextActivity;
+import com.will.loans.ui.activity.PaySelectionActivity;
 import com.will.loans.ui.activity.Register;
 import com.will.loans.utils.GenerateMD5Password;
 import com.will.loans.utils.SharePreferenceUtil;
@@ -29,6 +29,8 @@ public class EditPayActivity extends BaseTextActivity implements OnClickListener
     private EditText moneyET, mTradePsw;
 
     public static JSONObject product;
+
+    private String cardNo = "";
 
     private AQuery aq;
 
@@ -57,7 +59,7 @@ public class EditPayActivity extends BaseTextActivity implements OnClickListener
 
         aq = new AQuery(this);
         nextBtn = (Button) findViewById(R.id.nextBtn);
-
+        cardNo = getIntent().getExtras().getString(ConfirmPayActivity.CARDNOSTRING);
         findViewById(R.id.title_back).setVisibility(View.VISIBLE);
         findViewById(R.id.title_back).setOnClickListener(this);
         ((TextView) findViewById(R.id.title_tv)).setText("投标");
@@ -71,7 +73,7 @@ public class EditPayActivity extends BaseTextActivity implements OnClickListener
                     startActivity(new Intent(EditPayActivity.this, Register.class));
                 } else {
                     //                    checkHaveTradePsw();
-                    startActivity(new Intent(EditPayActivity.this, AddBank.class));
+                    startActivity(new Intent(EditPayActivity.this, PaySelectionActivity.class));
                 }
             }
         });

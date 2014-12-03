@@ -16,9 +16,9 @@ import com.will.loans.R;
 import com.will.loans.beans.json.BankInfoJson;
 import com.will.loans.constant.ServerInfo;
 import com.will.loans.pay.ConfirmPayActivity;
+import com.will.loans.pay.EditPayActivity;
 import com.will.loans.utils.SharePreferenceUtil;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,7 +29,7 @@ import java.util.Map;
  * Created by will on 11/10/14.
  */
 public class AddBank extends BaseTextActivity {
-    private TextView mBigPhoneNum,mBankName;
+    private TextView mBigPhoneNum, mBankName;
 
     private Button mNextBtn;
 
@@ -77,7 +77,7 @@ public class AddBank extends BaseTextActivity {
                         if (json == null) {
                             return;
                         }
-                        if (json.bankList!=null&&json.bankList.get(0)!=null){
+                        if (json.bankList != null && json.bankList.get(0) != null) {
                             mBankNum.setText(json.bankList.get(0).cardNo);
                             mBankName.setVisibility(View.VISIBLE);
                             mBankName.setText(json.bankList.get(0).bankName);
@@ -108,10 +108,9 @@ public class AddBank extends BaseTextActivity {
                         String result = json.optString("resultflag");
                         if (result.equals("0") || result.equals("2")) {
                             ConfirmPayActivity.bankInfo = json;
-                            startActivity(new Intent(AddBank.this, ConfirmPayActivity.class)
-                                    .putExtra(ConfirmPayActivity.CARDNOSTRING, mBankNum.getText()
-                                            .toString()));
-                            finish();
+                            startActivity(new Intent(AddBank.this, EditPayActivity.class).putExtra(
+                                    ConfirmPayActivity.CARDNOSTRING, mBankNum.getText().toString()));
+                            //                            finish();
                         } else if (result.equals("1")) {
                             Toast.makeText(getBaseContext(), "" + json.optString("resultMsg"),
                                     Toast.LENGTH_SHORT).show();
@@ -128,7 +127,8 @@ public class AddBank extends BaseTextActivity {
                 checkBankcard();
                 break;
             case R.id.bank_name:
-                startActivityForResult(new Intent(AddBank.this,SelectBank.class),SelectBank.REQUEST_CODE_BANK_ID);
+                startActivityForResult(new Intent(AddBank.this, SelectBank.class),
+                        SelectBank.REQUEST_CODE_BANK_ID);
                 break;
         }
     }
@@ -136,7 +136,7 @@ public class AddBank extends BaseTextActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode==SelectBank.REQUEST_CODE_BANK_ID){
+        if (resultCode == SelectBank.REQUEST_CODE_BANK_ID) {
             mBankName.setText(data.getExtras().getString(SelectBank.BANK_TITLE));
         }
     }
