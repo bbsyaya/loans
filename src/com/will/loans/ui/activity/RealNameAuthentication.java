@@ -66,18 +66,18 @@ public class RealNameAuthentication extends BaseTextActivity {
                     @Override
                     public void callback(String url, JSONObject object, AjaxStatus status) {
                         String result = object.optString("resultflag");
-                        //                        if (result.equals("0")) {
-                        Toaster.showShort(RealNameAuthentication.this, "认证成功");
-                        if (EditPayActivity.product != null) {
-                            startActivity(new Intent(RealNameAuthentication.this, AddBank.class));
+                        if (result.equals("0")) {
+                            Toaster.showShort(RealNameAuthentication.this, "认证成功");
+                            if (EditPayActivity.product != null) {
+                                startActivity(new Intent(RealNameAuthentication.this, PaySelectionActivity.class));
+                            }
+                            finish();
+                        } else {
+                            Toaster.showShort(
+                                    RealNameAuthentication.this,
+                                    object.optString("value") + " \n"
+                                            + object.optString("resultMsg"));
                         }
-                        finish();
-                        //                        } else {
-                        //                            Toaster.showShort(
-                        //                                    RealNameAuthentication.this,
-                        //                                    object.optString("value") + " \n"
-                        //                                            + object.optString("resultMsg"));
-                        //                        }
                     }
                 });
     }

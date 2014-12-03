@@ -125,8 +125,9 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
         aq = new AQuery(this);
         findViewById(R.id.title_back).setVisibility(View.VISIBLE);
         findViewById(R.id.title_back).setOnClickListener(this);
+        ((TextView)findViewById(R.id.title_back)).setText("修改金额");
         bankID = (EditText) findViewById(R.id.bank_id_card);
-        bankName = (EditText) findViewById(R.id.bank_name);
+        bankName = (EditText) findViewById(R.id.bank_username);
         BankPhone = (EditText) findViewById(R.id.bank_phone_num);
         findViewById(R.id.forget_psw).setOnClickListener(this);
 

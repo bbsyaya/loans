@@ -73,7 +73,8 @@ public class EditPayActivity extends BaseTextActivity implements OnClickListener
                     startActivity(new Intent(EditPayActivity.this, Register.class));
                 } else {
                     //                    checkHaveTradePsw();
-                    startActivity(new Intent(EditPayActivity.this, PaySelectionActivity.class));
+                    startActivity(new Intent(EditPayActivity.this, ConfirmPayActivity.class).putExtra(
+                            ConfirmPayActivity.CARDNOSTRING, cardNo));
                 }
             }
         });

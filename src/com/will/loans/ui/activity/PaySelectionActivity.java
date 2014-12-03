@@ -120,7 +120,7 @@ public class PaySelectionActivity extends BaseActivity {
         super.onViewClick(view);
         switch (view.getId()) {
             case R.id.yibao_pay:
-                startActivity(new Intent(PaySelectionActivity.this, EditPayActivity.class));
+                startActivity(new Intent(PaySelectionActivity.this, AddBank.class));
                 break;
 
             case R.id.union_pay:
