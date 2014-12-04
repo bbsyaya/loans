@@ -206,7 +206,6 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
         WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         //判断wifi是否开启  
         if (wifiManager.isWifiEnabled()) {
-            //            wifiManager.setWifiEnabled(true);
             WifiInfo wifiInfo = wifiManager.getConnectionInfo();
             int ipAddress = wifiInfo.getIpAddress();
 
@@ -279,51 +278,22 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
         aq.ajax(ServerInfo.BUYPRODUCTYB, params, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject json, AjaxStatus status) {
-                // mLoadingDialog.cancel();
-                Log.d("loans", json.toString());
                 String result = json.optString("resultflag");
-                result = "3";
                 if (result.equals("0")) {
-                    // String tn = json.optString("tn");
-                    // Message msg = mHandler.obtainMessage();
-                    // msg.obj = tn;
-                    // mHandler.sendMessage(msg);
                     orderId = json.optString("orderid");
-                    //							Toast.makeText(getApplication(), "购买成功",
-                    //									Toast.LENGTH_SHORT).show();
-                    //							finish();
                     Toast.makeText(getApplication(), "我们已收到您的投标申请，\n申请结果请到交易记录查看",
                             Toast.LENGTH_SHORT).show();
-                    //                    runOnUiThread(new Runnable() {
-                    //                        @Override
-                    //                        public void run() {
-                    //                            mLoadingDialo = ProgressDialog.show(ConfirmPayActivity.this, // context
-                    //                                    "", // title
-                    //                                    "任务正在执行,请稍候...", // message
-                    //                                    true); // 进度是否是不确定的，这只和创建进度条有关
-                    //                        }
-                    //                    });
-                    //                    new Handler().postDelayed(new Runnable() {
-                    //
-                    //                        @Override
-                    //                        public void run() {
-                    //                            queryIsPaySuccess();
-                    //                        }
-                    //                    }, 5000);
                 } else if (result.equals("1")) {
-                    Log.d("", json.optString("resultMsg"));
                     Toast.makeText(getApplication(), json.optString("resultMsg"),
                             Toast.LENGTH_SHORT).show();
                 } else if (result.equals("2")) {
                     Toast.makeText(getApplication(), json.optString("resultMsg"),
                             Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(ConfirmPayActivity.this, RealNameAuthentication.class));
-                    Log.d("", json.optString("resultMsg"));
                 } else if (result.equals("3")) {
                     Toast.makeText(getApplication(), json.optString("resultMsg"),
                             Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(ConfirmPayActivity.this, FillPayCode.class));
-                    Log.d("", json.optString("resultMsg"));
                 }
             }
         });
@@ -346,12 +316,9 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
                 JSONObject.class, new AjaxCallback<JSONObject>() {
                     @Override
                     public void callback(String url, JSONObject json, AjaxStatus status) {
-                        // mLoadingDialog.cancel();
-                        Log.d("loans", json.toString());
                         String result = json.optString("resultflag");
                         mLoadingDialo.cancel();
                         if (result.equals("0")) {
-
                             if (json.optString("status").equals("1")) {
                                 Toast.makeText(getApplication(), "支付成功", Toast.LENGTH_SHORT).show();
                             } else {
@@ -359,7 +326,6 @@ public class ConfirmPayActivity extends BasePayActivity implements OnClickListen
                             }
                             finish();
                         } else if (result.equals("1")) {
-                            Log.d("", json.optString("resultMsg"));
                             Toast.makeText(getApplication(), json.optString("resultMsg"),
                                     Toast.LENGTH_SHORT).show();
                         }
